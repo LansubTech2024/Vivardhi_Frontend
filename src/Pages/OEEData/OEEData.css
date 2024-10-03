@@ -1,0 +1,28 @@
+.oee-container {
+    max-width: 1200px;
+    padding: 20px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    display: flex;
+  flex-direction: row; /* Desktop la sidebar and content side-by-side */
+  justify-content: space-between;
+  width: 100vw; /* Full viewport width */
+  height: 100vh; /* Full viewport height */
+
+}
+.oee-grid{
+    margin-top: 60px;
+    display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+}
+@media only screen and (max-width: 768px) {
+    .oee-container {
+      flex-direction: column; /* Mobile/Tablet la sidebar and content vertical aaga irukum */
+    }
+  
+    .oee-grid {
+      padding: 10px; /* Less padding for smaller screens */
+    }
+  }

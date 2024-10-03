@@ -1,0 +1,40 @@
+.graphs-container {
+    max-width: 1200px;
+    padding: 20px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+  
+  }
+  .download-btn{
+    float: inline-end;
+    margin-top: 50px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  
+  .graphs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+  }
+  
+  .graph-item {
+    margin-bottom: 10px;
+    cursor:pointer;
+  }
+  
+  .graph-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+  }
+  
+  @media (max-width: 768px) {
+    .graphs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  

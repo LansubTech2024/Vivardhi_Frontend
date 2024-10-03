@@ -1,0 +1,141 @@
+.company-details {
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .logo-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 1s ease;
+  }
+  
+  .logo-container.logo-top {
+    top: 20px;
+    left: 55%;
+    transform: translate(-50%, 0);
+  }
+  
+  .company-logo {
+    height: 100px;
+  }
+  .logo-container h2{
+    font-size: 25px;
+    margin-right:0%;
+    
+    color: rgb(3, 3, 82);
+  }
+  .company-details main {
+    padding: 20px;
+    margin-top: 15rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  
+  .content-container.content-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  section{
+    margin-bottom: 80px;
+  }
+  .our-work{
+    background: #203954;
+    background-size: cover;
+    padding: 60px 0;
+    margin: 0;
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    color: aliceblue;
+  }
+  .our-work h3{
+    padding-top: 50px;
+    
+  }
+  .our-work p{
+    padding: 10px;
+    text-align: justify;
+  }
+  .company-overview{
+    text-align: center;
+  }
+  .company-overview p {
+    text-align: justify;
+    margin-left: 100px;
+  }
+  .why-us{
+    background: white;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 60px 0;
+    text-align: center;
+    color: black;
+  }
+  .contact-information{
+    background-color: #203954;
+    color: white;
+  }
+  .row{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: -15px;
+    margin-left: -15px;
+  }
+  .contact-about{
+    padding:5rem;
+  }
+.contact-about h4{
+    font-size: 36px;
+    margin: 0 0 10px 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: 1px;
+    color: #70b9b0;
+  }
+.contact-about p {
+    font-size: 14px;
+    line-height: 24px;
+    font-family: "Lato", sans-serif;
+    color: #888;
+}
+.social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #fff;
+  color: #70b9b0;
+  line-height: 1;
+  padding: 8px 0;
+  margin-right: 4px;
+  border-radius: 50%;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+  border: 1px solid #70b9b0;
+}
+.address-info{
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.info{
+  color: #777;
+  padding-left: 1rem;
+}
+.info,.contact-icon {
+  font-size: 32px;
+  color: #70b9b0;
+  float: left;
+  line-height: 1;
+}
+.info p {
+  padding: 0 0 10px;
+  line-height: 28px;
+  font-size: 14px;
+}

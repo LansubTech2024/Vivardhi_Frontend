@@ -1,0 +1,63 @@
+.pressure-container {
+    max-width: 1200px;
+    padding: 20px;
+    margin: 0 auto;
+}
+  .download-btn{
+    float: inline-end;
+    margin-top: 50px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+  .pressure-grid{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+  }
+.pressure-item {
+    margin-bottom: 10px;
+    cursor:pointer;
+  }
+  
+  .pressure-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    margin-top: 70px;
+  }
+  .pressure-card{
+    width: 100%;
+    max-width: 400px;
+    margin:0 auto;
+    margin-top: 80px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background-color: #fff;
+    line-height: 1.5;
+  }
+  .pressure-card-header{
+    padding: 16px;
+    margin: 0;
+    border-bottom: 1px solid #eee;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .pressure-card-list{
+    list-style-type: disc;
+    padding-left: 32px;
+    padding-right: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .graphs-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
