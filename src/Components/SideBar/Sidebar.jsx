@@ -61,6 +61,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               </Link>
             </li>
             <li>
+              <Link to="/resources">
+                <i className="fa-solid fa-database"></i>
+                <span>Resource Planning</span>
+              </Link>
+            </li>
+            <li>
               <Link to="/help">
                 <i className="fa-solid fa-question-circle"></i>
                 <span>Help and Support</span>

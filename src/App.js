@@ -5,7 +5,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
 import About from "./Pages/About/About";
-import GetData from "./Pages/GetData/GetData";
+import Resources from "./Pages/Resource/Resource";
 import Profile from"./Pages/Profile/Profile";
 import Temperature from './Pages/Temperature/Temperature';
 import Pressure from './Pages/Pressure/Pressure';
@@ -22,7 +22,7 @@ const App = () => {
         <Route path="/" element={<Login/>}/>
         <Route path="/home" element={<Home/>}/>
         <Route path="/about" element={<About/>}/>
-        <Route path="/get-data" element={<GetData/>}/>
+        <Route path="/resources" element={<Resources/>}/>
         <Route path="/help" element={<HelpandSupport/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
         <Route path="/temperature" element={<Temperature/>}/>
