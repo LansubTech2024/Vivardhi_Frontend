@@ -17,12 +17,18 @@
   width: 100%;
   padding: 20px;
 }
-@media only screen and (max-width: 768px) {
+
+@media (max-width: 1200px) {
+  .oee-container{
+    flex-direction: column;
+  }
+}
+@media  (max-width: 768px) {
     .oee-container {
-      flex-direction: column; /* Mobile/Tablet la sidebar and content vertical aaga irukum */
+      flex-direction: column; 
     }
   
     .oee-grid {
-      padding: 10px; /* Less padding for smaller screens */
+      padding: 10px; 
     }
   }

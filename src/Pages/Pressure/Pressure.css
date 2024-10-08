@@ -19,6 +19,9 @@
 .pressure-item {
     margin-bottom: 10px;
     cursor:pointer;
+    width: 100%;
+    height: 100%;
+
   }
   
   .pressure-title {
@@ -55,9 +58,30 @@
     padding-bottom: 16px;
     margin: 0;
   }
-  @media (max-width: 768px) {
-    .graphs-grid {
-      grid-template-columns: 1fr;
+  @media (max-width: 1200px) {
+    .pressure-container{
+      padding: 20px;
     }
   }
+  @media (max-width: 576px){
+    .pressure-grid{
+    display: block;
+    }
+    .pressure-title{
+      font-size: 30px;
+      margin-left: 80px;
+    }
+    .pressure-item{
+      width: 30rem;
+      
+    }
+    
+    .pressure-card{
+      width: 18rem;
+      margin-left: 50px;
+      
+    }
+  }
+    
+  
   

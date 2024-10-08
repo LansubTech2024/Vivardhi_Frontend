@@ -110,7 +110,7 @@ function Pressure() {
                 displayModeBar: false, // Hides the mode bar
               }}
               useResizeHandler={true}
-              style={{ width: 600, height: 450 }}
+              
             />
           </div>
           <div className="pressure-card">

@@ -5,8 +5,8 @@
 
 }
 .card-container {
-  display: flex;
-  justify-content: space-between;
+  display:flex;
+  justify-content: flex-start;
   align-items: center;
   margin-top: 110px;
   flex-wrap: nowrap;
@@ -64,6 +64,10 @@
   color: #0b6fa4;
   text-align: center;
 }
+.OEE-section{
+  display: flex;
+  flex-direction: column;
+}
 
 @media (max-width: 1200x) {
   .graphs-grid {
@@ -71,12 +75,13 @@
   }
 }
 @media (max-width:576x){
-  .cards-container{
-    padding:10px;
-    display: block;
+  .card-container {
+    display:block;
+    justify-content: column;
+    align-items: stretch;
   }
   .card {
-    display: block;
+    
     width: 100%;
     max-width: 300px;
   }

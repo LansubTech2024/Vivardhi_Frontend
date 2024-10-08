@@ -1,35 +1,35 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Assumption from "../../Components/Assumption/Assumption";
+
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/SideBar/Sidebar";
 import { FaDownload } from "react-icons/fa6";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import Plot from "react-plotly.js";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "./Dashboard.css";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
+import Performance  from "../../Components/OEE/Performance";
+import Quality from "../../Components/OEE/Quality";
+import Availability from "../../Components/OEE/Availability";
 
-function Dashboard() {
+// OEE calculation example values
+const plannedTime = 8; // Planned Production Time in hours
+const actualTime = 6; // Actual Production Time in hours
+const actualOutput = 90; // Actual Output in units
+const idealOutput = 100; // Ideal Output in units
+const goodOutput = 85; // Good Output in units
+
+const Dashboard = () => {
   const [chartData, setChartData] = useState(null);
+
+  const [selectedMetric, setSelectedMetric] = useState(null);
+
+  const handleBarClick = (event) => {
+    // event.points[0].label - gets the label of the clicked bar (Availability, Performance, Quality)
+    const clickedMetric = event.points[0].y;
+    setSelectedMetric(clickedMetric);
+  };
 
   useEffect(() => {
     axios
@@ -69,6 +69,12 @@ function Dashboard() {
 
   const { total_entries, chw_in_temp, chw_out_temp, avg_temps } = chartData;
 
+  // OEE Calculations based on the formula
+  const availability = (actualTime / plannedTime) * 100;
+  const performance = (actualOutput / idealOutput) * 100;
+  const quality = (goodOutput / actualOutput) * 100;
+  const averageOEE = (availability + performance + quality) / 3;
+
   return (
     <>
       <Header />
@@ -78,9 +84,8 @@ function Dashboard() {
           <FaDownload size={22} color="#0e68a4" className="fa-down" />
         </button>
         <div className="card-container">
-          {/* Total Entries */}
-          <div className="card" style={{textAlign:"center" }}>
-            <h2 style={{marginTop:"40px"}}>Total Entries</h2>
+          <div className="card" style={{ textAlign: "center" }}>
+            <h2 style={{ marginTop: "40px" }}>Total Entries</h2>
             <p style={{ fontSize: "20px" }}>{total_entries.total_entries}</p>
           </div>
 
@@ -105,12 +110,70 @@ function Dashboard() {
             <p>Out : {avg_temps.avg_chw_out_temp.toFixed(2)}°C</p>
           </div>
         </div>
-        <div className="assumption">
-          <Assumption />
+        <div className="OEE-section">
+          <h2>OEE Metrics</h2>
+          <Plot
+            data={[
+              {
+                type: "indicator",
+                mode: "gauge+number",
+                value: averageOEE,
+                title: { text: "Average OEE" },
+                gauge: {
+                  axis: { range: [0, 100] },
+                  bar: { color: "blue" }, // Blue color for the actual average OEE value
+                  steps: [
+                    { range: [0, averageOEE], color: "blue" }, // Highlight the percentage in blue
+                    { range: [averageOEE, 100], color: "lightgray" }, // Rest of the gauge in light gray
+                  ],
+                  threshold: {
+                    line: { color: "blue", width: 4 },
+                    thickness: 0.75,
+                    value: averageOEE, 
+                  },
+                },
+              },
+            ]}
+            layout={{
+              width: 500,
+              height: 300,
+            }}
+            config={{
+              displayModeBar: false,  
+            }}
+          />
+          <Plot
+            data={[
+              {
+                type: "bar",
+                x: [availability, performance, quality],
+                y: ["Availability", "Performance", "Quality"],
+                orientation: "h",
+                marker: { color: ["#1f77b4", "#ff7f0e", "#2ca02c"] },
+              },
+            ]}
+            layout={{
+              title: "OEE Metrics ",
+              xaxis: { title: "Percentage (%)" },
+              yaxis: { title: "" },
+              width: 500,
+              height: 300,
+            }}
+            onClick={handleBarClick} 
+            config={{
+              displayModeBar: false,  
+            }}
+          />
+          {/* Conditionally render the detailed chart based on what is clicked */}
+      {selectedMetric === 'Availability' && <Availability />}
+      {selectedMetric === 'Performance' && <Performance />}
+      {selectedMetric === 'Quality' && <Quality />}
         </div>
+
+        
       </div>
     </>
   );
-}
+};
 
 export default Dashboard;
