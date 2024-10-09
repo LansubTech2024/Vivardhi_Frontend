@@ -1,8 +1,8 @@
-.getdata-container{
+.resource-container{
     position: absolute;
     z-index: 0;
     top: 100px;
-    left: 400px;
+    left: 300px;
 }
 .table-container {
     width: 100%;
@@ -10,6 +10,25 @@
     margin: 20px 0;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.table-container td:first-child {
+    font-weight: bold;
+    text-align: left; 
+    border: none;
+}
+.table-container th:first-child {
+    text-align: left; 
+    border: none;
+}
+.table-container td{
+    vertical-align: middle;
+    border-left: none;
+    border-right: none;
+}
+.table-container th{
+    vertical-align: middle;
+    border-left: none;
+    border-right: none;
 }
 
 table {
@@ -23,7 +42,7 @@ table {
 th, td {
     padding: 12px 15px;
     border: 1px solid #ddd;
-    text-align: left;
+    text-align: center;
     font-size: 16px;
 }
 
