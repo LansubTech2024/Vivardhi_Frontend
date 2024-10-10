@@ -31,6 +31,40 @@
     border-right: none;
 }
 
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.date-range {
+    display: flex;
+    align-items: center;
+}
+
+.date-range span {
+    margin-right: 10px;
+}
+
+.filter-box input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 20px;
+}
+
+.download-section {
+    background-color: #008CBA;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.download-section a {
+    color: white;
+    text-decoration: none;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
