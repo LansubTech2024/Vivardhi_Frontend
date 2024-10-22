@@ -8,7 +8,7 @@ function GetData() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios('http://127.0.0.1:8000/api/get-resources/')
+        axios('http://localhost:3000/api/resources/')
             .then(response => {
               console.log('Data fetched:', response.data);
                 setData(response.data);

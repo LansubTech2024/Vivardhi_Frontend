@@ -11,7 +11,10 @@ function createWindow() {
       contextIsolation: false,
     },
   });
-  win.loadURL('http://localhost:3000');
+  //win.loadURL('http://localhost:3000');
+
+  // For production
+  win.loadFile(path.join(__dirname, 'index.html'));
 }
 
 app.on('ready', createWindow);

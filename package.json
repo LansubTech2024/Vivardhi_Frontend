@@ -2,6 +2,8 @@
   "name": "vivardhi_frontend",
   "version": "0.1.0",
   "private": true,
+  "description": "Vivardhi frontend application",
+  "author": "Keerthi <keerthikak0393@gmail.com>",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -42,8 +44,53 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron",
-    "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3000 electron ."
+    "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:3000 electron .",
+    "electron:build": "electron-builder --win --linux"
   },
+  "build": {
+    "appId": "com.example.vivardhi",
+    "asar": true,
+    "asarUnpack": [
+      "public/assets/**",        
+      "**/*.mp4",         
+      "**/*.zip",
+      "**/*.png",          
+      "**/node_modules/**" 
+],
+    "files": [
+  {
+    "from": "public",
+    "to": "public",
+    "filter": [
+      "**/*",
+      "!**/*.md",  
+      "!**/*.log"  
+    ]
+  },
+  {
+    "from": "dist",
+    "to": "dist",
+    "filter": [
+      "**/*",
+      "!**/*.map"  
+    ]
+  }
+],
+"extraResources": [
+      {
+        "from": "assets",         
+        "to": "assets",          
+        "filter": ["**/*"]             
+      }
+    ],
+    "mac": null ,
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+},
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -63,6 +110,8 @@
     ]
   },
   "devDependencies": {
-    "electron": "^32.1.2"
+    "electron": "^32.1.2",
+    "electron-builder": "^25.1.7",
+    "rimraf": "^6.0.1"
   }
 }

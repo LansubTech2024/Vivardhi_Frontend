@@ -67,7 +67,60 @@
 .OEE-section{
   display: flex;
   flex-direction: column;
+  
 }
+/* OEE Section */
+.OEE-section {
+  margin-top: 40px;
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.OEE-section h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* Gauge OEE Section */
+.Gauge.OEE {
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Gauge.OEE .main-svg {
+  max-height: 300px;
+}
+
+/* Bar Chart Section */
+.Line-OEE {
+  margin-top: 30px;
+  padding: 20px;
+  
+}
+
+.Line-OEE .main-svg {
+  max-height: 400px;
+}
+
+@media (max-width: 768px) {
+  .Line-OEE {
+    width: 90%;
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .Plot .main-svg {
+    max-height: 300px;
+  }
+}
+
 
 @media (max-width: 1200x) {
   .graphs-grid {
@@ -80,9 +133,10 @@
     justify-content: column;
     align-items: stretch;
   }
-  .card {
+  .card { 
     
     width: 100%;
     max-width: 300px;
   }
+
 }

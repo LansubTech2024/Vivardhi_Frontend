@@ -148,18 +148,18 @@
 /* For tablet screens (768px and smaller) */
 @media only screen and (max-width: 768px) {
   .availability {
-    grid-template-columns: 1fr; /* Single column layout for smaller screens */
+    grid-template-columns: 1fr; 
     padding: 10px;
   }
 
   .available-card {
-    width: 100%; /* Make cards full-width */
+    width: 100%; 
   }
 
   .machine-meter,
   .manpower-meter {
     flex-direction: column;
-    gap: 10px; /* Stack meters vertically */
+    gap: 10px; 
   }
 }
 @media (max-width:576px) {
@@ -186,12 +186,12 @@
   }
 
   .cardStyle {
-    width: 100%; /* Full-width for small devices */
+    width: 100%;
     max-width: 250px;
   }
 
   .performance h2 {
-    font-size: 24px; /* Smaller font size for mobile screens */
+    font-size: 24px; 
   }
   .available-card h3 {
     font-size: 18px; /* Adjust title size for small screens */

@@ -1,11 +1,11 @@
 import { useState } from "react";
-import {  useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "./Header.css";
 import {
   RiMessage3Line,
   RiLogoutBoxLine,
   RiUser3Line,
-  RiSearchLine
+  RiSearchLine,
 } from "react-icons/ri";
 import MessagePopup from "../MessagePopup/MessagePopup";
 import axios from "axios";
@@ -56,27 +56,28 @@ const Header = () => {
           <p>VIVARDHI</p>
         </div>
 
-       <form className="search-box">
-            <input
-              type="text"
-              name="query"
-              id="query"
-              className="search"
-              placeholder="Type to search..."
-            />
-            <button className="search-btn">
-              
-            <RiSearchLine size={24} color="#2980B9"/>
-            </button>
-          </form>
+        <form className="search-box">
+          <input
+            type="text"
+            name="query"
+            id="query"
+            className="search"
+            placeholder="Type to search..."
+          />
+          <button className="search-btn">
+            <RiSearchLine size={24} color="#2980B9" />
+          </button>
+        </form>
         <div className="message-profile">
           <div className="notification">
-              <span className="message-icon-div">
-                <RiMessage3Line className="message-icon" onClick={openDialog} color="#1A5276" />
-              </span>
-              {isDialogOpen && (
-                <MessagePopup onClose={closeDialog}/>
-              )}
+            <span className="message-icon-div">
+              <RiMessage3Line
+                className="message-icon"
+                onClick={openDialog}
+                color="#1A5276"
+              />
+            </span>
+            {isDialogOpen && <MessagePopup onClose={closeDialog} />}
           </div>
           <div className="user-menu">
             <svg

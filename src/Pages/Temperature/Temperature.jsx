@@ -37,7 +37,7 @@ function Temperature() {
 
   useEffect(() => {
     axios
-      .get("http://127.0.0.1:8000/api/charts/")
+      .get("http://localhost:3000/api/charts/")
       .then((response) => setChartData(response.data))
       .catch((error) => {
         console.error("Error fetching graph data:", error);
