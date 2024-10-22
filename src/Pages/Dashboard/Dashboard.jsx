@@ -9,7 +9,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "./Dashboard.css";
 
-import Performance  from "../../Components/OEE/Performance";
+import Performance from "../../Components/OEE/Performance";
 import Quality from "../../Components/OEE/Quality";
 import Availability from "../../Components/OEE/Availability";
 
@@ -33,7 +33,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/charts")
+      .get("http://localhost:3000/api/charts/")
       .then((response) => setChartData(response.data))
       .catch((error) => {
         console.error("Error fetching graph data:", error);
@@ -112,65 +112,65 @@ const Dashboard = () => {
         </div>
         <div className="OEE-section">
           <h2>OEE Metrics</h2>
-          <Plot
-            data={[
-              {
-                type: "indicator",
-                mode: "gauge+number",
-                value: averageOEE,
-                title: { text: "Average OEE" },
-                gauge: {
-                  axis: { range: [0, 100] },
-                  bar: { color: "blue" }, // Blue color for the actual average OEE value
-                  steps: [
-                    { range: [0, averageOEE], color: "blue" }, // Highlight the percentage in blue
-                    { range: [averageOEE, 100], color: "lightgray" }, // Rest of the gauge in light gray
-                  ],
-                  threshold: {
-                    line: { color: "blue", width: 4 },
-                    thickness: 0.75,
-                    value: averageOEE, 
+          <div className="Gauge.OEE">
+            <Plot
+              data={[
+                {
+                  type: "indicator",
+                  mode: "gauge+number",
+                  value: averageOEE,
+                  title: { text: "Average OEE" },
+                  gauge: {
+                    axis: { range: [0, 100] },
+                    bar: { color: "70261F" },
+                    steps: [
+                      { range: [0, averageOEE], color: "70261F" },
+                      { range: [averageOEE, 100], color: "lightgray" },
+                    ],
+                    threshold: {
+                      line: { color: "70261F", width: 4 },
+                      thickness: 0.75,
+                      value: averageOEE,
+                    },
                   },
                 },
-              },
-            ]}
-            layout={{
-              width: 500,
-              height: 300,
-            }}
-            config={{
-              displayModeBar: false,  
-            }}
-          />
-          <Plot
-            data={[
-              {
-                type: "bar",
-                x: [availability, performance, quality],
-                y: ["Availability", "Performance", "Quality"],
-                orientation: "h",
-                marker: { color: ["#1f77b4", "#ff7f0e", "#2ca02c"] },
-              },
-            ]}
-            layout={{
-              title: "OEE Metrics ",
-              xaxis: { title: "Percentage (%)" },
-              yaxis: { title: "" },
-              width: 500,
-              height: 300,
-            }}
-            onClick={handleBarClick} 
-            config={{
-              displayModeBar: false,  
-            }}
-          />
-          {/* Conditionally render the detailed chart based on what is clicked */}
-      {selectedMetric === 'Availability' && <Availability />}
-      {selectedMetric === 'Performance' && <Performance />}
-      {selectedMetric === 'Quality' && <Quality />}
+              ]}
+              layout={{
+                width: 500,
+                height: 300,
+              }}
+              config={{
+                displayModeBar: false,
+              }}
+            />
+          </div>
+          <div className="Line-OEE">
+            <Plot
+              data={[
+                {
+                  type: "bar",
+                  x: [availability, performance, quality],
+                  y: ["Availability", "Performance", "Quality"],
+                  orientation: "h",
+                  marker: { color: ["D1BDFF", "#ffafcc", "#a2d2ff"] },
+                },
+              ]}
+              layout={{
+                title: "OEE Metrics ",
+                xaxis: { title: "Percentage (%)" },
+                yaxis: { title: "" },
+                
+              }}
+              onClick={handleBarClick}
+              config={{
+                displayModeBar: false,
+              }}
+            />
+            {selectedMetric === "Availability" && <Availability />}
+            {selectedMetric === "Performance" && <Performance />}
+            {selectedMetric === "Quality" && <Quality />}
+          </div>
         </div>
-
-        
       </div>
     </>
   );

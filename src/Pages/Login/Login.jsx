@@ -66,7 +66,7 @@ const Login = () => {
   const handleSignIn = async (data) => {
     setLoading(true);
     try {
-      let response = await AxiosService.post("signin/", data);
+      let response = await AxiosService.post("login/", data);
       localStorage.setItem(
         "loggedInUser",
         JSON.stringify(response.data.userData)
@@ -207,7 +207,7 @@ const Login = () => {
                     className="checkbox"
                   />
                   <p>Show Password</p>
-                  <Link to="/forget-password" className="forgot">
+                  <Link to="/forgetpassword" className="forgot">
                     Forgot Password?
                   </Link>
                 </label>

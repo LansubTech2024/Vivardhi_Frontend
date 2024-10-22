@@ -31,7 +31,7 @@ const App = () => {
         <Route path="/signup" element={<Signup/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/forgetpassword" element={<ForgetPassword/>}/>
-        <Route path="/resetpassword" element={<ResetPassword/>}/>
+        <Route path="/resetpassword/:randomString/:expirationTimestamp" element={<ResetPassword/>}/>
         </Routes>
     </BrowserRouter>
   )
