@@ -40,7 +40,7 @@ const GraphPopup = ({ isOpen, onRequestClose, graphType }) => {
   useEffect(() => {
     if (isOpen) {
       axios
-        .get(`http://127.0.0.1:8000/api/${graphType}-popup/`)
+        .get(`http://localhost:3000/api/graphs/${graphType}-popup/`)
         .then((response) => {
           setPredictiveData(response.data.predictive_graph);
           setImpactCards(response.data.impact_cards);
