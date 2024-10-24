@@ -1,0 +1,10 @@
+.power-usage-card {
+    background-color: white;
+    padding: 16px;
+    border:1px solid;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    width:250px;
+    height:130px;
+  }

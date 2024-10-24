@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
-//import { RxChevronUp,RxChevronDown } from "react-icons/rx";
+import { RxChevronUp,RxChevronDown } from "react-icons/rx";
 import "./Sidebar.css";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   // const[settingOpen,setSettingOpen] = useState(false);
   // const[helpOpen,setHelpOpen] = useState(false)
-  const [toggle, setToggle] = useState(false);
+  //const [toggle, setToggle] = useState(false);
+  const[InventoryOpen, setInventoryOpen] = useState(false);
 
   // const ToggleSetting = () =>{
   //     setSettingOpen(!settingOpen);
@@ -21,6 +22,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   // const CloseHelp = () =>{
   //     setHelpOpen(false)
   // }
+  const ToggleInventory = () =>{
+      setInventoryOpen(!InventoryOpen)
+  }
+  const CloseInventory = () =>{
+      setInventoryOpen(false)
+  }
 
   return (
     <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
@@ -30,45 +37,94 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       <aside className="no-scrollbar sidebar">
         <nav className="sidebar-menu">
           <ul className="list-item">
-            <li>
+            <li className="active">
               <Link to="/home">
-                <i className="fa-solid fa-house-chimney"></i>
+                {/* <i className="fa-solid fa-house-chimney"></i> */}
                 <span>Home</span>
               </Link>
             </li>
             <li>
               <Link to="/dashboard">
-                <i className="fa-solid fa-gauge-high"></i>
+                {/* <i className="fa-solid fa-gauge-high"></i> */}
                 <span>Dashboard</span>
               </Link>
             </li>
             <li>
+              <Link to="#">
+              {/* <i className="fa-solid fa-wrench"></i> */}
+                <span>OEE</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/power-usage">
+                {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
+                <span>Power Usage</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="#">
+                {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
+                <span>Raw Material Inventory</span>
+                {InventoryOpen ?(
+                  <RxChevronUp
+                  onClick={CloseInventory}
+                  size={24}
+                  />
+                ):
+                (
+                 <RxChevronDown 
+                 onClick={ToggleInventory}
+                 className="drop-icon"
+                 size={24}
+                 />
+                )}
+              </Link>
+              {InventoryOpen && (
+                <div className="inventory-item">
+                    <ul className="inventory-list-items">
+                        <li>
+                            <Link href='#' className="inven-item">Warehouse</Link>
+                        </li>
+                        <li>
+                            <Link href='#' className="inven-item">Inventory</Link>
+                        </li>
+                        <li>
+                            <Link href='#' className="inven-item">Shipment</Link>
+                        </li>
+                        <li>
+                            <Link href='#' className="inven-item">Order</Link>
+                        </li>
+                    </ul>
+                </div>
+              )}
+            </li>
+            <li>
               <Link to="/temperature">
-                <i className="fa-solid fa-magnifying-glass-chart"></i>
+                {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
                 <span>Predictive Analysis</span>
               </Link>
             </li>
             <li>
               <Link to="/pressure">
-              <i className="fa-solid fa-gauge-simple-high"></i>
+              {/* <i className="fa-solid fa-gauge-simple-high"></i> */}
                 <span>Pressure Status</span>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/oee-data">
                 <i className="fa-solid fa-wrench"></i>
                 <span>Overall Equipment<br/>Efficiency(OEE)</span>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/resources">
-                <i className="fa-solid fa-database"></i>
+                {/* <i className="fa-solid fa-database"></i> */}
                 <span>Resource Planning</span>
               </Link>
             </li>
             <li>
               <Link to="/help">
-                <i className="fa-solid fa-question-circle"></i>
+                {/* <i className="fa-solid fa-question-circle"></i> */}
                 <span>Help and Support</span>
               </Link>
             </li>
@@ -171,12 +227,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               )}
             </li> */}
           </ul>
-          <div
+          {/* <div
             className={`nav-toggle ${toggle ? "active" : ""}`}
             onClick={() => setToggle(!toggle)}
           >
             <div className={`toggle-menu ${toggle ? "active" : " "}`}></div>
-          </div>
+          </div> */}
         </nav>
       </aside>
     </div>
