@@ -1,84 +1,93 @@
-/* Dashboard Styles */
-
 .dashboard {
-    padding: 24px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 1200px;
-  }
-  .manufacture-section{
-    
-    margin-left: 100px;
-  }
-  
-  .dashboard h1 {
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
-  
-  .card {
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 16px;
-    background-color: #ffffff;
-    margin-bottom: 16px;
-  }
-  
-  .card h2 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-  
-  .card .metrics {
-    display:flex;
-   
-    gap: 16px;
-  }
-  
-  .card .metrics div {
-    text-align: center;
-  }
-  
-  .card .metrics h3 {
-    font-size: 16px;
-    font-weight: 800;
-  }
-  
-  .card .metrics .value {
-    font-size: 24px;
-    font-weight: 600;
-  }
-  
-  .charts-section h3 {
-    font-size: 16px;
-    font-weight: 500;
-    margin-bottom: 8px;
-  }
-  
-  .chart-container {
-    height: 200px;
-    border-radius: 8px; /* Light background for charts */
-    padding: 16px;
-  }
-.Availaibility{
-  width: 200px;
-  height: 400px;
-  margin: center;
-  
+  padding: 24px;
+  background: #f9fafb;
+  min-height: 100vh;
 }
-.Production{
-  width: 800px;
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.metric-card {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.metric-label {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.metric-value {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.section {
+  margin-bottom: 32px;
+}
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 16px;
+}
+
+.chart-card {
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chart-header {
+  margin-bottom: 16px;
+}
+
+.chart-label {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.chart-value {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.chart-growth {
+  color: #10b981;
+  font-size: 14px;
+}
+
+.chart-container {
   height: 200px;
-  margin: center;
-  margin-left: 100px;
 }
-.Inventary{
-  display: block;
-  width:500px;
-  height: 300px;
-  margin: center;
-  margin-left: 300px;
+
+@media (max-width: 768px) {
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
 }
