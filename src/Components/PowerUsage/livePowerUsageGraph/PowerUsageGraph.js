@@ -59,7 +59,9 @@ const LivePowerUsageGraph = () => {
         },
       },
       y: {
-          display: false, 
+        grid: {
+          display: false, // Hide y-axis grid lines
+        }, 
       },
     },
     plugins: {
