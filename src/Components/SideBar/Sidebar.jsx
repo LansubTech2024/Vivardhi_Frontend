@@ -72,6 +72,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 <span>Help and Support</span>
               </Link>
             </li>
+            <li>
+              <Link to="/oeemetrics">
+              <span>OEE metrics
+                </span>
+                </Link>
+            </li>
             {/* 
             <li>
               <Link to="#">

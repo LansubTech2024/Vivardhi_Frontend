@@ -13,7 +13,7 @@ import OEEData from './Pages/OEEData/OEEData';
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 import ForgetPassword from "./Pages/Forgetpassword/Forgetpassword";
 import ResetPassword from "./Pages/Resetpassword/Resetpassword";
-
+import OEEmetrics from "./Pages/OEE metrics/OEE metrics";
 
 const App = () => {
   return (
@@ -32,6 +32,7 @@ const App = () => {
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/forgetpassword" element={<ForgetPassword/>}/>
         <Route path="/resetpassword/:randomString/:expirationTimestamp" element={<ResetPassword/>}/>
+        <Route path="/oeemetrics" element={<OEEmetrics/>}/>
         </Routes>
     </BrowserRouter>
   )

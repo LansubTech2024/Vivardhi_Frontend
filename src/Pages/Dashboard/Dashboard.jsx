@@ -8,10 +8,11 @@ import Plot from "react-plotly.js";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "./Dashboard.css";
-
+import OEEanalysis from "../../Components/OEE analysis/OEE analysis";
 import Performance from "../../Components/OEE/Performance";
 import Quality from "../../Components/OEE/Quality";
 import Availability from "../../Components/OEE/Availability";
+
 
 // OEE calculation example values
 const plannedTime = 8; // Planned Production Time in hours
@@ -33,7 +34,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/charts/")
+      .get("http://localhost:5000/api/charts/")
       .then((response) => setChartData(response.data))
       .catch((error) => {
         console.error("Error fetching graph data:", error);
@@ -83,34 +84,34 @@ const Dashboard = () => {
         <button className="download-btn" onClick={handleDownload}>
           <FaDownload size={22} color="#0e68a4" className="fa-down" />
         </button>
-        <div className="card-container">
+        {/* <div className="card-container">
           <div className="card" style={{ textAlign: "center" }}>
             <h2 style={{ marginTop: "40px" }}>Total Entries</h2>
             <p style={{ fontSize: "20px" }}>{total_entries.total_entries}</p>
-          </div>
+          </div> */}
 
           {/* CHW In Temp Card */}
-          <div className="card">
+          {/* <div className="card">
             <h2>Inlet Temperature</h2>
             <p>Min : {chw_in_temp.min_chw_in_temp}°C</p>
             <p>Max : {chw_in_temp.max_chw_in_temp}°C</p>
-          </div>
+          </div> */}
 
           {/* CHW Out Temp Card */}
-          <div className="card">
+          {/* <div className="card">
             <h2>Outlet Temperature</h2>
             <p>Min : {chw_out_temp.min_chw_out_temp}°C</p>
             <p>Max : {chw_out_temp.max_chw_out_temp}°C</p>
-          </div>
+          </div> */}
 
           {/* Average Temperatures Card */}
-          <div className="card">
+          {/* <div className="card">
             <h2>Average Temperature</h2>
             <p>In : {avg_temps.avg_chw_in_temp.toFixed(2)}°C</p>
             <p>Out : {avg_temps.avg_chw_out_temp.toFixed(2)}°C</p>
           </div>
-        </div>
-        <div className="OEE-section">
+        </div> */}
+        {/* <div className="OEE-section">
           <h2>OEE Metrics</h2>
           <div className="Gauge.OEE">
             <Plot
@@ -170,8 +171,13 @@ const Dashboard = () => {
             {selectedMetric === "Performance" && <Performance />}
             {selectedMetric === "Quality" && <Quality />}
           </div>
+        </div> */}
+        <div>
+          <OEEanalysis/>
         </div>
+        
       </div>
+      
     </>
   );
 };

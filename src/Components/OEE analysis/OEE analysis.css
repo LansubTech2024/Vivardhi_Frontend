@@ -1,0 +1,74 @@
+/* Dashboard Styles */
+
+.dashboard {
+    padding: 24px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  
+  .card {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #ffffff;
+    margin-bottom: 16px;
+  }
+  
+  .card h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .card .metrics {
+    display:flex;
+   
+    gap: 16px;
+  }
+  
+  .card .metrics div {
+    text-align: center;
+  }
+  
+  .card .metrics h3 {
+    font-size: 16px;
+    font-weight: 800;
+  }
+  
+  .card .metrics .value {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  .charts-section h3 {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+  
+  .chart-container {
+    height: 200px;
+    border-radius: 8px; /* Light background for charts */
+    padding: 16px;
+  }
+.Availaibility{
+  width: 200px;
+  margin: center;
+}
+.Production{
+  width: 500px;
+  height: 200px;
+  margin: center;
+}
+.Inventary{
+  width:500px;
+  height: 300px;
+  margin: center;
+}

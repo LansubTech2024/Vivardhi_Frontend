@@ -32,7 +32,7 @@ const Header = () => {
     try {
       // Perform logout API call if necessary
       await axios.post(
-        "http://127.0.0.1:8000/api/auth/logout",
+        "http://127.0.0.1:5000/api/auth/logout",
         {},
         {
           withCredentials: true, // If you're using session authentication

@@ -1,0 +1,104 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+  justify-content: center;
+  margin-left: 400px;
+  min-height: 100vh;
+  
+  font-family: Inter, 'Noto Sans', sans-serif;
+}
+
+
+
+.nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  color: #0e141b;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 12px;
+}
+
+.nav-item.active {
+  background-color: #e7edf3;
+}
+
+.new-report-btn {
+  background-color: #1980e6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  letter-spacing: 0.015em;
+}
+
+.main-content {
+  flex: 1;
+  max-width: 960px;
+  padding: 16px;
+}
+
+
+
+.metrics-grid {
+  display: flex;
+  grid-template-columns: repeat(auto-fit, minmax(158px, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background-color: #ffffff;
+  border: 1px solid #d0dbe7;
+  border-radius: 8px;
+}
+
+.metric-icon {
+  color: #0e141b;
+}
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-title {
+  color: #0e141b;
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.metric-value {
+  color: #4e7397;
+  font-size: 14px;
+  margin: 0;
+}
+
+.section-title {
+  color: #0e141b;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  padding: 20px 16px 12px;
+  margin: 0;
+}

@@ -18,6 +18,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "./Pressure.css";
 
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -33,7 +34,7 @@ function Pressure() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/charts/")
+      .get("http://localhost:5000/api/charts/")
       .then((response) => setChartData(response.data))
       .catch((error) => {
         console.error("Error fetching graph data:", error);
@@ -127,6 +128,7 @@ function Pressure() {
               <li>Sets threshold at 85 for critical pressure</li>
             </ul>
           </div>
+          
         </div>
       </div>
     </>

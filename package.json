@@ -24,7 +24,7 @@
     "react-csv": "^2.2.2",
     "react-d3-speedometer": "^2.2.1",
     "react-data-table-component": "^7.6.2",
-    "react-datepicker": "^7.4.0",
+    "react-datepicker": "^7.5.0",
     "react-dom": "^18.3.1",
     "react-gauge-chart": "^0.5.1",
     "react-google-charts": "^4.0.7",
@@ -53,46 +53,48 @@
     "appId": "com.example.vivardhi",
     "asar": true,
     "asarUnpack": [
-      "public/assets/**",        
-      "**/*.mp4",         
+      "public/assets/**",
+      "**/*.mp4",
       "**/*.zip",
-      "**/*.png",          
-      "**/node_modules/**" 
-],
+      "**/*.png",
+      "**/node_modules/**"
+    ],
     "files": [
-  {
-    "from": "public",
-    "to": "public",
-    "filter": [
-      "**/*",
-      "!**/*.md",  
-      "!**/*.log"  
-    ]
-  },
-  {
-    "from": "dist",
-    "to": "dist",
-    "filter": [
-      "**/*",
-      "!**/*.map"  
-    ]
-  }
-],
-"extraResources": [
       {
-        "from": "assets",         
-        "to": "assets",          
-        "filter": ["**/*"]             
+        "from": "public",
+        "to": "public",
+        "filter": [
+          "**/*",
+          "!**/*.md",
+          "!**/*.log"
+        ]
+      },
+      {
+        "from": "dist",
+        "to": "dist",
+        "filter": [
+          "**/*",
+          "!**/*.map"
+        ]
       }
     ],
-    "mac": null ,
+    "extraResources": [
+      {
+        "from": "assets",
+        "to": "assets",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "mac": null,
     "win": {
       "target": "nsis"
     },
     "linux": {
       "target": "AppImage"
     }
-},
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
