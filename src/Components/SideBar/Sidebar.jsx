@@ -59,8 +59,39 @@ const CloseCNC = () =>{
             <li>
               <Link to="#">
               {/* <i className="fa-solid fa-wrench"></i> */}
-                <span>OEE</span>
+                <span>Overall Equipment Efficiency(OEE)</span>
+                {CNCOpen ?(
+                  <RxChevronUp
+                  onClick={CloseCNC}
+                  size={32}
+                  />
+                ):
+                (
+                 <RxChevronDown 
+                 onClick={ToggleCNC}
+                 className="drop-icon"
+                 size={32}
+                 />
+                )}
               </Link>
+              {CNCOpen && (
+                <div className="cnc-item">
+                    <ul className="cnc-list-items">
+                        <li>
+                            <Link to='/oeemetrics' className="cnc-item">OEE matrics</Link>
+                        </li>
+                        <li>
+                            <Link to='/cncdashboard' className="cnc-item">CNC machine</Link>
+                        </li>
+                        <li>
+                          <Link to='/detailedmachine' className="cnc-item">Machine1</Link>
+                        </li>
+                        <li>
+                          <Link to='/detailedmachine02' className="cnc-item">Machine2</Link>
+                        </li>
+                    </ul>
+                </div>
+              )}
             </li>
             <li>
               <Link to="/power-usage">
@@ -135,42 +166,6 @@ const CloseCNC = () =>{
                 <span>Help and Support</span>
               </Link>
             </li>
-            <li>
-              <Link to="#">
-              <span>CNC</span>
-              {CNCOpen ?(
-                  <RxChevronUp
-                  onClick={CloseCNC}
-                  size={24}
-                  />
-                ):
-                (
-                 <RxChevronDown 
-                 onClick={ToggleCNC}
-                 className="drop-icon"
-                 size={24}
-                 />
-                )}
-                </Link>
-            </li>
-            {CNCOpen && (
-                <div className="cnc-item">
-                    <ul className="cnc-list-items">
-                        <li>
-                            <Link to='/oeemetrics' className="inven-item">OEE matrics</Link>
-                        </li>
-                        <li>
-                            <Link to='/cncdashboard' className="inven-item">CNC machine</Link>
-                        </li>
-                        <li>
-                          <Link to='/detailedmachine' className="inven-item">Machine1</Link>
-                        </li>
-                        <li>
-                          <Link to='/detailedmachine02' className="inven-item">Machine2</Link>
-                        </li>
-                    </ul>
-                </div>
-              )}
             {/* 
             <li>
               <Link to="#">
