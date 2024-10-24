@@ -46,7 +46,7 @@ const Detailedmachine = () => {
     <>
     <Header/>
     <Sidebar/>
-    <div className="dashboard">
+    <div className="machine-dashboard">
       <div className="machine-dashboard-section">
       <h1>CNC Machine 1</h1>
       
