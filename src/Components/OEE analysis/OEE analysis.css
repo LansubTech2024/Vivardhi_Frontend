@@ -5,6 +5,11 @@
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 1200px;
+  }
+  .manufacture-section{
+    
+    margin-left: 100px;
   }
   
   .dashboard h1 {
@@ -60,15 +65,19 @@
   }
 .Availaibility{
   width: 200px;
+  height: 400px;
   margin: center;
+  
 }
 .Production{
-  width: 500px;
+  width: 800px;
   height: 200px;
   margin: center;
 }
 .Inventary{
+  display: block;
   width:500px;
   height: 300px;
   margin: center;
+  margin-left: 300px;
 }
