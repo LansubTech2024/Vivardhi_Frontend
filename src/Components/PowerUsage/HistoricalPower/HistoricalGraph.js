@@ -41,7 +41,9 @@ const HistoricalPowerUsageGraph = () => {
         },
       },
       y: {
+        grid: {
           display: false, 
+        },
       },
     },
     plugins: {
