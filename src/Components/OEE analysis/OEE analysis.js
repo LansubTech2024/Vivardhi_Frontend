@@ -110,7 +110,7 @@ const Dashboard = () => {
 
   return (
     <div className="manufacture">
-      
+      <div className='manufacture-section'>
 
       {/* Card for the selected month */}
       
@@ -178,7 +178,7 @@ const Dashboard = () => {
                 tickLine={false}
                 tick={{ fontSize: 12, fill: '#666' }}
               />
-              <YAxis axisLine={false} tickLine={false} tick={false} /> 
+              <YAxis axisLine={true} tickLine={true} tick={false} /> 
               <Tooltip />
               <Line 
                 type="monotone"
@@ -196,7 +196,7 @@ const Dashboard = () => {
         
         <h2 className="text-lg font-medium">Inventory</h2>
         <h2>Raw material</h2>
-        <div style={{ display: 'block', gridTemplateColumns: '1fr 1fr', gap: '20px', height:"300px",width:"500px"  }}>
+        <div style={{ display: 'block', gridTemplateColumns: '1fr 1fr', gap: '20px', height:"300px",marginLeft:'100px'  }}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
               <XAxis 
@@ -205,7 +205,7 @@ const Dashboard = () => {
                 tickLine={false}
                 tick={{ fontSize: 12, fill: '#666' }}
               />
-              <YAxis axisLine={false} tickLine={false} tick={false} /> 
+              <YAxis axisLine={true} tickLine={false} tick={false} /> 
               <Tooltip />
               <Line 
                 type="monotone"
@@ -217,8 +217,8 @@ const Dashboard = () => {
             </LineChart>
           </ResponsiveContainer>
         </div>
-        <div style={{ display: 'block', gap: '10px',height: '300px',width:'400px'}}>
-          <h3 className="text-base font-medium">finishedgood</h3>
+        <div style={{ display: 'block', gap: '10px',height: '300px',width:'800px', marginLeft:'100px'}}>
+          <h2 className="text-base font-medium">Finishedgood</h2>
           <h2>1000unit</h2>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data} barSize={40}>
@@ -237,7 +237,7 @@ const Dashboard = () => {
             </BarChart>
           </ResponsiveContainer>
         </div>
-        
+        </div>
       </div>
       </div>
     
