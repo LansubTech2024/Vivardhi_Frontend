@@ -15,6 +15,7 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 import ForgetPassword from "./Pages/Forgetpassword/Forgetpassword";
 import ResetPassword from "./Pages/Resetpassword/Resetpassword";
 import OEEmetrics from "./Pages/OEE metrics/OEE metrics";
+import Inventory from "./Pages/Inventory/Inventory";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
         <Route path="/forgetpassword" element={<ForgetPassword/>}/>
         <Route path="/resetpassword/:randomString/:expirationTimestamp" element={<ResetPassword/>}/>
         <Route path="/oeemetrics" element={<OEEmetrics/>}/>
+        <Route path="/raw-material" element={<Inventory/>}/>
         </Routes>
     </BrowserRouter>
   )

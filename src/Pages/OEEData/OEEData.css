@@ -2,12 +2,11 @@
     max-width: 1200px;
     padding: 20px;
     margin: 0 auto;
-    font-family: Arial, sans-serif;
     display: flex;
-  flex-direction: row; /* Desktop la sidebar and content side-by-side */
+  flex-direction: row; 
   justify-content: space-between;
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
+  width: 100vw; 
+  height: 100vh; 
 
 }
 .oee-grid{

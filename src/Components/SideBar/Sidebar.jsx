@@ -86,7 +86,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                             <Link href='#' className="inven-item">Warehouse</Link>
                         </li>
                         <li>
-                            <Link href='#' className="inven-item">Inventory</Link>
+                            <Link to='/raw-material' className="inven-item">Inventory</Link>
                         </li>
                         <li>
                             <Link href='#' className="inven-item">Shipment</Link>

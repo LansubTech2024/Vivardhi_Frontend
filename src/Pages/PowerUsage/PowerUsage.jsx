@@ -16,13 +16,14 @@ const PowerUsageDashboard = () => {
         <h1>Power Usage Dashboard</h1>
         <p>Power usage for the last 30 days</p>
         <div className="power-container">
-          <h2>Current Power Usage</h2>
           <div className="power-card">
             <PowerUsageCard />
           </div>
+          <h2>Current Power Usage</h2>
           <div className="power-graph">
             <LivePowerUsageGraph />
           </div>
+          <h2>Historical Power Usage</h2>
           <div className="historical-graph">
             <HistoricalPowerUsageGraph />
           </div>
