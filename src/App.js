@@ -2,6 +2,7 @@ import "./App.css";
 import Home from './Pages/Home/Home';
 import HelpandSupport from "./Pages/HelpandSupport/HelpandSupport";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import PowerUsage from "./Pages/PowerUsage/PowerUsage.jsx";
 import Login from "./Pages/Login/Login";
 import Signup from "./Pages/Signup/Signup";
 import About from "./Pages/About/About";
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="/resources" element={<Resources/>}/>
         <Route path="/help" element={<HelpandSupport/>}/>
         <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/power-usage" element={<PowerUsage/>}/>
         <Route path="/temperature" element={<Temperature/>}/>
         <Route path="/pressure" element={<Pressure/>}/>
         <Route path="/oee-data" element={<OEEData/>}/>

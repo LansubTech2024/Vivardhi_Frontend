@@ -30,17 +30,16 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      // Perform logout API call if necessary
       await axios.post(
         "http://127.0.0.1:5000/api/auth/logout",
         {},
         {
-          withCredentials: true, // If you're using session authentication
+          withCredentials: true, 
         }
       );
 
-      // Clear user data from local storage or state
-      localStorage.removeItem("authToken"); // Adjust as necessary
+      
+      localStorage.removeItem("authToken"); 
 
       // Redirect to login page
       navigate("/");
@@ -53,9 +52,9 @@ const Header = () => {
     <>
       <header className="header">
         <div className="company-name-header">
-          <p>VIVARDHI</p>
+          <p>Opfact</p>
         </div>
-
+        <div className="search-message">
         <form className="search-box">
           <input
             type="text"
@@ -65,16 +64,15 @@ const Header = () => {
             placeholder="Type to search..."
           />
           <button className="search-btn">
-            <RiSearchLine size={24} color="#2980B9" />
+            <RiSearchLine size={24} color="#666" />
           </button>
         </form>
-        <div className="message-profile">
           <div className="notification">
             <span className="message-icon-div">
               <RiMessage3Line
                 className="message-icon"
                 onClick={openDialog}
-                color="#1A5276"
+                color="#666"
               />
             </span>
             {isDialogOpen && <MessagePopup onClose={closeDialog} />}
@@ -112,7 +110,7 @@ const Header = () => {
               </div>
             )}
           </div>
-        </div>
+          </div>
       </header>
     </>
   );

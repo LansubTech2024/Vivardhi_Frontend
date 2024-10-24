@@ -2,6 +2,7 @@
     max-width: 1200px;
     padding: 20px;
     margin: 0 auto;
+    margin-left: 200px;
 }
   .download-btn{
     float: inline-end;
