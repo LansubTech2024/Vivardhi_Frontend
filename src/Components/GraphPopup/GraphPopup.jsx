@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import axios from "axios";
 import { FaDownload } from "react-icons/fa6";
+import { IoClose } from "react-icons/io5";
 import { Line } from "react-chartjs-2";
 import "./GraphPopup.css";
 import jsPDF from "jspdf";
@@ -30,6 +31,34 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+
+const customStyles = {
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    backdropFilter: 'blur(5px)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000
+  },
+  content: {
+    position: 'relative',
+    top: 'auto',
+    left: 'auto',
+    right: 'auto',
+    bottom: 'auto',
+    border: 'none',
+    background: '#fff',
+    overflow: 'auto',
+    WebkitOverflowScrolling: 'touch',
+    borderRadius: '10px',
+    outline: 'none',
+    padding: '40px',
+    width: '70%',
+    maxHeight: '80vh',
+    maxWidth: '1200px'
+  }
+};
 
 
 const GraphPopup = ({ isOpen, onRequestClose, graphType }) => {
@@ -259,31 +288,40 @@ const renderDonutLineChart = () => {
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Graph Popup"
-      className="graph-popup"
+      style={customStyles}
+      className="modal-content"
+      overlayClassName="modal-overlay"
     >
       <div className="popup-content">
-      <button className="detail-download-btn" onClick={handleDownload}>
-          <FaDownload size={22} color="#0e68a4" className="fa-down" />
-        </button>
-        <h2>
-          {graphType.charAt(0).toUpperCase() + graphType.slice(1)} Analysis
-        </h2>
-        <div className="chart-container">
-        <div className="chart-item">
-          <h2>Predictive Chart</h2>
-          {renderPredictiveGraph()}
-        </div>
-        <h2>Impact Analysis</h2>
-        <div className="impact-cards">{renderImpactCards()}</div>
-        {recommendation && (
-          <div className="recommendation">
-            <p><span>Alert :</span>{recommendation}</p>
+        <div className="popup-header">
+          <h2>{graphType.charAt(0).toUpperCase() + graphType.slice(1)} Analysis</h2>
+          <div className="header-buttons">
+            <button className="detail-download-btn" onClick={handleDownload}>
+              <FaDownload size={22} color="#0e68a4" />
+            </button>
+            <button className="close-icon-btn" onClick={onRequestClose}>
+              <IoClose size={24} />
+            </button>
           </div>
-        )}
         </div>
-        <button onClick={onRequestClose} className="close-button">
-          Close
-        </button>
+        
+        <div className="chart-container">
+          <div className="chart-item">
+            <h2>Predictive Chart</h2>
+            {renderPredictiveGraph()}
+          </div>
+          
+          <h2>Impact Analysis</h2>
+          <div className="impact-cards">
+            {renderImpactCards()}
+          </div>
+          
+          {recommendation && (
+            <div className="recommendation">
+              <p><span>Alert: </span>{recommendation}</p>
+            </div>
+          )}
+        </div>
       </div>
     </Modal>
   );
