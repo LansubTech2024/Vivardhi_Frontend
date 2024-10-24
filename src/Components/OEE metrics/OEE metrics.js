@@ -83,6 +83,7 @@ const Dashboard = () => {
 
   return (
     <div className="dashboard-container">
+      <div className="dashboard-container-section">
         <h2>CNC</h2>
         <div className="metrics-grid">
           {mainMetrics.map((metric, index) => (
@@ -98,6 +99,7 @@ const Dashboard = () => {
         <MetricSection title="Performance" metrics={performanceMetrics} />
         <MetricSection title="Quality" metrics={qualityMetrics} />
         <MetricSection title="Availability" metrics={availabilityMetrics} />
+        </div>
       </div>
     
   );

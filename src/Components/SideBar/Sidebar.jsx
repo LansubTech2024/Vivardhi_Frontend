@@ -9,6 +9,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   // const[helpOpen,setHelpOpen] = useState(false)
   //const [toggle, setToggle] = useState(false);
   const[InventoryOpen, setInventoryOpen] = useState(false);
+  const[CNCOpen, setCNCOpen]= useState(false);
 
   // const ToggleSetting = () =>{
   //     setSettingOpen(!settingOpen);
@@ -28,6 +29,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const CloseInventory = () =>{
       setInventoryOpen(false)
   }
+  const ToggleCNC = () =>{
+    setCNCOpen(!CNCOpen)
+}
+const CloseCNC = () =>{
+    setCNCOpen(false)
+}
 
   return (
     <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
@@ -129,11 +136,41 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               </Link>
             </li>
             <li>
-              <Link to="/oeemetrics">
-              <span>OEE metrics
-                </span>
+              <Link to="#">
+              <span>CNC</span>
+              {CNCOpen ?(
+                  <RxChevronUp
+                  onClick={CloseCNC}
+                  size={24}
+                  />
+                ):
+                (
+                 <RxChevronDown 
+                 onClick={ToggleCNC}
+                 className="drop-icon"
+                 size={24}
+                 />
+                )}
                 </Link>
             </li>
+            {CNCOpen && (
+                <div className="cnc-item">
+                    <ul className="cnc-list-items">
+                        <li>
+                            <Link to='/oeemetrics' className="inven-item">OEE matrics</Link>
+                        </li>
+                        <li>
+                            <Link to='/cncdashboard' className="inven-item">CNC machine</Link>
+                        </li>
+                        <li>
+                          <Link to='/detailedmachine' className="inven-item">Machine1</Link>
+                        </li>
+                        <li>
+                          <Link to='/detailedmachine02' className="inven-item">Machine2</Link>
+                        </li>
+                    </ul>
+                </div>
+              )}
             {/* 
             <li>
               <Link to="#">

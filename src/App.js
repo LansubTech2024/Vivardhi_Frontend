@@ -15,7 +15,9 @@ import { BrowserRouter,Routes,Route } from "react-router-dom";
 import ForgetPassword from "./Pages/Forgetpassword/Forgetpassword";
 import ResetPassword from "./Pages/Resetpassword/Resetpassword";
 import OEEmetrics from "./Pages/OEE metrics/OEE metrics";
-
+import CNCDashboard from "./Pages/CNC machine/CNC machine.js";
+import Detailedmachine from "./Pages/Machine/Machine1.js";
+import Detailedmachine02 from "./Pages/Machine/Machine2.js";
 const App = () => {
   return (
     <BrowserRouter>
@@ -35,6 +37,9 @@ const App = () => {
         <Route path="/forgetpassword" element={<ForgetPassword/>}/>
         <Route path="/resetpassword/:randomString/:expirationTimestamp" element={<ResetPassword/>}/>
         <Route path="/oeemetrics" element={<OEEmetrics/>}/>
+        <Route path="/cncdashboard" element={<CNCDashboard/>}/>
+        <Route path="detailedmachine" element={<Detailedmachine/>}/>
+        <Route path="detailedmachine02" element={<Detailedmachine02/>}/>
         </Routes>
     </BrowserRouter>
   )
