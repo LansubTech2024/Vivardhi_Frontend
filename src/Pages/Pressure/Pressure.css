@@ -1,8 +1,8 @@
 .pressure-container {
-    max-width: 1200px;
+    max-width:1200px;
     padding: 20px;
     margin: 0 auto;
-    margin-left: 200px;
+    margin-left:200px;
 }
   .download-btn{
     float: inline-end;
@@ -20,21 +20,16 @@
 .pressure-item {
     margin-bottom: 10px;
     cursor:pointer;
-    width: 100%;
-    height: 100%;
-
-  }
+}
   
   .pressure-title {
-    font-size: 30px;
     font-weight: bold;
     color: black;
     text-align: center;
-    margin-top: 70px;
   }
   .pressure-card{
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
     margin:0 auto;
     margin-top: 80px;
     border: 1px solid #ddd;
@@ -48,7 +43,6 @@
     padding: 16px;
     margin: 0;
     border-bottom: 1px solid #eee;
-    font-size: 18px;
     font-weight: bold;
   }
   .pressure-card-list{

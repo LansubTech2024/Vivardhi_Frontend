@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../../Components/Header/Header";
-import Sidebar from "../../Components/SideBar/Sidebar";
-import { FaDownload } from "react-icons/fa6";
+//import { FaDownload } from "react-icons/fa6";
 import Plot from "react-plotly.js";
 import {
   Chart as ChartJS,
@@ -14,8 +12,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+// import jsPDF from "jspdf";
+// import html2canvas from "html2canvas";
 import "./Pressure.css";
 
 
@@ -41,41 +39,39 @@ function Pressure() {
       });
   }, []);
 
-  const handleDownload = () => {
-    const graphItems = document.querySelectorAll(".graph-item");
-    const pdf = new jsPDF();
+  // const handleDownload = () => {
+  //   const graphItems = document.querySelectorAll(".graph-item");
+  //   const pdf = new jsPDF();
 
-    let promises = [];
-    graphItems.forEach((item, index) => {
-      promises.push(
-        html2canvas(item).then((canvas) => {
-          const imgData = canvas.toDataURL("image/png");
-          const imgWidth = pdf.internal.pageSize.getWidth();
-          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  //   let promises = [];
+  //   graphItems.forEach((item, index) => {
+  //     promises.push(
+  //       html2canvas(item).then((canvas) => {
+  //         const imgData = canvas.toDataURL("image/png");
+  //         const imgWidth = pdf.internal.pageSize.getWidth();
+  //         const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-          if (index > 0) {
-            pdf.addPage();
-          }
-          pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-        })
-      );
-    });
+  //         if (index > 0) {
+  //           pdf.addPage();
+  //         }
+  //         pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+  //       })
+  //     );
+  //   });
 
-    Promise.all(promises).then(() => {
-      pdf.save("graphs.pdf");
-    });
-  };
+  //   Promise.all(promises).then(() => {
+  //     pdf.save("graphs.pdf");
+  //   });
+  // };
 
   if (!chartData) return <div className="loading">Loading...</div>;
 
   return (
     <>
-      <Header />
-      <Sidebar />
       <div className="pressure-container">
-        <button className="download-btn" onClick={handleDownload}>
+        {/* <button className="download-btn" onClick={handleDownload}>
           <FaDownload size={22} color="#0e68a4" className="fa-down" />
-        </button>
+        </button> */}
         <div className="pressure-grid">
           {/* Gauge Meter */}
           <div className="pressure-item">
@@ -111,7 +107,6 @@ function Pressure() {
                 displayModeBar: false, // Hides the mode bar
               }}
               useResizeHandler={true}
-              
             />
           </div>
           <div className="pressure-card">

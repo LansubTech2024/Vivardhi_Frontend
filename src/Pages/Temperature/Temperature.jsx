@@ -5,6 +5,7 @@ import Sidebar from "../../Components/SideBar/Sidebar";
 import { FaDownload } from "react-icons/fa6";
 import { Line } from "react-chartjs-2";
 import Plot from "react-plotly.js";
+//import Pressure from "../Pressure/Pressure";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -173,7 +174,7 @@ function Temperature() {
                   },
                 },
               }}
-              width={600}
+              width={500}
               height={400}
             />
           </div>
@@ -240,50 +241,14 @@ function Temperature() {
                 displayModeBar: false,
               }}
               useResizeHandler={true}
-              style={{ width: 650, height: 500 }}
-            />
-          </div>
-          {/* Donut Chart */}
-          <div
-            className="graph-item"
-            onClick={() => handleGraphClick("donut-chart")}
-          >
-            <h2
-              className="graph-title"
-              style={{ marginRight: "30px" }}
-            >
-              Temperature Distribution
-            </h2>
-            <Plot
-              data={[
-                {
-                  type: "pie",
-                  hole: 0.4,
-                  labels: chartData.donut_chart.labels,
-                  values: chartData.donut_chart.datasets[0].data,
-                  marker: {
-                    colors: chartData.donut_chart.datasets[0].backgroundColor,
-                  },
-                  textinfo: "label+percent",
-                },
-              ]}
-              layout={{
-                margin: { t: 50, b: 50, l: 50, r: 50 },
-                showlegend: true,
-                paper_bgcolor: "rgba(0,0,0,0)",
-                plot_bgcolor: "rgba(0,0,0,0)",
-                font: { color: "#333333" },
-              }}
-              config={{ displayModeBar: false }}
-              useResizeHandler={true}
-              style={{ width: 600, height: 450 }}
+              style={{ width: 570, height: 500 }}
             />
           </div>
           {/* Combination Chart */}
           <div
             className="graph-item"
             onClick={() => handleGraphClick("combination-chart")}
-            style={{ marginLeft: "50px" }}
+            style={{ marginLeft: "0px" }}
           >
             <h2 className="graph-title">
               Temperature and Pressure Over Time
@@ -385,7 +350,42 @@ function Temperature() {
                 autosize: true,
               }}
               config={{ displayModeBar: false }}
-              style={{ width: 600, height: 500 }}
+              style={{ width: 570, height: 500 }}
+            />
+          </div>
+          {/* Donut Chart */}
+          <div
+            className="graph-item"
+            onClick={() => handleGraphClick("donut-chart")}
+          >
+            <h2
+              className="graph-title"
+            >
+              Temperature Distribution
+            </h2>
+            <Plot
+              data={[
+                {
+                  type: "pie",
+                  hole: 0.4,
+                  labels: chartData.donut_chart.labels,
+                  values: chartData.donut_chart.datasets[0].data,
+                  marker: {
+                    colors: chartData.donut_chart.datasets[0].backgroundColor,
+                  },
+                  textinfo: "label+percent",
+                },
+              ]}
+              layout={{
+                margin: { t: 50, b: 50, l: 50, r: 50 },
+                showlegend: true,
+                paper_bgcolor: "rgba(0,0,0,0)",
+                plot_bgcolor: "rgba(0,0,0,0)",
+                font: { color: "#333333" },
+              }}
+              config={{ displayModeBar: false }}
+              useResizeHandler={true}
+              style={{ width: 530, height: 580 }}
             />
           </div>
         </div>

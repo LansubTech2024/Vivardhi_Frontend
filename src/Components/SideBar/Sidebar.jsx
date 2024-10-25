@@ -9,7 +9,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   // const[helpOpen,setHelpOpen] = useState(false)
   //const [toggle, setToggle] = useState(false);
   const[InventoryOpen, setInventoryOpen] = useState(false);
-  const[CNCOpen, setCNCOpen]= useState(false);
 
   // const ToggleSetting = () =>{
   //     setSettingOpen(!settingOpen);
@@ -29,12 +28,6 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   const CloseInventory = () =>{
       setInventoryOpen(false)
   }
-  const ToggleCNC = () =>{
-    setCNCOpen(!CNCOpen)
-}
-const CloseCNC = () =>{
-    setCNCOpen(false)
-}
 
   return (
     <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
@@ -57,52 +50,27 @@ const CloseCNC = () =>{
               </Link>
             </li>
             <li>
-              <Link to="#">
+              <Link to="/oeemetrics">
               {/* <i className="fa-solid fa-wrench"></i> */}
                 <span>Overall Equipment Efficiency(OEE)</span>
-                {CNCOpen ?(
-                  <RxChevronUp
-                  onClick={CloseCNC}
-                  size={32}
-                  />
-                ):
-                (
-                 <RxChevronDown 
-                 onClick={ToggleCNC}
-                 className="drop-icon"
-                 size={32}
-                 />
-                )}
               </Link>
-              {CNCOpen && (
-                <div className="cnc-item">
-                    <ul className="cnc-list-items">
-                        <li>
-                            <Link to='/oeemetrics' className="cnc-item">OEE matrics</Link>
-                        </li>
-                        <li>
-                            <Link to='/cncdashboard' className="cnc-item">CNC machine</Link>
-                        </li>
-                        <li>
-                          <Link to='/detailedmachine' className="cnc-item">Machine1</Link>
-                        </li>
-                        <li>
-                          <Link to='/detailedmachine02' className="cnc-item">Machine2</Link>
-                        </li>
-                    </ul>
-                </div>
-              )}
+            </li>
+            <li>
+              <Link to="/cncmachine">
+              {/* <i className="fa-solid fa-wrench"></i> */}
+                <span>Machine Analysis</span>
+              </Link>
             </li>
             <li>
               <Link to="/power-usage">
                 {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
-                <span>Power Usage</span>
+                <span>Power Analysis</span>
               </Link>
             </li>
             <li>
               <Link to="#">
                 {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
-                <span>Raw Material Inventory</span>
+                <span>Inventory Analysis</span>
                 {InventoryOpen ?(
                   <RxChevronUp
                   onClick={CloseInventory}
@@ -142,12 +110,12 @@ const CloseCNC = () =>{
                 <span>Predictive Analysis</span>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/pressure">
-              {/* <i className="fa-solid fa-gauge-simple-high"></i> */}
+              <i className="fa-solid fa-gauge-simple-high"></i>
                 <span>Pressure Status</span>
               </Link>
-            </li>
+            </li> */}
             {/* <li>
               <Link to="/oee-data">
                 <i className="fa-solid fa-wrench"></i>
