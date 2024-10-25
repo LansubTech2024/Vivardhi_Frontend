@@ -17,30 +17,30 @@ const defectData = [
 
 const Dashboard = () => {
   return (
-    <div className="dashboard">
+    <div className="metrics-dashboard">
       <h1>Dashboard</h1>
       
       {/* Metrics Cards */}
       <div className="metrics-grid">
         <div className="metric-card">
-          <div className="metric-label">OEE</div>
-          <div className="metric-value">85%</div>
+          <h3 className="metric-label">OEE</h3>
+          <p className="metric-value">85%</p>
         </div>
         <div className="metric-card">
-          <div className="metric-label">Availability</div>
-          <div className="metric-value">91%</div>
+          <h3 className="metric-label">Availability</h3>
+          <p className="metric-value">91%</p>
         </div>
         <div className="metric-card">
-          <div className="metric-label">Performance</div>
-          <div className="metric-value">97%</div>
+          <h3 className="metric-label">Performance</h3>
+          <p className="metric-value">97%</p>
         </div>
         <div className="metric-card">
-          <div className="metric-label">Quality</div>
-          <div className="metric-value">99%</div>
+          <h3 className="metric-label">Quality</h3>
+          <p className="metric-value">99%</p>
         </div>
         <div className="metric-card">
-          <div className="metric-label">Yield</div>
-          <div className="metric-value">98%</div>
+          <h3 className="metric-label">Yield</h3>
+          <p className="metric-value">98%</p>
         </div>
       </div>
 
@@ -51,6 +51,7 @@ const Dashboard = () => {
           <div className="chart-card">
             <div className="chart-header">
               <div className="chart-label">Production Output</div>
+              <div className="chart-head">This Week</div>
               <div className="chart-value">5000 units</div>
               <div className="chart-growth">+5%</div>
             </div>
@@ -67,6 +68,7 @@ const Dashboard = () => {
           <div className="chart-card">
             <div className="chart-header">
               <div className="chart-label">Production Output</div>
+              <div className="chart-head">Last Week</div>
               <div className="chart-value">4000 units</div>
               <div className="chart-growth">+3%</div>
             </div>
