@@ -19,6 +19,7 @@ import Inventory from "./Pages/Inventory/Inventory";
 import CNCDashboard from "./Pages/CNC machine/CNC machine.js";
 import Detailedmachine from "./Pages/Machine/Machine1.js";
 import Detailedmachine02 from "./Pages/Machine/Machine2.js";
+import Company from "./Pages/WhereYouStand/WhereYouStand.jsx";
 const App = () => {
   return (
     <BrowserRouter>
@@ -39,9 +40,10 @@ const App = () => {
         <Route path="/resetpassword/:randomString/:expirationTimestamp" element={<ResetPassword/>}/>
         <Route path="/oeemetrics" element={<OEEmetrics/>}/>
         <Route path="/raw-material" element={<Inventory/>}/>
-        <Route path="/cncdashboard" element={<CNCDashboard/>}/>
-        <Route path="detailedmachine" element={<Detailedmachine/>}/>
-        <Route path="detailedmachine02" element={<Detailedmachine02/>}/>
+        <Route path="/cncmachine" element={<CNCDashboard/>}/>
+        <Route path="/detailedmachine" element={<Detailedmachine/>}/>
+        <Route path="/detailedmachine02" element={<Detailedmachine02/>}/>
+        <Route path="/company" element={<Company/>}/>
         </Routes>
     </BrowserRouter>
   )

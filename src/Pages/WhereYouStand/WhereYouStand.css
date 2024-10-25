@@ -1,0 +1,125 @@
+.company-dashboard {
+    min-height: 100vh;
+    background-color: #f0f9ff;
+    padding: 2rem;
+  }
+  
+  .company-dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .company-dashboard-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+  }
+  
+  .company-dashboard-subtitle {
+    color: #475569;
+    margin-bottom: 2rem;
+  }
+  
+  .industry-selector {
+    max-width: 400px;
+    margin-bottom: 3rem;
+  }
+  
+  .industry-label {
+    display: block;
+    font-size: 0.875rem;
+    color: #475569;
+    margin-bottom: 0.5rem;
+  }
+  
+  .select-wrapper {
+    position: relative;
+  }
+  
+  .industry-select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background-color: white;
+    font-size: 1rem;
+    color: #1e293b;
+    appearance: none;
+    cursor: pointer;
+  }
+  
+  .select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #475569;
+    pointer-events: none;
+  }
+  
+  .company-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .metrics-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .company-metric-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .company-metric-value {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #1e293b;
+    margin-bottom: 1rem;
+  }
+  
+  .company-metric-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+  }
+  
+  .company-metric-subtitle {
+    font-size: 0.875rem;
+    color: #64748b;
+  }
+  
+  /* Hover effects */
+  .company-metric-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    transition: all 0.2s ease;
+  }
+  
+  .industry-select:hover {
+    border-color: #94a3b8;
+  }
+  
+  .industry-select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+  }
