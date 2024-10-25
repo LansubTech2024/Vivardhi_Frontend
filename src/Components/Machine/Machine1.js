@@ -1,43 +1,44 @@
+
 import React, { useState } from 'react';
-import './Machine2.css';
+import './Machine1.css';
 import Header from '../../Components/Header/Header';
 import Sidebar from '../../Components/SideBar/Sidebar';
 
-const Detailedmachine02 = () => {
+const Detailedmachine = () => {
   const [activeTab, setActiveTab] = useState('overview');
   
   // Sample data
   const machineData = {
     overview: {
-      machineName: 'CNC Machine 2',
+      machineName: 'CNC Machine 1',
       status: 'Running',
-      uptime: '90%',
-      productivity: '94%',
-      currentJob: 'Part XYZ-124',
-      completedJobs: '50',
+      uptime: '85%',
+      productivity: '92%',
+      currentJob: 'Part XYZ-123',
+      completedJobs: '45',
     },
     insights: {
       weeklyProduction: [
-        { day: 'Monday', parts: 124 },
-        { day: 'Tuesday', parts: 140 },
-        { day: 'Wednesday', parts: 148 },
-        { day: 'Thursday', parts: 120 },
-        { day: 'Friday', parts: 143 }
+        { day: 'Monday', parts: 120 },
+        { day: 'Tuesday', parts: 145 },
+        { day: 'Wednesday', parts: 135 },
+        { day: 'Thursday', parts: 150 },
+        { day: 'Friday', parts: 130 }
       ],
-      efficiency: '89%',
+      efficiency: '88%',
       qualityRate: '96%',
-      averageCycleTime: '48 mins'
+      averageCycleTime: '45 mins'
     },
     downtimeIncidents: [
-      { id: 1, type: 'Operator Error', date: '6/23/22, 10:00 AM' },
-      { id: 2, type: 'Tool Change', date: '6/21/22, 2:00 PM' },
-      { id: 3, type: 'Machine Jam', date: '6/20/22, 01:00 PM' },
+      { id: 1, type: 'Operator Error', date: '6/23/22, 8:00 AM' },
+      { id: 2, type: 'Tool Change', date: '6/21/22, 3:00 PM' },
+      { id: 3, type: 'Machine Jam', date: '6/20/22, 12:00 PM' },
       { id: 4, type: 'Material Runout', date: '6/19/22, 10:00 AM' },
-      { id: 5, type: 'Software Bug', date: '6/20/22, 5:00 PM' },
+      { id: 5, type: 'Software Bug', date: '6/18/22, 5:00 PM' },
       { id: 6, type: 'Power Outage', date: '6/17/22, 2:00 PM' },
-      { id: 7, type: 'Maintenance', date: '6/18/22, 8:00 AM' },
+      { id: 7, type: 'Maintenance', date: '6/16/22, 8:00 AM' },
       { id: 8, type: 'Quality Issue', date: '6/15/22, 4:00 PM' },
-      { id: 9, type: 'Training', date: '6/19/22, 1:00 PM' },
+      { id: 9, type: 'Training', date: '6/14/22, 1:00 PM' },
       { id: 10, type: 'Shipping Delay', date: '6/13/22, 11:00 AM' }
     ]
   };
@@ -46,9 +47,9 @@ const Detailedmachine02 = () => {
     <>
     <Header/>
     <Sidebar/>
-    <div className="machine1-dashboard">
-     <div className="machine1-dashboard-section">
-      <h1>CNC Machine 2</h1>
+    <div className="dashboard">
+      <div className="machine-dashboard-section">
+      <h1>CNC Machine 1</h1>
       
       <div className="tabs">
         <button 
@@ -138,4 +139,4 @@ const Detailedmachine02 = () => {
   );
 };
 
-export default Detailedmachine02;
+export default Detailedmachine;

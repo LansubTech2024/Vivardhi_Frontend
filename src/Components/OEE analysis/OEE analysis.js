@@ -196,7 +196,7 @@ const Dashboard = () => {
         
         <h2 className="text-lg font-medium">Inventory</h2>
         <h2>Raw material</h2>
-        <div style={{ display: 'block', gridTemplateColumns: '1fr 1fr', gap: '20px', height:"300px",marginLeft:'100px'  }}>
+        <div style={{ display: 'block', gridTemplateColumns: '1fr 1fr', gap: '20px', height:"300px",marginLeft:'100px',width:'800px'  }}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data}>
               <XAxis 

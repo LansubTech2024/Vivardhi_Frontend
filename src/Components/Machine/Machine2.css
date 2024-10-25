@@ -1,5 +1,5 @@
 /* CNCDashboard.css */
-.dashboard {
+.machine1-dashboard {
     max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
@@ -7,7 +7,7 @@
     margin-left: 350px;
    
   }
-  .machine-dashboard-section{
+.machine1-dashboard-section{
     margin-top: 100px;
   }
   .dashboard h1 {

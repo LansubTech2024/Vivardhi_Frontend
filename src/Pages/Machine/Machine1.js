@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import './Machine1.css';
 import Header from '../../Components/Header/Header';

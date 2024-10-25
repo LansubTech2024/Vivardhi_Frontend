@@ -1,0 +1,158 @@
+/* CNCDashboard.css */
+.dashboard {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  margin-left: 350px;
+ 
+}
+.machine-dashboard-section{
+  margin-top: 100px;
+}
+.dashboard h1 {
+  margin-bottom: 20px;
+  color: #333;
+ 
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  
+}
+
+.tab {
+  padding: 10px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  position: relative;
+  color: #666;
+}
+
+.tab.active {
+  color: #2196f3;
+}
+
+.tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #2196f3;
+}
+
+.content {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+/* Overview Tab */
+.overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.status-card, .job-card {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.status-card h3, .job-card h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.status {
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Insights Tab */
+.insights {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.metrics, .production {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.metric {
+  text-align: center;
+}
+
+.metric .value {
+  font-size: 24px;
+  color: #2196f3;
+  margin-top: 5px;
+}
+
+.production-day {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.production-day:last-child {
+  border-bottom: none;
+}
+
+/* Downtime Tab */
+.downtime {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.incident {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.incident-type {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.incident-date {
+  color: #666;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .overview {
+    grid-template-columns: 1fr;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
