@@ -82,9 +82,10 @@ const CNCmachine = () => {
   };
   
   
-  const handleMachineClick = (Machine1) => {
+  const handleMachineClick = (machineName) => {
     
-    navigate("/machine/:Machine1");
+    navigate(`/machine/${machineName}`);
+    
     
   };
 
@@ -112,7 +113,7 @@ const CNCmachine = () => {
             <tbody>
               
               {machineData.map((item, index) => (
-                <tr key={index} onClick={() => handleMachineClick(item.Machine)}>
+                <tr key={index} onClick={() => handleMachineClick(item.machine)}className="cursor-pointer hover:bg-gray-100">
                   <td>{item.machine}</td>
                   <td>
                     <span className={getBadgeClass('health', item.health)}>

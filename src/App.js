@@ -41,6 +41,8 @@ const App = () => {
         <Route path="/resetpassword/:randomString/:expirationTimestamp" element={<ResetPassword/>}/>
         <Route path="/oeemetrics" element={<OEEmetrics/>}/>
         <Route path="/raw-material" element={<Inventory/>}/>
+        <Route path="/machine/:detailedmachine" element={<Detailedmachine/>}/>
+        <Route path="/machine/:detailedmachine02" element={<Detailedmachine02/>}/>
         <Route path="/cncmachine" element={<CNCDashboard/>}/>
         <Route path="/detailedmachine" element={<Detailedmachine/>}/>
         <Route path="/detailedmachine02" element={<Detailedmachine02/>}/>
