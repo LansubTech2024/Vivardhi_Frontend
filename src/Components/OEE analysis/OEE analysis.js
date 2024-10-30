@@ -1,247 +1,142 @@
-import React, { useState } from 'react';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './OEE analysis.css';
 
-const productionData = [
-  { date: 'Jun 1', value: 4200 },
-  { date: 'Jun 8', value: 3800 },
-  { date: 'Jun 15', value: 4500 },
-  { date: 'Jun 22', value: 5000 },
-  { date: 'Jun 29', value: 4000 }
-];
+const OeeDashboard = () => {
+    const [machines, setMachines] = useState([]);
+    const [selectedMachine, setSelectedMachine] = useState(null);
+    const [searchZone, setSearchZone] = useState('');
 
-const defectData = [
-  { week: 'Last Week', defects: 150 },
-  { week: 'This Week', defects: 120 }
-];
+    // Fetch machine data on component mount
+    useEffect(() => {
+        const fetchMachineData = async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/api/oeemachine'); // Update with your API URL
+                setMachines(response.data);
+            } catch (error) {
+                console.error("Error fetching machine data:", error);
+            }
+        };
+        fetchMachineData();
+    }, []);
 
-const scrapData = [
-  { month: 'Last Month', scrap: 280 },
-  { month: 'This Month', scrap: 220 }
-];
+    // Handle row click to display machine details
+    const handleRowClick = (machine) => {
+        setSelectedMachine(machine);
+    };
 
-// Target tracking data
-const targetData = {
-  target: 5000,
-  achieved: 4200,
-  missed: 800,
-  reasons: [
-    { id: 1, reason: "Machine Breakdown", hours: 4 },
-    { id: 2, reason: "Manpower Shortage", hours: 2 },
-    { id: 3, reason: "Material Quality Issues", hours: 1 }
-    
-  ]
+    // Filter machines by zone
+    const filteredMachines = machines.filter(machine => 
+        machine.zoneName.toLowerCase().includes(searchZone.toLowerCase())
+    );
+
+    return (
+        <div>
+            <h2>Machine OEE Dashboard</h2>
+
+            {/* Search bar to filter by zone */}
+            <input
+                type="text"
+                placeholder="Search by Zone..."
+                value={searchZone}
+                onChange={(e) => setSearchZone(e.target.value)}
+                style={{ marginBottom: '20px', padding: '10px', width: '100%' }}
+            />
+
+            {/* Table to display OEE data */}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Machine ID</th>
+                        <th>Zone Name</th>
+                        <th>Availability (%)</th>
+                        <th>Performance (%)</th>
+                        <th>Quality (%)</th>
+                        <th>OEE (%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {filteredMachines.map(machine => (
+                        <tr key={machine.machineId} onClick={() => handleRowClick(machine)}>
+                            <td>{machine.machineId}</td>
+                            <td>{machine.zoneName}</td>
+                            <td>{machine.availability}</td>
+                            <td>{machine.performance}</td>
+                            <td>{machine.quality}</td>
+                            <td>{machine.oee}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+
+            {/* Display details in individual cards if a machine is selected */}
+            {selectedMachine && (
+                <div style={{ marginTop: '20px' }}>
+                    <h3>Details for Machine {selectedMachine.machineId}</h3>
+                    <div className="card-container">
+                        {/* OEE Metrics Cards */}
+                        <div className="card">
+                            <h3>Availability</h3>
+                            <p>{selectedMachine.availability}%</p>
+                        </div>
+                        <div className="card">
+                            <h3>Performance</h3>
+                            <p>{selectedMachine.performance}%</p>
+                        </div>
+                        <div className="card">
+                            <h3>Quality</h3>
+                            <p>{selectedMachine.quality}%</p>
+                        </div>
+                        <div className="card">
+                            <h3>OEE</h3>
+                            <p>{selectedMachine.oee}%</p>
+                        </div>
+
+                        {/* Performance Details */}
+                        <h4>Performance Details</h4>
+                        <div className="card">
+                            <h4>Total Pieces</h4>
+                            <p>{selectedMachine.productionDetails?.totalPieces}</p>
+                        </div>
+                        <div className="card">
+                            <h4>Good Pieces</h4>
+                            <p>{selectedMachine.productionDetails?.goodPieces}</p>
+                        </div>
+                        <div className="card">
+                            <h4>Target</h4>
+                            <p>{selectedMachine.target}</p>
+                        </div>
+
+                        {/* Quality Details */}
+                        <h4>Quality Details</h4>
+                        <div className="card">
+                            <h4>Waste Scrap</h4>
+                            <p>{selectedMachine.productionDetails?.wasteScrap}</p>
+                        </div>
+                        <div className="card">
+                            <h4>Waste Defect</h4>
+                            <p>{selectedMachine.productionDetails?.wasteDefect}</p>
+                        </div>
+
+                        {/* Availability Details */}
+                        <h4>Availability Details</h4>
+                        <div className="card">
+                            <h4>Uptime</h4>
+                            <p>{selectedMachine.uptime}</p>
+                        </div>
+                        <div className="card">
+                            <h4>Downtime</h4>
+                            <p>{selectedMachine.downtime}</p>
+                        </div>
+                        <div className="card">
+                            <h4>Status</h4>
+                            <p>{selectedMachine.machineStatus}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </div>
+    );
 };
 
-const Dashboard = () => {
-  const [showReasons, setShowReasons] = useState(false);
-  
-  // Create tooltip text from reasons
-  const tooltipText = targetData.reasons
-    .map(item => `${item.reason}: ${item.hours} hrs`)
-    .join('\n');
-
-  return (
-    <div className="metrics-dashboard">
-      <h1>Dashboard</h1>
-      
-      {/* Original Metrics Cards */}
-      <div className="metrics-grid">
-        <div className="metric-card">
-          <div className="metric-label">OEE</div>
-          <div className="metric-value">85%</div>
-        </div>
-        <div className="metric-card">
-          <div className="metric-label">Availability</div>
-          <div className="metric-value">91%</div>
-        </div>
-        <div className="metric-card">
-          <div className="metric-label">Performance</div>
-          <div className="metric-value">97%</div>
-        </div>
-        <div className="metric-card">
-          <div className="metric-label">Quality</div>
-          <div className="metric-value">99%</div>
-        </div>
-        <div className="metric-card">
-          <div className="metric-label">Yield</div>
-          <div className="metric-value">98%</div>
-        </div>
-      </div>
-
-      {/* Target Tracking Cards */}
-      <h2>Target</h2>
-      <div className="metrics-grid">
-       
-        <div className="metric-card target-card">
-          <div className="metric-label">Today's Target</div>
-          <div className="metric-value">{targetData.target}</div>
-          <div className="metric-subtitle">Units</div>
-        </div>
-        <div className="metric-card achievement-card">
-          <div className="metric-label">Achievement</div>
-          <div className="metric-value">{targetData.achieved}</div>
-          <div className="metric-subtitle">Units</div>
-          <div className="achievement-percentage">
-            {((targetData.achieved / targetData.target) * 100).toFixed(1)}%
-          </div>
-        </div>
-        <div 
-          className="metric-card missed-card"
-          title={tooltipText}
-          style={{ cursor: 'help' }}
-        >
-          <div className="metric-label">Missed Target</div>
-          <div className="metric-value">{targetData.missed}</div>
-          <div className="metric-subtitle">Units</div>
-        </div>
-      </div>
-
-      {/* Production Section */}
-      <section className="section">
-        <h2>Production</h2>
-        <div className="chart-grid">
-          <div className="chart-card">
-            <div className="chart-header">
-              <div className="chart-label">Production Output</div>
-              <div className="chart-value">5000 units</div>
-              <div className="chart-growth">+5%</div>
-            </div>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
-                <LineChart data={productionData}>
-                  <Line type="monotone" dataKey="value" stroke="#2563eb" dot={false} />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-          <div className="chart-card">
-            <div className="chart-header">
-              <div className="chart-label">Production Output</div>
-              <div className="chart-value">4000 units</div>
-              <div className="chart-growth">+3%</div>
-            </div>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={productionData}>
-                  <Bar dataKey="value" fill="#e5e7eb" />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Quality Section with Scrap Products */}
-      <section className="section">
-        <h2>Quality</h2>
-        <div className="chart-grid">
-          {/* Scrap Products Comparison */}
-          <div className="chart-card">
-            <div className="chart-header">
-              <div className="chart-label">Scrap Products Comparison</div>
-              <div className="chart-value">
-                {scrapData[1].scrap} units
-                <span className="chart-comparison">
-                  ({((scrapData[1].scrap - scrapData[0].scrap) / scrapData[0].scrap * 100).toFixed(1)}% vs last month)
-                </span>
-              </div>
-            </div>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={scrapData}>
-                  <Bar dataKey="scrap" fill="#e5e7eb" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-          {/* Defects Tracking */}
-          <div className="chart-card">
-            <div className="chart-header">
-              <div className="chart-label">Defects Tracking</div>
-              <div className="chart-value">
-                {defectData[1].defects} units
-                <span className="chart-comparison">
-                  ({((defectData[1].defects - defectData[0].defects) / defectData[0].defects * 100).toFixed(1)}% vs last week)
-                </span>
-              </div>
-            </div>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={defectData}>
-                  <Bar dataKey="defects" fill="#e5e7eb" />
-                  <XAxis dataKey="week" />
-                  <YAxis />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Manpower Section */}
-      <section className="section">
-        <h2>Manpower</h2>
-        <div className="chart-card">
-          <div className="chart-header">
-            <div className="chart-label">Manpower Allocation</div>
-          </div>
-          <div className="chart-container">
-            <ResponsiveContainer width="100%" height={200}>
-              <BarChart data={productionData}>
-                <Bar dataKey="value" fill="#e5e7eb" />
-                <XAxis dataKey="date" />
-                <YAxis />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-      </section>
-
-      {/* Inventory Section */}
-      <section className="section">
-        <h2>Inventory</h2>
-        <div className="chart-grid">
-          <div className="chart-card">
-            <div className="chart-header">
-              <div className="chart-label">Raw Materials</div>
-              <div className="chart-value">10000 units</div>
-            </div>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
-                <LineChart data={productionData}>
-                  <Line type="monotone" dataKey="value" stroke="#2563eb" dot={false} />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-          <div className="chart-card">
-            <div className="chart-header">
-              <div className="chart-label">Finished Goods</div>
-              <div className="chart-value">20000 units</div>
-            </div>
-            <div className="chart-container">
-              <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={productionData}>
-                  <Bar dataKey="value" fill="#e5e7eb" />
-                  <XAxis dataKey="date" />
-                  <YAxis />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-  );
-};
-
-export default Dashboard;
+export default OeeDashboard;

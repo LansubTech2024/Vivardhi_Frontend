@@ -1,142 +1,56 @@
-.cards-container {
-  max-width: 1200px;
+.dashboard {
+  display: flex;
+  gap: 12px; /* Space between cards */
   padding: 20px;
-  margin: 0 auto;
-  margin-left: 200px;
-}
-.card-container {
-  display:flex;
-  justify-content: flex-start;
-  align-items: center;
-  margin-top: 110px;
-  flex-wrap: nowrap;
+  justify-content: center; /* Center align cards */
+  flex-wrap: wrap;
 }
 
 .card {
-  background-color: 	#dceeff;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 5px 10px 25px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  height: 150px;
+  width: 150px;
+  padding: 16px;
   text-align: center;
-  margin-bottom: 20px;
-  margin-left: 30px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
 }
 
-.card h2 {
-  margin-bottom: 10px;
-  font-size: 18px;
-  color: #0b6fa4;
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+  font-weight: 500;
 }
 
 .card p {
-  font-size: 20px;
-  color: #666;
+  margin: 8px 0 0;
+  font-size: 24px;
   font-weight: bold;
+  color: #007bff;
 }
 
-.download-btn{
-  float: inline-end;
-  margin-top: 50px;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 50%;
-  border: 1px solid;
-  color: #0b6fa4;
+.oee-card {
+  color: #004085;
 }
 
-.graphs-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 20px;
-  margin-top: 30px;
+.availability-card {
+  color: #155724;
 }
 
-.graph-item {
-  margin-bottom: 10px;
-  cursor:pointer;
+.performance-card {
+  color: #856404;
 }
 
-.graph-title {
-  font-size: 30px;
-  font-weight: bold;
-  color: #0b6fa4;
-  text-align: center;
-}
-.OEE-section{
-  display: flex;
-  flex-direction: column;
-  
-}
-/* OEE Section */
-.OEE-section {
-  margin-top: 40px;
-  text-align: center;
-  width: 100%;
-  max-width: 1200px;
+.quality-card {
+  color: #721c24;
 }
 
-.OEE-section h2 {
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
-/* Gauge OEE Section */
-.Gauge.OEE {
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.Gauge.OEE .main-svg {
-  max-height: 300px;
-}
-
-/* Bar Chart Section */
-.Line-OEE {
-  margin-top: 30px;
-  padding: 20px;
-  
-}
-
-.Line-OEE .main-svg {
-  max-height: 400px;
-}
-
-@media (max-width: 768px) {
-  .Line-OEE {
-    width: 90%;
-    padding: 15px;
-  }
-
-  h2 {
-    font-size: 18px;
-  }
-
-  .Plot .main-svg {
-    max-height: 300px;
-  }
-}
-
-
-@media (max-width: 1200x) {
-  .graphs-grid {
-    grid-template-columns: 1fr;
-  }
-}
-@media (max-width:576x){
-  .card-container {
-    display:block;
-    justify-content: column;
-    align-items: stretch;
-  }
-  .card { 
-    
-    width: 100%;
-    max-width: 300px;
-  }
-
+.yield-card {
+  color: #383d41;
 }

@@ -1,184 +1,132 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-
-import Header from "../../Components/Header/Header";
-import Sidebar from "../../Components/SideBar/Sidebar";
-import { FaDownload } from "react-icons/fa6";
-import Plot from "react-plotly.js";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import "./Dashboard.css";
-import OEEanalysis from "../../Components/OEE analysis/OEE analysis";
-import Performance from "../../Components/OEE/Performance";
-import Quality from "../../Components/OEE/Quality";
-import Availability from "../../Components/OEE/Availability";
-
-
-// OEE calculation example values
-const plannedTime = 8; // Planned Production Time in hours
-const actualTime = 6; // Actual Production Time in hours
-const actualOutput = 90; // Actual Output in units
-const idealOutput = 100; // Ideal Output in units
-const goodOutput = 85; // Good Output in units
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import GaugeChart from 'react-gauge-chart';
+import { Bar, Line } from 'react-chartjs-2';
+import './Dashboard.css';
 
 const Dashboard = () => {
-  const [chartData, setChartData] = useState(null);
+  const [oeeData, setOeeData] = useState({});
+  const [productionData, setProductionData] = useState({});
+  const [manpowerData, setManpowerData] = useState([]);
+  const [inventoryData, setInventoryData] = useState([]);
+  const [finishedMaterialData, setFinishedMaterialData] = useState(0);
 
-  const [selectedMetric, setSelectedMetric] = useState(null);
+  // Fetch data from backend API
+  const fetchData = async () => {
+    try {
+      const [oeeResponse, productionResponse, manpowerResponse, inventoryResponse, finishedMaterialResponse] = await Promise.all([
+        axios.get('http://localhost:5000/api/oee'),
+        axios.get('http://localhost:5000/api/total-production'),
+        axios.get('/api/manpower'),
+        axios.get('/api/inventory'),
+        axios.get('http://localhost:5000/api/finished-material'),
+      ]);
 
-  const handleBarClick = (event) => {
-    // event.points[0].label - gets the label of the clicked bar (Availability, Performance, Quality)
-    const clickedMetric = event.points[0].y;
-    setSelectedMetric(clickedMetric);
+      setOeeData(oeeResponse.data);
+      setProductionData(productionResponse.data);
+      setManpowerData(manpowerResponse.data);
+      setInventoryData(inventoryResponse.data);
+      setFinishedMaterialData(finishedMaterialResponse.data.finishedMaterial);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/charts/")
-      .then((response) => setChartData(response.data))
-      .catch((error) => {
-        console.error("Error fetching graph data:", error);
-      });
+    fetchData();
   }, []);
 
-  const handleDownload = () => {
-    const graphItems = document.querySelectorAll(".cards-container");
-    const pdf = new jsPDF();
-
-    let promises = [];
-    graphItems.forEach((item, index) => {
-      promises.push(
-        html2canvas(item).then((canvas) => {
-          const imgData = canvas.toDataURL("image/png");
-          const imgWidth = pdf.internal.pageSize.getWidth();
-          const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-          if (index > 0) {
-            pdf.addPage();
-          }
-          pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-        })
-      );
-    });
-
-    Promise.all(promises).then(() => {
-      pdf.save("graphs.pdf");
-    });
+  // Function to prepare inventory chart data
+  const prepareInventoryChartData = () => {
+    return {
+      labels: inventoryData.map(item => item.date),
+      datasets: [
+        {
+          label: 'Raw Material Inventory',
+          data: inventoryData.map(item => item.inventory),
+          borderColor: 'rgba(75,192,192,1)',
+          fill: false,
+        },
+      ],
+    };
   };
 
-  if (!chartData) return <div className="loading">Loading...</div>;
-
-  const { total_entries, chw_in_temp, chw_out_temp, avg_temps } = chartData;
-
-  // OEE Calculations based on the formula
-  const availability = (actualTime / plannedTime) * 100;
-  const performance = (actualOutput / idealOutput) * 100;
-  const quality = (goodOutput / actualOutput) * 100;
-  const averageOEE = (availability + performance + quality) / 3;
+  // Function to prepare manpower chart data
+  const prepareManpowerChartData = () => {
+    return {
+      labels: manpowerData.map(item => item.zoneName),
+      datasets: [
+        {
+          label: 'Manpower Allocation',
+          data: manpowerData.map(item => item.manpower),
+          backgroundColor: 'rgba(75,192,192,0.4)',
+          borderColor: 'rgba(75,192,192,1)',
+          borderWidth: 1,
+        },
+      ],
+    };
+  };
 
   return (
-    <>
-      <Header />
-      <Sidebar />
-      <div className="cards-container">
-        <button className="download-btn" onClick={handleDownload}>
-          <FaDownload size={22} color="#0e68a4" className="fa-down" />
-        </button>
-        {/* <div className="card-container">
-          <div className="card" style={{ textAlign: "center" }}>
-            <h2 style={{ marginTop: "40px" }}>Total Entries</h2>
-            <p style={{ fontSize: "20px" }}>{total_entries.total_entries}</p>
-          </div> */}
-
-          {/* CHW In Temp Card */}
-          {/* <div className="card">
-            <h2>Inlet Temperature</h2>
-            <p>Min : {chw_in_temp.min_chw_in_temp}°C</p>
-            <p>Max : {chw_in_temp.max_chw_in_temp}°C</p>
-          </div> */}
-
-          {/* CHW Out Temp Card */}
-          {/* <div className="card">
-            <h2>Outlet Temperature</h2>
-            <p>Min : {chw_out_temp.min_chw_out_temp}°C</p>
-            <p>Max : {chw_out_temp.max_chw_out_temp}°C</p>
-          </div> */}
-
-          {/* Average Temperatures Card */}
-          {/* <div className="card">
-            <h2>Average Temperature</h2>
-            <p>In : {avg_temps.avg_chw_in_temp.toFixed(2)}°C</p>
-            <p>Out : {avg_temps.avg_chw_out_temp.toFixed(2)}°C</p>
-          </div>
-        </div> */}
-        {/* <div className="OEE-section">
-          <h2>OEE Metrics</h2>
-          <div className="Gauge.OEE">
-            <Plot
-              data={[
-                {
-                  type: "indicator",
-                  mode: "gauge+number",
-                  value: averageOEE,
-                  title: { text: "Average OEE" },
-                  gauge: {
-                    axis: { range: [0, 100] },
-                    bar: { color: "70261F" },
-                    steps: [
-                      { range: [0, averageOEE], color: "70261F" },
-                      { range: [averageOEE, 100], color: "lightgray" },
-                    ],
-                    threshold: {
-                      line: { color: "70261F", width: 4 },
-                      thickness: 0.75,
-                      value: averageOEE,
-                    },
-                  },
-                },
-              ]}
-              layout={{
-                width: 500,
-                height: 300,
-              }}
-              config={{
-                displayModeBar: false,
-              }}
-            />
-          </div>
-          <div className="Line-OEE">
-            <Plot
-              data={[
-                {
-                  type: "bar",
-                  x: [availability, performance, quality],
-                  y: ["Availability", "Performance", "Quality"],
-                  orientation: "h",
-                  marker: { color: ["D1BDFF", "#ffafcc", "#a2d2ff"] },
-                },
-              ]}
-              layout={{
-                title: "OEE Metrics ",
-                xaxis: { title: "Percentage (%)" },
-                yaxis: { title: "" },
-                
-              }}
-              onClick={handleBarClick}
-              config={{
-                displayModeBar: false,
-              }}
-            />
-            {selectedMetric === "Availability" && <Availability />}
-            {selectedMetric === "Performance" && <Performance />}
-            {selectedMetric === "Quality" && <Quality />}
-          </div>
-        </div> */}
-        <div>
-          <OEEanalysis/>
-        </div>
-        
+    <div>
+      <h1>Dashboard</h1>
+      <div>
+        <h2>Total Production</h2>
+        <GaugeChart
+          id="total-production-gauge"
+          nrOfLevels={30}
+          arcsLength={[0.3, 0.5, 0.2]} // Example arcs
+          colors={['#FF0000', '#FFA500', '#00FF00']}
+          arcPadding={0.02}
+          percent={productionData.totalProduction / productionData.targetProduction || 0}
+        />
       </div>
-      
-    </>
+      <div>
+        <h2>Target Production</h2>
+        <GaugeChart
+          id="target-production-gauge"
+          nrOfLevels={30}
+          arcsLength={[0.3, 0.5, 0.2]}
+          colors={['#FF0000', '#FFA500', '#00FF00']}
+          arcPadding={0.02}
+          percent={1} // Set target percentage here
+        />
+      </div>
+      <div>
+        <h2>Achieved Target</h2>
+        <GaugeChart
+          id="achieved-target-gauge"
+          nrOfLevels={30}
+          arcsLength={[0.3, 0.5, 0.2]}
+          colors={['#FF0000', '#FFA500', '#00FF00']}
+          arcPadding={0.02}
+          percent={oeeData.oee / 100 || 0} // Use OEE value for achieved target
+        />
+      </div>
+      <div>
+        <h2>Manpower Allocation</h2>
+        <Bar data={prepareManpowerChartData()} />
+      </div>
+      <div>
+        <h2>Raw Material Inventory</h2>
+        <Line data={prepareInventoryChartData()} />
+      </div>
+      <div>
+        <h2>Finished Material Output</h2>
+        <Bar
+          data={{
+            labels: ['Finished Material'],
+            datasets: [{
+              label: 'Output',
+              data: [finishedMaterialData],
+              backgroundColor: 'rgba(75,192,192,0.4)',
+              borderColor: 'rgba(75,192,192,1)',
+              borderWidth: 1,
+            }],
+          }}
+        />
+      </div>
+    </div>
   );
 };
 

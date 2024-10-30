@@ -21,6 +21,7 @@ import Detailedmachine from "./Pages/Machine/Machine1.js";
 import Detailedmachine02 from "./Pages/Machine/Machine2.js";
 import Company from "./Pages/WhereYouStand/WhereYouStand.jsx";
 import Auth from "./Pages/Auth/Auth";
+import OEEanalysis from "./Pages/OEE analysis/OEE analysis.js"
 const App = () => {
   return (
     <BrowserRouter>
@@ -46,6 +47,7 @@ const App = () => {
         <Route path="/cncmachine" element={<CNCDashboard/>}/>
         <Route path="/company" element={<Company/>}/>
         <Route path="/auth" element={<Auth/>}/>
+        <Route path="/oeeanalysis" element={<OEEanalysis/>}/>
         </Routes>
     </BrowserRouter>
   )

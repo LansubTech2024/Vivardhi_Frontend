@@ -1,6 +1,5 @@
 import Header from '../../Components/Header/Header';
-import OEEmetrics from '../../Components/OEE metrics/OEE metrics'
-import OEEanalysis from '../../Components/OEE analysis/OEE analysis'
+import OEEanalysis from '../../Components/OEE analysis/OEE analysis';
 import Sidebar from '../../Components/SideBar/Sidebar';
 
 const About = () => {
@@ -9,7 +8,6 @@ const About = () => {
     <Header/>
     <Sidebar/>
     <div>
-      <OEEmetrics/>
       <OEEanalysis/>
     </div>
     </>
