@@ -16,18 +16,20 @@
     width:200px;
     height:130px;
   }
-.alert {
-    background-color: #ffcccb; /* Light red background */
-    border: 1px solid #f44336; /* Red border */
-    padding: 15px;
-    margin-top: 10px;
+  .alert {
+    background-color: #ffe6e6;
+    color: #b30000;
+    padding: 1rem;
+    border: 1px solid #ff4d4d;
     border-radius: 8px;
+    margin-top: 1rem;
   }
   
-  .alert strong {
-    color: #f44336;
+  .alert h3 {
+    margin: 0;
+    font-weight: bold;
   }
   
-  .alert ul {
-    padding-left: 20px;
+  .alert p {
+    margin: 0.5rem 0 0;
   }

@@ -1,183 +1,457 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import "./Dashboard.css";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/SideBar/Sidebar";
-import { FaDownload } from "react-icons/fa6";
-import Plot from "react-plotly.js";
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import "./Dashboard.css";
-import OEEanalysis from "../../Components/OEE analysis/OEE analysis";
-import Performance from "../../Components/OEE/Performance";
-import Quality from "../../Components/OEE/Quality";
-import Availability from "../../Components/OEE/Availability";
-
-
-// OEE calculation example values
-const plannedTime = 8; // Planned Production Time in hours
-const actualTime = 6; // Actual Production Time in hours
-const actualOutput = 90; // Actual Output in units
-const idealOutput = 100; // Ideal Output in units
-const goodOutput = 85; // Good Output in units
+import {
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  PieChart,
+  Pie,
+  Cell,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+} from "recharts";
 
 const Dashboard = () => {
-  const [chartData, setChartData] = useState(null);
+  const [metrics, setMetrics] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const [selectedMetric, setSelectedMetric] = useState(null);
-
-  const handleBarClick = (event) => {
-    // event.points[0].label - gets the label of the clicked bar (Availability, Performance, Quality)
-    const clickedMetric = event.points[0].y;
-    setSelectedMetric(clickedMetric);
+  const COLORS = {
+    good: "#22c55e", // green
+    scrap: "#dc2626", // red
+    defect: "#f97316", // orange
+    recycled: "#3b82f6", // blue
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/charts/")
-      .then((response) => setChartData(response.data))
-      .catch((error) => {
-        console.error("Error fetching graph data:", error);
-      });
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        // Replace this URL with your actual API endpoint
+        const response = await axios.get("http://localhost:5000/api/dashboard");
+        setMetrics(response.data);
+        setError(null);
+      } catch (error) {
+        console.error("Error fetching metrics:", error);
+        setError("Failed to load data. Please try again later.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
   }, []);
 
-  const handleDownload = () => {
-    const graphItems = document.querySelectorAll(".cards-container");
-    const pdf = new jsPDF();
+  if (loading) {
+    return <div className="loading">Loading...</div>;
+  }
 
-    let promises = [];
-    graphItems.forEach((item, index) => {
-      promises.push(
-        html2canvas(item).then((canvas) => {
-          const imgData = canvas.toDataURL("image/png");
-          const imgWidth = pdf.internal.pageSize.getWidth();
-          const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  if (error) {
+    return <div className="error">{error}</div>;
+  }
 
-          if (index > 0) {
-            pdf.addPage();
-          }
-          pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-        })
-      );
-    });
-
-    Promise.all(promises).then(() => {
-      pdf.save("graphs.pdf");
-    });
+  // Calculate averages
+  const calculateAverage = (key) => {
+    return metrics.length > 0
+      ? metrics.reduce((acc, m) => acc + parseFloat(m[key]), 0) / metrics.length
+      : 0;
   };
 
-  if (!chartData) return <div className="loading">Loading...</div>;
+  const averages = {
+    oee: calculateAverage("OEE").toFixed(2),
+    availability: calculateAverage("availability").toFixed(2),
+    performance: calculateAverage("performance").toFixed(2),
+    quality: calculateAverage("quality").toFixed(2),
+    yield: (metrics.length > 0
+      ? metrics.reduce(
+          (acc, m) =>
+            acc +
+            (m.goodPieces /
+              (m.goodPieces + m.wasteScrap + m.wasteDefect + m.wasteRecycled)) *
+              100,
+          0
+        ) / metrics.length
+      : 0
+    ).toFixed(2),
+  };
 
-  const { total_entries, chw_in_temp, chw_out_temp, avg_temps } = chartData;
+  // Chart data - mapping dates for x-axis labels
+  const chartData = metrics.map((m, index) => ({
+    name: new Date(m.date).toLocaleDateString("en-US", {
+      month: "2-digit",
+      day: "2-digit",
+    }), // Use date for the x-axis
+    production: m.totalProduction,
+    target: m.targetProduction,
+    growth: parseFloat(m.growthPercentage),
+    goodPieces: m.goodPieces,
+    wasteScrap: m.wasteScrap,
+    wasteDefect: m.wasteDefect,
+    wasteRecycled: m.wasteRecycled,
+    goodRate: parseFloat(m.goodRate),
+    scrapRate: parseFloat(m.scrapRate),
+    defectRate: parseFloat(m.defectRate),
+    recycleRate: parseFloat(m.recycleRate),
+    manpowerUtilization: m.manpowerUtilization,
+    rawMaterialEfficiency: m.rawMaterialEfficiency,
+    finishedGoodsRatio: m.finishedGoodsRatio,
+  }));
 
-  // OEE Calculations based on the formula
-  const availability = (actualTime / plannedTime) * 100;
-  const performance = (actualOutput / idealOutput) * 100;
-  const quality = (goodOutput / actualOutput) * 100;
-  const averageOEE = (availability + performance + quality) / 3;
+  const latestData = metrics[metrics.length - 1] || {
+    totalProduction: 0,
+    growthPercentage: 0,
+    achievementRate: 0,
+    qualityRate: 0,
+  };
+
+  // Get latest data for pie chart
+  const latestQualityData =
+    metrics.length > 0 ? metrics[metrics.length - 1] : null;
+  const pieChartData = latestQualityData
+    ? [
+        {
+          name: "Good Products",
+          value: latestQualityData.goodPieces,
+          color: COLORS.good,
+        },
+        {
+          name: "Scrap",
+          value: latestQualityData.wasteScrap,
+          color: COLORS.scrap,
+        },
+        {
+          name: "Defects",
+          value: latestQualityData.wasteDefect,
+          color: COLORS.defect,
+        },
+        {
+          name: "Recycled",
+          value: latestQualityData.wasteRecycled,
+          color: COLORS.recycled,
+        },
+      ]
+    : [];
+
+  const CustomBarShape = (props) => {
+    const { x, y, width, height } = props;
+    return (
+      <g>
+        <rect x={x} y={y} width={width} height={height} fill={props.fill} />
+        <rect x={x} y={y} width={width} height="2" fill="#333" />{" "}
+        {/* Top border */}
+      </g>
+    );
+  };
 
   return (
     <>
       <Header />
       <Sidebar />
-      <div className="cards-container">
-        <button className="download-btn" onClick={handleDownload}>
-          <FaDownload size={22} color="#0e68a4" className="fa-down" />
-        </button>
-        {/* <div className="card-container">
-          <div className="card" style={{ textAlign: "center" }}>
-            <h2 style={{ marginTop: "40px" }}>Total Entries</h2>
-            <p style={{ fontSize: "20px" }}>{total_entries.total_entries}</p>
-          </div> */}
+      <div className="dashboard">
+        <div className="dasboard-container">
 
-          {/* CHW In Temp Card */}
-          {/* <div className="card">
-            <h2>Inlet Temperature</h2>
-            <p>Min : {chw_in_temp.min_chw_in_temp}°C</p>
-            <p>Max : {chw_in_temp.max_chw_in_temp}°C</p>
-          </div> */}
+          {/* Metrics Cards */}
+          <div className="metrics-grid">
+            {[
+              { title: "OEE", value: averages.oee },
+              { title: "Availability", value: averages.availability },
+              { title: "Performance", value: averages.performance },
+              { title: "Quality", value: averages.quality },
+              { title: "Yield", value: averages.yield },
+            ].map((metric) => (
+              <div className="metric-card" key={metric.title}>
+                <div className="card-header">
+                  <h3>{metric.title}</h3>
+                </div>
+                <div className="card-content">
+                  <p className="metric-value">{metric.value}%</p>
+                </div>
+              </div>
+            ))}
+          </div>
 
-          {/* CHW Out Temp Card */}
-          {/* <div className="card">
-            <h2>Outlet Temperature</h2>
-            <p>Min : {chw_out_temp.min_chw_out_temp}°C</p>
-            <p>Max : {chw_out_temp.max_chw_out_temp}°C</p>
-          </div> */}
+          {/* Charts */}
+          <div className="charts-grid">
+            {/* Production Growth Chart */}
+            <div className="chart-card">
+              <div className="card-header">
+                <div className="header-content">
+                  <h3>Production Output</h3>
+                  <div className="metric-values">
+                    <div className="production-value">
+                      {latestData.totalProduction.toLocaleString()} units
+                    </div>
+                    <div className="growth-value">
+                      +{latestData.growthPercentage}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="card-content">
+                <LineChart width={500} height={400} data={chartData}>
+                  <defs>
+                    <linearGradient
+                      id="colorProduction"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="5%" stopColor="#2563eb" stopOpacity={0.8} />
+                      <stop
+                        offset="95%"
+                        stopColor="#60a5fa"
+                        stopOpacity={0.4}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line
+                    type="monotone"
+                    dataKey="production"
+                    stroke="url(#colorProduction)"
+                    strokeWidth={2}
+                    dot={false}
+                  />
+                </LineChart>
+              </div>
+            </div>
 
-          {/* Average Temperatures Card */}
-          {/* <div className="card">
-            <h2>Average Temperature</h2>
-            <p>In : {avg_temps.avg_chw_in_temp.toFixed(2)}°C</p>
-            <p>Out : {avg_temps.avg_chw_out_temp.toFixed(2)}°C</p>
+            {/* Production Bar Chart Card */}
+            <div className="chart-card">
+              <div className="card-header">
+                <div className="header-content">
+                  <h3>Production Output</h3>
+                  <div className="metric-values">
+                    <div className="production-value">
+                      {latestData.totalProduction.toLocaleString()} units
+                    </div>
+                    <div className="achievement-value">
+                      Achievement: {latestData.achievementRate}%
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="card-content">
+                <BarChart width={500} height={300} data={chartData}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar
+                    dataKey="production"
+                    fill="#e5e7eb"
+                    shape={<CustomBarShape />}
+                  />
+                  <Bar
+                    dataKey="target"
+                    fill="#2563eb"
+                    opacity={0.3}
+                    shape={<CustomBarShape />}
+                  />
+                </BarChart>
+              </div>
+            </div>
+
+            {/* Quality Rates Trend */}
+            <div className="chart-card">
+              <div className="card-header">
+                <h3>Quality Metrics Trend</h3>
+              </div>
+              <div className="card-content">
+                <LineChart width={500} height={300} data={chartData}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="goodRate"
+                    name="Good Rate %"
+                    stroke={COLORS.good}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="scrapRate"
+                    name="Scrap Rate %"
+                    stroke={COLORS.scrap}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="defectRate"
+                    name="Defect Rate %"
+                    stroke={COLORS.defect}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey="recycleRate"
+                    name="Recycle Rate %"
+                    stroke={COLORS.recycled}
+                  />
+                </LineChart>
+              </div>
+            </div>
+
+            {/* Quality Distribution Pie Chart */}
+            <div className="chart-card">
+              <div className="card-header">
+                <h3>Current Quality Distribution</h3>
+                <div className="card-subtitle">
+                  Total Pieces:{" "}
+                  {latestQualityData?.totalPieces.toLocaleString() || 0}
+                </div>
+              </div>
+              <div className="card-content">
+                <PieChart width={500} height={360}>
+                  <Pie
+                    data={pieChartData}
+                    cx={250}
+                    cy={150}
+                    innerRadius={60}
+                    outerRadius={120}
+                    paddingAngle={5}
+                    dataKey="value"
+                    label={({ name, percent }) =>
+                      `${name} (${(percent * 100).toFixed(1)}%)`
+                    }
+                  >
+                    {pieChartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                  <Legend />
+                </PieChart>
+              </div>
+            </div>
+
+            {/* Daily Quality Breakdown */}
+            <div className="chart-card">
+              <div className="card-header">
+                <h3>Daily Quality Breakdown</h3>
+              </div>
+              <div className="card-content">
+                <BarChart width={500} height={300} data={chartData}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey="goodPieces"
+                    name="Good Products"
+                    stackId="a"
+                    fill={COLORS.good}
+                    shape={<CustomBarShape />}
+                  />
+                  <Bar
+                    dataKey="wasteScrap"
+                    name="Scrap"
+                    stackId="a"
+                    fill={COLORS.scrap}
+                    shape={<CustomBarShape />}
+                  />
+                  <Bar
+                    dataKey="wasteDefect"
+                    name="Defects"
+                    stackId="a"
+                    fill={COLORS.defect}
+                    shape={<CustomBarShape />}
+                  />
+                  <Bar
+                    dataKey="wasteRecycled"
+                    name="Recycled"
+                    stackId="a"
+                    fill={COLORS.recycled}
+                    shape={<CustomBarShape />}
+                  />
+                </BarChart>
+              </div>
+            </div>
+
+            {/* Manpower Utilization Chart */}
+            <div className="chart-card">
+              <div className="card-header">
+                <h3>Manpower Utilization</h3>
+              </div>
+              <div className="card-content">
+                <BarChart width={500} height={300} data={chartData}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey="manpowerUtilization"
+                    fill="#f97316"
+                    shape={<CustomBarShape />}
+                  />
+                </BarChart>
+              </div>
+            </div>
+
+            {/* Raw Material Efficiency Chart */}
+            <div className="chart-card">
+              <div className="card-header">
+                <h3>Raw Material Efficiency</h3>
+              </div>
+              <div className="card-content">
+                <LineChart width={500} height={300} data={chartData}>
+                <defs>
+                    <linearGradient
+                      id="colorProduction"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="5%" stopColor="#2563eb" stopOpacity={0.8} />
+                      <stop
+                        offset="95%"
+                        stopColor="#60a5fa"
+                        stopOpacity={0.4}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey="rawMaterialEfficiency"
+                    stroke="url(#colorProduction)"
+                  />
+                </LineChart>
+              </div>
+            </div>
+
+            {/* Finished Goods Chart */}
+            <div className="chart-card">
+              <div className="card-header">
+                <h3>Finished Goods Ratio</h3>
+              </div>
+              <div className="card-content">
+                <BarChart width={500} height={300} data={chartData}>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar
+                    dataKey="finishedGoodsRatio"
+                    fill="#a855f7"
+                    shape={<CustomBarShape />}
+                  />
+                </BarChart>
+              </div>
+            </div>
           </div>
-        </div> */}
-        {/* <div className="OEE-section">
-          <h2>OEE Metrics</h2>
-          <div className="Gauge.OEE">
-            <Plot
-              data={[
-                {
-                  type: "indicator",
-                  mode: "gauge+number",
-                  value: averageOEE,
-                  title: { text: "Average OEE" },
-                  gauge: {
-                    axis: { range: [0, 100] },
-                    bar: { color: "70261F" },
-                    steps: [
-                      { range: [0, averageOEE], color: "70261F" },
-                      { range: [averageOEE, 100], color: "lightgray" },
-                    ],
-                    threshold: {
-                      line: { color: "70261F", width: 4 },
-                      thickness: 0.75,
-                      value: averageOEE,
-                    },
-                  },
-                },
-              ]}
-              layout={{
-                width: 500,
-                height: 300,
-              }}
-              config={{
-                displayModeBar: false,
-              }}
-            />
-          </div>
-          <div className="Line-OEE">
-            <Plot
-              data={[
-                {
-                  type: "bar",
-                  x: [availability, performance, quality],
-                  y: ["Availability", "Performance", "Quality"],
-                  orientation: "h",
-                  marker: { color: ["D1BDFF", "#ffafcc", "#a2d2ff"] },
-                },
-              ]}
-              layout={{
-                title: "OEE Metrics ",
-                xaxis: { title: "Percentage (%)" },
-                yaxis: { title: "" },
-                
-              }}
-              onClick={handleBarClick}
-              config={{
-                displayModeBar: false,
-              }}
-            />
-            {selectedMetric === "Availability" && <Availability />}
-            {selectedMetric === "Performance" && <Performance />}
-            {selectedMetric === "Quality" && <Quality />}
-          </div>
-        </div> */}
-        <div>
-          <OEEanalysis/>
         </div>
-        
       </div>
-      
     </>
   );
 };

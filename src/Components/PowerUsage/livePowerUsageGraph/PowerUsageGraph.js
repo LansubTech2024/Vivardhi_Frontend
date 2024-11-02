@@ -1,77 +1,62 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Line } from 'react-chartjs-2';
-import { updateLivePowerUsage} from '../livePowerUsage';
-import Chart from 'chart.js/auto';
 
-const LivePowerUsageGraph = () => {
+import React, { useState, useEffect } from 'react';
+import { Line } from 'react-chartjs-2';
+import axios from 'axios';
+
+const LivePowerUsageChart = () => {
   const [liveData, setLiveData] = useState([]);
-  const [gradient, setGradient] = useState(null);
-  const maxDataPoints = 10;
-  const chartRef = useRef(null);
+  const [labels, setLabels] = useState([]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setLiveData((prevData) => {
-        const newUsage = updateLivePowerUsage();
-        const now = new Date();
-        const newData = {
-          time: now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' }),
-          usage: newUsage,
-        };
-        return [...prevData.slice(-maxDataPoints + 1), newData]; // Keep the latest 10 data points
-      });
-    }, 2000); // Update every second
+    const fetchLiveData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/live-power');
+        const currentPower = response.data.livePowerUsage;
 
-    return () => clearInterval(interval); // Clean up interval on component unmount
+        setLiveData((prevData) => [...prevData.slice(-19), currentPower]); // Keep only the last 20 points
+        setLabels((prevLabels) => [
+          ...prevLabels.slice(-19),
+          new Date().toLocaleTimeString(),
+        ]);
+      } catch (error) {
+        console.error('Error fetching live power usage:', error);
+      }
+    };
+
+    const interval = setInterval(fetchLiveData, 2000); // Fetch every 2 seconds
+    return () => clearInterval(interval); // Cleanup
   }, []);
 
-  useEffect(() => {
-    // Create gradient only after chart is rendered and ref is available
-    const chart = chartRef.current;
-    if (chart) {
-      const ctx = chart.ctx;
-      const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-      gradient.addColorStop(0, 'rgba(75, 192, 192, 0.4)');
-      gradient.addColorStop(1, 'rgba(75, 192, 192, 0.05)');
-      setGradient(gradient); // Store the gradient in state
-    }
-  }, [chartRef]);
-
   const data = {
-    labels: liveData.map((entry) => entry.time), // Time labels for the x-axis
+    labels,
     datasets: [
       {
         label: 'Live Power Usage (kW)',
-        data: liveData.map((entry) => entry.usage), // Power usage values for the y-axis
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: gradient,
+        data: liveData,
         fill: true,
-        tension: 0.4,
+        backgroundColor: 'rgba(75,192,192,0.2)',
+        borderColor: 'rgba(75,192,192,1)',
+        tension: 0.4, // Smooth the line
       },
     ],
   };
 
   const options = {
     scales: {
-      x: {
-        grid: {
-          display: false, // Hide x-axis grid lines
-        },
-      },
-      y: {
-        grid: {
-          display: false, // Hide y-axis grid lines
-        }, 
-      },
+      x: { display: true },
+      y: { display: true },
     },
     plugins: {
-      legend: {
-        display: true,
-      },
+      legend: { display: false },
     },
   };
 
-  return <Line ref={chartRef} data={data} options={options} width={400} height={100} />;
+  return (
+    <div>
+      <h3>Live Power Usage</h3>
+      <Line data={data} options={options} />
+    </div>
+  );
 };
 
-export default LivePowerUsageGraph;
+export default LivePowerUsageChart;

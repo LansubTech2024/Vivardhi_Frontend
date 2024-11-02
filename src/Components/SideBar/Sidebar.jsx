@@ -56,6 +56,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               </Link>
             </li>
             <li>
+              <Link to="#">
+              {/* <i className="fa-solid fa-wrench"></i> */}
+                <span>Productivity</span>
+              </Link>
+            </li>
+            <li>
               <Link to="/cncmachine">
               {/* <i className="fa-solid fa-wrench"></i> */}
                 <span>Machine Analysis</span>
@@ -104,12 +110,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 </div>
               )}
             </li>
-            <li>
+            {/* <li>
               <Link to="/temperature">
-                {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
+                <i className="fa-solid fa-magnifying-glass-chart"></i>
                 <span>Predictive Analysis</span>
               </Link>
-            </li>
+            </li> */}
             {/* <li>
               <Link to="/pressure">
               <i className="fa-solid fa-gauge-simple-high"></i>
