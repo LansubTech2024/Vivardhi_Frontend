@@ -1,89 +1,96 @@
-.metrics-dashboard {
-  padding: 24px;
-  min-height: 100vh;
-  max-width:1200px;
-  margin-left:30px;
+/* OEE analysis.css */
+
+/* Basic Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.metrics-dashboard h1 {
-  font-weight: bold;
-  margin-bottom: 34px;
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  padding: 20px;
+  margin-left: 300px;
 }
 
-.metrics-dashboard h2 {
-  font-weight: bold;
-  margin-bottom: 16px;
+/* Container */
+h2 {
+  margin-bottom: 20px;
+  color: #4a4a4a;
 }
 
-.metrics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-bottom: 32px;
+/* Search Bar */
+input[type="text"] {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 20px;
 }
 
-.metric-card {
-  border: 1px solid;
-  padding: 16px;
-  border-radius: 8px;
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.metric-label {
-  color: black;
-  margin-bottom: 4px;
+th, td {
+  padding: 12px;
   text-align: left;
+  border-bottom: 1px solid #ddd;
 }
 
-.metric-value {
-  font-weight: bold;
+th {
+  background-color: #f2f2f2;
 }
 
-.section {
-  margin-bottom: 32px;
+/* Row Hover Effect */
+tr:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
 }
 
-.chart-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 16px;
+/* Card Container */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
-.chart-card {
-  border: 1px solid;
-  padding: 16px;
+/* Card Styles */
+.card {
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-radius: 8px;
+  padding: 15px;
+  width: calc(25% - 20px); /* Four cards in a row */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.chart-header {
-  margin-bottom: 16px;
+.card h3, .card h4 {
+  margin-bottom: 10px;
+  color: #4a4a4a;
 }
 
-.chart-label {
-  color: #6b7280;
-  font-size: 14px;
-  margin-bottom: 4px;
+.card p {
+  font-size: 18px;
+  color: #333;
 }
 
-.chart-value {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.chart-growth {
-  color: #10b981;
-  font-size: 14px;
-}
-
-.chart-container {
-  height: 200px;
-}
-
+/* Responsive Styles */
 @media (max-width: 768px) {
-  .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .card {
+      width: calc(50% - 20px); /* Two cards in a row */
   }
+}
 
-  .chart-grid {
-    grid-template-columns: 1fr;
+@media (max-width: 480px) {
+  .card {
+      width: 100%; /* One card in a row */
   }
 }

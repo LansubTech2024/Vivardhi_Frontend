@@ -129,6 +129,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               </Link>
             </li> */}
             <li>
+              <Link to="/oeeanalysis"></Link>
+              {/* <i className="fa-solid fa-database"></i> */}
+              <span>OEE analysis</span>
+            </li>
+            <li>
               <Link to="/resources">
                 {/* <i className="fa-solid fa-database"></i> */}
                 <span>Resource Planning</span>
