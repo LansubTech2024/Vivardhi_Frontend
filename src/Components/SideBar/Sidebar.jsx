@@ -50,19 +50,19 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               </Link>
             </li>
             <li>
-              <Link to="/oeemetrics">
+              <Link to="/oeeanalysis">
               {/* <i className="fa-solid fa-wrench"></i> */}
                 <span>Overall Equipment Efficiency(OEE)</span>
               </Link>
             </li>
             <li>
-              <Link to="#">
+              <Link to="/productivity">
               {/* <i className="fa-solid fa-wrench"></i> */}
                 <span>Productivity</span>
               </Link>
             </li>
             <li>
-              <Link to="/cncmachine">
+              <Link to="/machine-analysis">
               {/* <i className="fa-solid fa-wrench"></i> */}
                 <span>Machine Analysis</span>
               </Link>
@@ -110,6 +110,18 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 </div>
               )}
             </li>
+            <li>
+              <Link to="#">
+                {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
+                <span>Report</span>
+              </Link>
+            </li>
+            <li>
+              <Link to="/help">
+                {/* <i className="fa-solid fa-question-circle"></i> */}
+                <span>Help and Support</span>
+              </Link>
+            </li>
             {/* <li>
               <Link to="/temperature">
                 <i className="fa-solid fa-magnifying-glass-chart"></i>
@@ -128,23 +140,18 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 <span>Overall Equipment<br/>Efficiency(OEE)</span>
               </Link>
             </li> */}
-            <li>
-              <Link to="/oeeanalysis"></Link>
-              {/* <i className="fa-solid fa-database"></i> */}
+            {/* <li>
+              <Link to="/oeeanalysis">
+              <i className="fa-solid fa-database"></i>
               <span>OEE analysis</span>
-            </li>
-            <li>
+              </Link>
+            </li> */}
+            {/* <li>
               <Link to="/resources">
-                {/* <i className="fa-solid fa-database"></i> */}
+                <i className="fa-solid fa-database"></i>
                 <span>Resource Planning</span>
               </Link>
-            </li>
-            <li>
-              <Link to="/help">
-                {/* <i className="fa-solid fa-question-circle"></i> */}
-                <span>Help and Support</span>
-              </Link>
-            </li>
+            </li> */}
             {/* 
             <li>
               <Link to="#">

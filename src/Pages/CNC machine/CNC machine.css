@@ -1,10 +1,10 @@
-.dashboard-container {
+.cnc-dashboard-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 24px;
 }
 
-.dashboard-card {
+.cnc-dashboard-card {
   background: white;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -13,7 +13,7 @@
   width: 1000px;
 }
 
-.dashboard-card h2 {
+.cnc-dashboard-card h2 {
   font-size: 20px;
   margin-bottom: 16px;
   color: #333;

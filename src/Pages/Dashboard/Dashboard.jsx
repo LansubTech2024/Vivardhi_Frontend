@@ -1,9 +1,12 @@
 
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import "./Dashboard.css";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/SideBar/Sidebar";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import {
   LineChart,
   Line,
@@ -22,12 +25,14 @@ const Dashboard = () => {
   const [metrics, setMetrics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // For navigation
+  const [selectedMetric, setSelectedMetric] = useState(null); 
 
   const COLORS = {
-    good: "#22c55e", // green
-    scrap: "#dc2626", // red
-    defect: "#f97316", // orange
-    recycled: "#3b82f6", // blue
+    good: "#90EE90", // green
+    scrap: "#fd5c63", // red
+    defect: "#FC8E13", // orange
+    recycled: "#72A0C1", // blue
   };
 
   useEffect(() => {
@@ -55,6 +60,15 @@ const Dashboard = () => {
   if (error) {
     return <div className="error">{error}</div>;
   }
+
+  const handleCardClick = (metric) => {
+    setSelectedMetric(metric); // Set the selected metric
+    navigate(`/oeeanalysis?metric=${metric}`); // Navigate to the OEE Analysis tab with the selected metric
+  };
+
+  const handleGraphClick = () => {
+    navigate('/productivity');
+  };
 
   // Calculate averages
   const calculateAverage = (key) => {
@@ -138,16 +152,28 @@ const Dashboard = () => {
       ]
     : [];
 
-  const CustomBarShape = (props) => {
-    const { x, y, width, height } = props;
-    return (
-      <g>
-        <rect x={x} y={y} width={width} height={height} fill={props.fill} />
-        <rect x={x} y={y} width={width} height="2" fill="#333" />{" "}
-        {/* Top border */}
-      </g>
-    );
+  // const CustomBarShape = (props) => {
+  //   const { x, y, width, height } = props;
+  //   return (
+  //     <g>
+  //       <rect x={x} y={y} width={width} height={height} fill={props.fill} />
+  //       <rect x={x} y={y} width={width} height="2" fill="#333" />{" "}
+  //     </g>
+  //   );
+  // };
+
+  // Calculate maximum production value for scaling
+  const maxProductionValue = Math.max(
+    latestData.targetProduction,
+    latestData.totalProduction
+  );
+
+  // Function to calculate percentage for circular bars
+  const calculatePercentage = (value) => {
+    return (value / maxProductionValue) * 100;
   };
+
+  
 
   return (
     <>
@@ -159,19 +185,19 @@ const Dashboard = () => {
           {/* Metrics Cards */}
           <div className="metrics-grid">
             {[
-              { title: "OEE", value: averages.oee },
-              { title: "Availability", value: averages.availability },
-              { title: "Performance", value: averages.performance },
-              { title: "Quality", value: averages.quality },
-              { title: "Yield", value: averages.yield },
+              { title: "OEE",key: "oee", value: averages.oee },
+              { title: "Availability", key: "availability", value: averages.availability },
+              { title: "Performance", key: "performance", value: averages.performance },
+              { title: "Quality", key: "quality",value: averages.quality },
+              // { title: "Yield", key: "yield", value: averages.yield },
             ].map((metric) => (
-              <div className="metric-card" key={metric.title}>
-                <div className="card-header">
+              <div 
+              className="metric-card" 
+              key={metric.key}
+              onClick={() => handleCardClick(metric.key)}
+              >
                   <h3>{metric.title}</h3>
-                </div>
-                <div className="card-content">
                   <p className="metric-value">{metric.value}%</p>
-                </div>
               </div>
             ))}
           </div>
@@ -179,7 +205,7 @@ const Dashboard = () => {
           {/* Charts */}
           <div className="charts-grid">
             {/* Production Growth Chart */}
-            <div className="chart-card">
+            <div className="chart-card" onClick={handleGraphClick}>
               <div className="card-header">
                 <div className="header-content">
                   <h3>Production Output</h3>
@@ -226,37 +252,71 @@ const Dashboard = () => {
             </div>
 
             {/* Production Bar Chart Card */}
-            <div className="chart-card">
-              <div className="card-header">
-                <div className="header-content">
-                  <h3>Production Output</h3>
-                  <div className="metric-values">
-                    <div className="production-value">
-                      {latestData.totalProduction.toLocaleString()} units
+            <div className="production-circle-card">
+              <div className="card-content production-progress">
+                <div className="circular-progressbars">
+                  {/* Target Production Circle */}
+                  <div className="progress-item">
+                    <div className="progress-circle">
+                      <CircularProgressbar
+                        value={calculatePercentage(latestData.targetProduction)}
+                        text={`${latestData.targetProduction.toLocaleString()}`}
+                        styles={buildStyles({
+                          pathColor: '#60a5fa',
+                          textColor: '#60a5fa',
+                          trailColor: '#e5e7eb',
+                          textSize: '16px',
+                          pathTransitionDuration: 0.5,
+                        })}
+                      />
                     </div>
-                    <div className="achievement-value">
-                      Achievement: {latestData.achievementRate}%
+                    <div className="progress-label">Target Production</div>
+                  </div>
+
+                  {/* Actual Production Circle */}
+                  <div className="progress-item">
+                    <div className="progress-circle">
+                      <CircularProgressbar
+                        value={calculatePercentage(latestData.totalProduction)}
+                        text={`${latestData.totalProduction.toLocaleString()}`}
+                        styles={buildStyles({
+                          pathColor: '#2563eb',
+                          textColor: '#2563eb',
+                          trailColor: '#e5e7eb',
+                          textSize: '16px',
+                          pathTransitionDuration: 0.5,
+                        })}
+                      />
                     </div>
+                    <div className="progress-label">Actual Production</div>
+                  </div>
+
+                  {/* Achievement Rate Circle */}
+                  <div className="progress-item">
+                    <div className="progress-circle">
+                      <CircularProgressbar
+                        value={parseFloat(latestData.achievementRate)}
+                        text={`${latestData.achievementRate}%`}
+                        styles={buildStyles({
+                          pathColor: '#16a34a',
+                          textColor: '#16a34a',
+                          trailColor: '#e5e7eb',
+                          textSize: '16px',
+                          pathTransitionDuration: 0.5,
+                        })}
+                      />
+                    </div>
+                    <div className="progress-label">Achievement Rate</div>
                   </div>
                 </div>
-              </div>
-              <div className="card-content">
-                <BarChart width={500} height={300} data={chartData}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar
-                    dataKey="production"
-                    fill="#e5e7eb"
-                    shape={<CustomBarShape />}
-                  />
-                  <Bar
-                    dataKey="target"
-                    fill="#2563eb"
-                    opacity={0.3}
-                    shape={<CustomBarShape />}
-                  />
-                </BarChart>
+
+                {/* Growth Rate Display */}
+                <div className="growth-rate">
+                  <span className="growth-label">Growth Rate:</span>
+                  <span className={`growth-value ${parseFloat(latestData.growthPercentage) >= 0 ? 'positive' : 'negative'}`}>
+                    {parseFloat(latestData.growthPercentage) >= 0 ? '+' : ''}{latestData.growthPercentage}%
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -332,66 +392,32 @@ const Dashboard = () => {
               </div>
             </div>
 
-            {/* Daily Quality Breakdown */}
-            <div className="chart-card">
-              <div className="card-header">
-                <h3>Daily Quality Breakdown</h3>
-              </div>
-              <div className="card-content">
-                <BarChart width={500} height={300} data={chartData}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar
-                    dataKey="goodPieces"
-                    name="Good Products"
-                    stackId="a"
-                    fill={COLORS.good}
-                    shape={<CustomBarShape />}
-                  />
-                  <Bar
-                    dataKey="wasteScrap"
-                    name="Scrap"
-                    stackId="a"
-                    fill={COLORS.scrap}
-                    shape={<CustomBarShape />}
-                  />
-                  <Bar
-                    dataKey="wasteDefect"
-                    name="Defects"
-                    stackId="a"
-                    fill={COLORS.defect}
-                    shape={<CustomBarShape />}
-                  />
-                  <Bar
-                    dataKey="wasteRecycled"
-                    name="Recycled"
-                    stackId="a"
-                    fill={COLORS.recycled}
-                    shape={<CustomBarShape />}
-                  />
-                </BarChart>
-              </div>
-            </div>
-
             {/* Manpower Utilization Chart */}
             <div className="chart-card">
               <div className="card-header">
                 <h3>Manpower Utilization</h3>
               </div>
               <div className="card-content">
-                <BarChart width={500} height={300} data={chartData}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar
-                    dataKey="manpowerUtilization"
-                    fill="#f97316"
-                    shape={<CustomBarShape />}
-                  />
-                </BarChart>
+                <div className="metrics-details">
+                  <div className="metric-detail-card">
+                    <h4>Current Utilization</h4>
+                    <div className="metric-value">
+                      {chartData[chartData.length - 1]?.manpowerUtilization || 0}%
+                    </div>
+                  </div>
+                  <div className="metric-detail-card">
+                    <h4>Total Manpower</h4>
+                    <div className="metric-value">
+                      {latestData.totalManpower || 0}
+                    </div>
+                  </div>
+                  <div className="metric-detail-card">
+                    <h4>Allocated Hours</h4>
+                    <div className="metric-value">
+                      {latestData.totalAllocatedHours || 0}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -437,17 +463,26 @@ const Dashboard = () => {
                 <h3>Finished Goods Ratio</h3>
               </div>
               <div className="card-content">
-                <BarChart width={500} height={300} data={chartData}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Bar
-                    dataKey="finishedGoodsRatio"
-                    fill="#a855f7"
-                    shape={<CustomBarShape />}
-                  />
-                </BarChart>
+                <div className="metrics-details">
+                  <div className="metric-detail-card">
+                    <h4>Current Ratio</h4>
+                    <div className="metric-value">
+                      {chartData[chartData.length - 1]?.finishedGoodsRatio || 0}%
+                    </div>
+                  </div>
+                  <div className="metric-detail-card">
+                    <h4>Current Stock</h4>
+                    <div className="metric-value">
+                      {latestData.finishedGoodsStock || 0}
+                    </div>
+                  </div>
+                  <div className="metric-detail-card">
+                    <h4>Minimum Required</h4>
+                    <div className="metric-value">
+                      {latestData.finishedGoodMinimumRequired || 0}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

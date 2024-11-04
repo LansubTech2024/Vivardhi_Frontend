@@ -1,11 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './OEE analysis.css';
 
 const OeeDashboard = () => {
     const [machines, setMachines] = useState([]);
-    const [selectedMachine, setSelectedMachine] = useState(null);
     const [searchZone, setSearchZone] = useState('');
+    const [selectedZone, setSelectedZone] = useState('all');
+    const navigate = useNavigate();
+     // Get the selected metric from query parameters
+     const location = useLocation();
+     const params = new URLSearchParams(location.search);
+     const selectedMetric = params.get('metric');
+     
 
     // Fetch machine data on component mount
     useEffect(() => {
@@ -22,119 +29,80 @@ const OeeDashboard = () => {
 
     // Handle row click to display machine details
     const handleRowClick = (machine) => {
-        setSelectedMachine(machine);
+        navigate(`/machine-details/${machine.machineId}`, { state: { machine } });
     };
 
-    // Filter machines by zone
-    const filteredMachines = machines.filter(machine => 
-        machine.zoneName.toLowerCase().includes(searchZone.toLowerCase())
-    );
+
+    // Filter machines by zone and search text
+    const filteredMachines = machines.filter(machine => {
+        const matchesZone = selectedZone === 'all' || machine.zoneName.toLowerCase() === selectedZone.toLowerCase();
+        const matchesSearch = machine.zoneName.toLowerCase().includes(searchZone.toLowerCase());
+        return matchesZone && matchesSearch;
+    });
+
+
+
+    // Define CSS classes to blur columns that are not selected
+    const getColumnClass = (column) => {
+        if (!selectedMetric) {
+            return 'visible-column';
+        }
+        if (column === 'machine' || column === selectedMetric) {
+            return 'visible-column';
+        }
+        return 'blurred-column';
+    };
+
+    // Unique zone names for dropdown options
+    const zoneOptions = ['all', ...new Set(machines.map(machine => machine.zoneName))];
+
 
     return (
-        <div>
+        <div className="oee-table-part">
             <h2>Machine OEE Dashboard</h2>
 
-            {/* Search bar to filter by zone */}
-            <input
-                type="text"
-                placeholder="Search by Zone..."
-                value={searchZone}
-                onChange={(e) => setSearchZone(e.target.value)}
-                style={{ marginBottom: '20px', padding: '10px', width: '100%' }}
-            />
+            {/* Dropdown to filter by zone */}
+            <select
+                value={selectedZone}
+                onChange={(e) => setSelectedZone(e.target.value)}
+                style={{ marginBottom: '20px', padding: '10px', width: '200px' }}
+            >
+                {zoneOptions.map(zone => (
+                        <option key={zone} value={zone}>
+                            {zone === 'all' ? 'All Zones' : zone}
+                        </option>
+                    ))}
+            </select>
 
             {/* Table to display OEE data */}
             <table>
                 <thead>
                     <tr>
-                        <th>Machine ID</th>
-                        <th>Zone Name</th>
-                        <th>Availability (%)</th>
-                        <th>Performance (%)</th>
-                        <th>Quality (%)</th>
-                        <th>OEE (%)</th>
+                        <th className={getColumnClass('machine')}>Machine</th>
+                        <th className={getColumnClass('oee')}>OEE (%)</th>
+                        <th className={getColumnClass('availability')}>Availability (%)</th>
+                        <th className={getColumnClass('performance')}>Performance (%)</th>
+                        <th className={getColumnClass('quality')}>Quality (%)</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredMachines.map(machine => (
+                {filteredMachines.length > 0 ? (
+                    filteredMachines.map(machine => (
                         <tr key={machine.machineId} onClick={() => handleRowClick(machine)}>
-                            <td>{machine.machineId}</td>
-                            <td>{machine.zoneName}</td>
-                            <td>{machine.availability}</td>
-                            <td>{machine.performance}</td>
-                            <td>{machine.quality}</td>
-                            <td>{machine.oee}</td>
-                        </tr>
-                    ))}
+                        <td className={getColumnClass('machine')}>{machine.machineId}</td>
+                        <td className={getColumnClass('oee')}>{machine.oee}</td>
+                        <td className={getColumnClass('availability')}>{machine.availability}</td>
+                        <td className={getColumnClass('performance')}>{machine.performance}</td>
+                        <td className={getColumnClass('quality')}>{machine.quality}</td>
+                    </tr>
+                    ))
+                ) : (
+                    <tr>
+                        <td colSpan="5" style={{ textAlign: 'center' }}>No machines found for the selected zone.</td>
+                    </tr>
+                )}
                 </tbody>
             </table>
-
-            {/* Display details in individual cards if a machine is selected */}
-            {selectedMachine && (
-                <div style={{ marginTop: '20px' }}>
-                    <h3>Details for Machine {selectedMachine.machineId}</h3>
-                    <div className="card-container">
-                        {/* OEE Metrics Cards */}
-                        <div className="card">
-                            <h3>Availability</h3>
-                            <p>{selectedMachine.availability}%</p>
-                        </div>
-                        <div className="card">
-                            <h3>Performance</h3>
-                            <p>{selectedMachine.performance}%</p>
-                        </div>
-                        <div className="card">
-                            <h3>Quality</h3>
-                            <p>{selectedMachine.quality}%</p>
-                        </div>
-                        <div className="card">
-                            <h3>OEE</h3>
-                            <p>{selectedMachine.oee}%</p>
-                        </div>
-
-                        {/* Performance Details */}
-                        <h4>Performance Details</h4>
-                        <div className="card">
-                            <h4>Total Pieces</h4>
-                            <p>{selectedMachine.productionDetails?.totalPieces}</p>
-                        </div>
-                        <div className="card">
-                            <h4>Good Pieces</h4>
-                            <p>{selectedMachine.productionDetails?.goodPieces}</p>
-                        </div>
-                        <div className="card">
-                            <h4>Target</h4>
-                            <p>{selectedMachine.target}</p>
-                        </div>
-
-                        {/* Quality Details */}
-                        <h4>Quality Details</h4>
-                        <div className="card">
-                            <h4>Waste Scrap</h4>
-                            <p>{selectedMachine.productionDetails?.wasteScrap}</p>
-                        </div>
-                        <div className="card">
-                            <h4>Waste Defect</h4>
-                            <p>{selectedMachine.productionDetails?.wasteDefect}</p>
-                        </div>
-
-                        {/* Availability Details */}
-                        <h4>Availability Details</h4>
-                        <div className="card">
-                            <h4>Uptime</h4>
-                            <p>{selectedMachine.uptime}</p>
-                        </div>
-                        <div className="card">
-                            <h4>Downtime</h4>
-                            <p>{selectedMachine.downtime}</p>
-                        </div>
-                        <div className="card">
-                            <h4>Status</h4>
-                            <p>{selectedMachine.machineStatus}</p>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };

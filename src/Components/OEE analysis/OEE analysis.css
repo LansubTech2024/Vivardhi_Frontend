@@ -1,28 +1,13 @@
-/* OEE analysis.css */
-
-/* Basic Reset */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+.oee-table-part{
+  margin-left: 200px;
 }
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
-  padding: 20px;
-  margin-left: 300px;
-}
-
-/* Container */
-h2 {
+.oee-table-part h2 {
   margin-bottom: 20px;
   color: #4a4a4a;
 }
 
 /* Search Bar */
-input[type="text"] {
+.oee-table-part input[type="text"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
@@ -30,9 +15,9 @@ input[type="text"] {
   margin-bottom: 20px;
 }
 
-/* Table Styles */
+
 table {
-  width: 100%;
+  width: 800px;
   border-collapse: collapse;
   margin-bottom: 20px;
   background-color: #fff;
@@ -80,6 +65,20 @@ tr:hover {
 .card p {
   font-size: 18px;
   color: #333;
+}
+
+.visible-column {
+  opacity: 1;
+}
+
+.blurred-column {
+  opacity: 0.3;
+  filter: blur(4px);
+  pointer-events: none;
+}
+.blur{
+  filter: blur(4px);
+  opacity: 0.5;
 }
 
 /* Responsive Styles */

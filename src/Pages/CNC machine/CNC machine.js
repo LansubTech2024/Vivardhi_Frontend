@@ -94,8 +94,8 @@ const CNCmachine = () => {
     <>
     <Header/>
     <Sidebar/>
-    <div className="dashboard-container">
-      <div className="dashboard-card">
+    <div className="cnc-dashboard-container">
+      <div className="cnc-dashboard-card">
         <h2>CNC Machines</h2>
         <div className="table-wrapper">
           <table>
