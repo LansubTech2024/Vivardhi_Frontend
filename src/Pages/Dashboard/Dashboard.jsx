@@ -1,17 +1,14 @@
-
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Dashboard.css";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/SideBar/Sidebar";
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import {
   LineChart,
   Line,
-  BarChart,
-  Bar,
   PieChart,
   Pie,
   Cell,
@@ -26,7 +23,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate(); // For navigation
-  const [selectedMetric, setSelectedMetric] = useState(null); 
+  const [selectedMetric, setSelectedMetric] = useState(null);
 
   const COLORS = {
     good: "#90EE90", // green
@@ -67,7 +64,7 @@ const Dashboard = () => {
   };
 
   const handleGraphClick = () => {
-    navigate('/productivity');
+    navigate("/productivity");
   };
 
   // Calculate averages
@@ -173,36 +170,42 @@ const Dashboard = () => {
     return (value / maxProductionValue) * 100;
   };
 
-  
-
   return (
     <>
       <Header />
       <Sidebar />
       <div className="dashboard">
         <div className="dasboard-container">
-
           {/* Metrics Cards */}
           <div className="metrics-grid">
             {[
-              { title: "OEE",key: "oee", value: averages.oee },
-              { title: "Availability", key: "availability", value: averages.availability },
-              { title: "Performance", key: "performance", value: averages.performance },
-              { title: "Quality", key: "quality",value: averages.quality },
+              { title: "OEE", key: "oee", value: averages.oee },
+              {
+                title: "Availability",
+                key: "availability",
+                value: averages.availability,
+              },
+              {
+                title: "Performance",
+                key: "performance",
+                value: averages.performance,
+              },
+              { title: "Quality", key: "quality", value: averages.quality },
               // { title: "Yield", key: "yield", value: averages.yield },
             ].map((metric) => (
-              <div 
-              className="metric-card" 
-              key={metric.key}
-              onClick={() => handleCardClick(metric.key)}
+              <div
+                className="metric-card"
+                key={metric.key}
+                onClick={() => handleCardClick(metric.key)}
               >
-                  <h3>{metric.title}</h3>
-                  <p className="metric-value">{metric.value}%</p>
+                <h3>{metric.title}</h3>
+                <p className="metric-value">{metric.value}%</p>
               </div>
             ))}
           </div>
 
           {/* Charts */}
+          <h2>Production</h2>
           <div className="charts-grid">
             {/* Production Growth Chart */}
             <div className="chart-card" onClick={handleGraphClick}>
@@ -213,14 +216,22 @@ const Dashboard = () => {
                     <div className="production-value">
                       {latestData.totalProduction.toLocaleString()} units
                     </div>
-                    <div className="growth-value">
-                      +{latestData.growthPercentage}%
+                    <div
+                      className="growth-value"
+                      style={{
+                        color:
+                          latestData.growthPercentage > 0 ? "green" : "red",
+                      }}
+                    >
+                      {latestData.growthPercentage > 0
+                        ? `+${latestData.growthPercentage}%`
+                        : `${latestData.growthPercentage}%`}
                     </div>
                   </div>
                 </div>
               </div>
               <div className="card-content">
-                <LineChart width={500} height={400} data={chartData}>
+                <LineChart width={430} height={350} data={chartData}>
                   <defs>
                     <linearGradient
                       id="colorProduction"
@@ -243,8 +254,10 @@ const Dashboard = () => {
                   <Line
                     type="monotone"
                     dataKey="production"
-                    stroke="url(#colorProduction)"
-                    strokeWidth={2}
+                    // stroke="rgb(59 7 100)"
+                    // stroke="rgb(13 148 136)"
+                    stroke="#2e3047"
+                    strokeWidth={2.5}
                     dot={false}
                   />
                 </LineChart>
@@ -262,10 +275,12 @@ const Dashboard = () => {
                         value={calculatePercentage(latestData.targetProduction)}
                         text={`${latestData.targetProduction.toLocaleString()}`}
                         styles={buildStyles({
-                          pathColor: '#60a5fa',
-                          textColor: '#60a5fa',
-                          trailColor: '#e5e7eb',
-                          textSize: '16px',
+                          // pathColor: "rgb(59 7 100)",
+                          // pathColor:"rgb(13 148 136)",
+                          pathColor:"#2e3047",
+                          textColor: "rgb(59 7 100)",
+                          trailColor: "#e5e7eb",
+                          textSize: "16px",
                           pathTransitionDuration: 0.5,
                         })}
                       />
@@ -280,80 +295,125 @@ const Dashboard = () => {
                         value={calculatePercentage(latestData.totalProduction)}
                         text={`${latestData.totalProduction.toLocaleString()}`}
                         styles={buildStyles({
-                          pathColor: '#2563eb',
-                          textColor: '#2563eb',
-                          trailColor: '#e5e7eb',
-                          textSize: '16px',
+                          // pathColor: "rgb(88 28 135)",
+                          // pathColor:"rgb(20 184 166)",
+                          pathColor:"#57596b",
+                          textColor: "rgb(88 28 135)",
+                          trailColor: "#e5e7eb",
+                          textSize: "16px",
                           pathTransitionDuration: 0.5,
                         })}
                       />
                     </div>
                     <div className="progress-label">Actual Production</div>
                   </div>
+                </div>
 
-                  {/* Achievement Rate Circle */}
-                  <div className="progress-item">
-                    <div className="progress-circle">
-                      <CircularProgressbar
-                        value={parseFloat(latestData.achievementRate)}
-                        text={`${latestData.achievementRate}%`}
-                        styles={buildStyles({
-                          pathColor: '#16a34a',
-                          textColor: '#16a34a',
-                          trailColor: '#e5e7eb',
-                          textSize: '16px',
-                          pathTransitionDuration: 0.5,
-                        })}
-                      />
-                    </div>
-                    <div className="progress-label">Achievement Rate</div>
+                {/* Achievement Rate Circle */}
+                <div className="progress-item">
+                  <div className="progress-circle">
+                    <CircularProgressbar
+                      value={parseFloat(latestData.achievementRate)}
+                      text={`${latestData.achievementRate}%`}
+                      styles={buildStyles({
+                        // pathColor: "rgb(107 33 168)",
+                        // pathColor:"rgb(45 212 191)",
+                        pathColor:"#818290",
+                        textColor: parseFloat(latestData.achievementRate) >= 0 ? "green" : "red",
+                        trailColor: "#e5e7eb",
+                        textSize: "16px",
+                        pathTransitionDuration: 0.5,
+                      })}
+                    />
                   </div>
+                  <div className="progress-label">Achievement Rate</div>
                 </div>
 
                 {/* Growth Rate Display */}
                 <div className="growth-rate">
                   <span className="growth-label">Growth Rate:</span>
-                  <span className={`growth-value ${parseFloat(latestData.growthPercentage) >= 0 ? 'positive' : 'negative'}`}>
-                    {parseFloat(latestData.growthPercentage) >= 0 ? '+' : ''}{latestData.growthPercentage}%
+                  <span
+                    className={`growth-value ${
+                      parseFloat(latestData.growthPercentage) >= 0
+                        ? "positive"
+                        : "negative"
+                    }`}
+                  >
+                    {parseFloat(latestData.growthPercentage) >= 0 ? "+" : ""}
+                    {latestData.growthPercentage}%
                   </span>
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Quality Rates Trend */}
+          {/* Quality Rates Trend */}
+          <h2>Quality</h2>
+          <div className="charts-grid">
             <div className="chart-card">
               <div className="card-header">
                 <h3>Quality Metrics Trend</h3>
               </div>
               <div className="card-content">
-                <LineChart width={500} height={300} data={chartData}>
+                <LineChart width={430} height={350} data={chartData}>
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
-                  <Legend />
+                  <Legend
+                    formatter={(value, entry, index) => (
+                      <span
+                        style={{
+                          color:
+                            index === 0
+                              ? "#333"
+                              : index === 1
+                              ? "#333"
+                              : index === 2
+                              ? "#333"
+                              : index === 3
+                              ? "#333"
+                              : "#333",
+                        }}
+                      >
+                        {value}
+                      </span>
+                    )}
+                  />
                   <Line
                     type="monotone"
                     dataKey="goodRate"
                     name="Good Rate %"
-                    stroke={COLORS.good}
+                    // stroke="rgb(59 7 100)"
+                    // stroke="rgb(13 148 136)"
+                    stroke="#424459"
+                    strokeWidth={2.5}
                   />
                   <Line
                     type="monotone"
                     dataKey="scrapRate"
                     name="Scrap Rate %"
-                    stroke={COLORS.scrap}
+                    // stroke="rgb(107 33 168)"
+                    // stroke="rgb(20 184 166)"
+                    stroke="#6c6e7e"
+                    strokeWidth={2.5}
                   />
                   <Line
                     type="monotone"
                     dataKey="defectRate"
                     name="Defect Rate %"
-                    stroke={COLORS.defect}
+                    // stroke="rgb(126 34 206)"
+                    // stroke="rgb(45 212 191)"
+                    stroke="#9697a3"
+                    strokeWidth={2.5}
                   />
                   <Line
                     type="monotone"
                     dataKey="recycleRate"
                     name="Recycle Rate %"
-                    stroke={COLORS.recycled}
+                    // stroke="rgb(168 85 247)"
+                    // stroke="rgb(153 246 228)"
+                    stroke="#c0c0c7"
+                    strokeWidth={2.5}
                   />
                 </LineChart>
               </div>
@@ -369,7 +429,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="card-content">
-                <PieChart width={500} height={360}>
+                <PieChart width={500} height={400}>
                   <Pie
                     data={pieChartData}
                     cx={250}
@@ -383,16 +443,67 @@ const Dashboard = () => {
                     }
                   >
                     {pieChartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+                      <Cell
+                        key={`cell-${index}`}
+                        // fill={
+                        //   [
+                        //     "rgb(107 33 168)",
+                        //     "rgb(147 51 234)",
+                        //     "rgb(168 85 247)",
+                        //     "rgb(192 132 252)",
+                        //     "#6495ED",
+                        //   ][index]
+                        // }
+                        // fill={
+                        //   [
+                        //     "rgb(13 148 136)",
+                        //     "rgb(20 184 166)",
+                        //     "rgb(45 212 191)",
+                        //     "rgb(153 246 228)",
+                        //     "#6495ED",
+                        //   ][index]
+                        // }
+                        fill={
+                          [
+                            "#424459",
+                            "#6c6e7e",
+                            "#9697a3",
+                            "#c0c0c7",
+                            "#6495ED",
+                          ][index]
+                        }
+                      />
                     ))}
                   </Pie>
                   <Tooltip />
-                  <Legend />
+                  <Legend
+                    formatter={(value, entry, index) => (
+                      <span
+                        style={{
+                          color:
+                            index === 0
+                              ? "#333"
+                              : index === 1
+                              ? "#333"
+                              : index === 2
+                              ? "#333"
+                              : index === 3
+                              ? "#333"
+                              : "#333",
+                        }}
+                      >
+                        {value}
+                      </span>
+                    )}
+                  />
                 </PieChart>
               </div>
             </div>
+          </div>
 
-            {/* Manpower Utilization Chart */}
+          {/* Manpower Utilization Chart */}
+          <h2>Manpower</h2>
+          <div className="charts-grid">
             <div className="chart-card">
               <div className="card-header">
                 <h3>Manpower Utilization</h3>
@@ -402,7 +513,9 @@ const Dashboard = () => {
                   <div className="metric-detail-card">
                     <h4>Current Utilization</h4>
                     <div className="metric-value">
-                      {chartData[chartData.length - 1]?.manpowerUtilization || 0}%
+                      {chartData[chartData.length - 1]?.manpowerUtilization ||
+                        0}
+                      %
                     </div>
                   </div>
                   <div className="metric-detail-card">
@@ -420,66 +533,78 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
+          </div>
 
-            {/* Raw Material Efficiency Chart */}
-            <div className="chart-card">
-              <div className="card-header">
-                <h3>Raw Material Efficiency</h3>
+          {/* Raw Material Efficiency Chart */}
+          <h2>Inventory</h2>
+          <div className="charts-grid">
+            <div className="raw-material-finished-goods">
+              <div className="chart-card">
+                <div className="card-header">
+                  <h3>Raw Material Efficiency</h3>
+                </div>
+                <div className="card-content">
+                  <LineChart width={430} height={350} data={chartData}>
+                    <defs>
+                      <linearGradient
+                        id="colorProduction"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="5%"
+                          stopColor="#2563eb"
+                          stopOpacity={0.8}
+                        />
+                        <stop
+                          offset="95%"
+                          stopColor="#60a5fa"
+                          stopOpacity={0.4}
+                        />
+                      </linearGradient>
+                    </defs>
+                    <XAxis dataKey="name" />
+                    <YAxis />
+                    <Tooltip />
+                    <Legend />
+                    <Line
+                      type="monotone"
+                      dataKey="rawMaterialEfficiency"
+                      stroke="rgb(59 7 100)"
+                      strokeWidth={2.5}
+                    />
+                  </LineChart>
+                </div>
               </div>
-              <div className="card-content">
-                <LineChart width={500} height={300} data={chartData}>
-                <defs>
-                    <linearGradient
-                      id="colorProduction"
-                      x1="0"
-                      y1="0"
-                      x2="0"
-                      y2="1"
-                    >
-                      <stop offset="5%" stopColor="#2563eb" stopOpacity={0.8} />
-                      <stop
-                        offset="95%"
-                        stopColor="#60a5fa"
-                        stopOpacity={0.4}
-                      />
-                    </linearGradient>
-                  </defs>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  <Line
-                    type="monotone"
-                    dataKey="rawMaterialEfficiency"
-                    stroke="url(#colorProduction)"
-                  />
-                </LineChart>
-              </div>
-            </div>
 
-            {/* Finished Goods Chart */}
-            <div className="chart-card">
-              <div className="card-header">
-                <h3>Finished Goods Ratio</h3>
-              </div>
-              <div className="card-content">
-                <div className="metrics-details">
-                  <div className="metric-detail-card">
-                    <h4>Current Ratio</h4>
-                    <div className="metric-value">
-                      {chartData[chartData.length - 1]?.finishedGoodsRatio || 0}%
+              {/* Finished Goods Chart */}
+              <div className="chart-card">
+                <div className="card-header">
+                  <h3>Finished Goods Ratio</h3>
+                </div>
+                <div className="card-content">
+                  <div className="metrics-details">
+                    <div className="metric-detail-card">
+                      <h4>Current Ratio</h4>
+                      <div className="metric-value">
+                        {chartData[chartData.length - 1]?.finishedGoodsRatio ||
+                          0}
+                        %
+                      </div>
                     </div>
-                  </div>
-                  <div className="metric-detail-card">
-                    <h4>Current Stock</h4>
-                    <div className="metric-value">
-                      {latestData.finishedGoodsStock || 0}
+                    <div className="metric-detail-card">
+                      <h4>Current Stock</h4>
+                      <div className="metric-value">
+                        {latestData.finishedGoodsStock || 0}
+                      </div>
                     </div>
-                  </div>
-                  <div className="metric-detail-card">
-                    <h4>Minimum Required</h4>
-                    <div className="metric-value">
-                      {latestData.finishedGoodMinimumRequired || 0}
+                    <div className="metric-detail-card">
+                      <h4>Minimum Required</h4>
+                      <div className="metric-value">
+                        {latestData.finishedGoodMinimumRequired || 0}
+                      </div>
                     </div>
                   </div>
                 </div>

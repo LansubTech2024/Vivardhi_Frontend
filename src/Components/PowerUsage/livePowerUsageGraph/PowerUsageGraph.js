@@ -38,7 +38,7 @@ const LivePowerUsageChart = () => {
         setLiveData((prevData) => [...prevData.slice(-19), currentPower]); // Keep only the last 20 points
         setLabels((prevLabels) => [
           ...prevLabels.slice(-19),
-          new Date().toLocaleTimeString(),
+          new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }),
         ]);
       } catch (error) {
         console.error('Error fetching live power usage:', error);
@@ -65,8 +65,14 @@ const LivePowerUsageChart = () => {
 
   const options = {
     scales: {
-      x: { display: true },
-      y: { display: true },
+      x: {
+        display: true,
+        grid: { display: false }, // Hide grid lines for x-axis
+      },
+      y: {
+        display: true,
+        grid: { display: false }, // Hide grid lines for y-axis
+      },
     },
     plugins: {
       legend: { display: false },
@@ -77,6 +83,7 @@ const LivePowerUsageChart = () => {
     <div>
       <h3>Live Power Usage</h3>
       <Line data={data} options={options} />
+      
     </div>
   );
 };

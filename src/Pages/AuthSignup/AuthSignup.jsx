@@ -1,28 +1,18 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { ToastContainer, toast } from "react-toastify";
-import AxiosService from "../../Components/AuthService/AuthService";
+import "react-toastify/dist/ReactToastify.css";
 import * as Yup from 'yup';
 import { AiOutlineLock, AiOutlineUser, AiOutlineMail, AiOutlineCheckCircle, AiOutlineEye, AiOutlineEyeInvisible, AiOutlineArrowRight, AiOutlineHome } from 'react-icons/ai';
-import './Auth.css';
+import AxiosService from "../../Components/AuthService/AuthService";
+import '../Auth/Auth.css';
 
-const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
+const Signup = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  // Validation Schemas
-  const loginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email('Invalid email address')
-      .required('Email is required'),
-    password: Yup.string()
-      .min(8, 'Password must be at least 8 characters')
-      .required('Password is required')
-  });
-
   const signupSchema = Yup.object().shape({
-    companyName: Yup.string()
+    companyname: Yup.string()
       .min(2, 'Company name must be at least 2 characters')
       .required('Company name is required'),
     username: Yup.string()
@@ -41,37 +31,31 @@ const Auth = () => {
   });
 
   const initialValues = {
+    companyname: '',
+    username: '',
     email: '',
-    password: '',
-    companyName: '',
-    username: ''
+    password: ''
   };
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     setLoading(true);
     try {
-      const endpoint = isLogin ? "login/" : "signup/";
-      const res = await AxiosService.post(endpoint, values);
-
-      if (res.status === 200 || res.status === 201) {
-        const successMessage = isLogin ? "Login successful!" : "Account created successfully";
-        toast.success(successMessage, {
+      const res = await AxiosService.post("signup/", values);
+      
+      if (res.status === 201) {
+        toast.success("Account created successfully!", {
           position: "top-center",
           autoClose: 3000,
         });
         setTimeout(() => {
           resetForm();
-          setIsLogin(true); // Switch to login form after successful signup
+          window.location.href = '/auth-login';
         }, 3000);
       }
     } catch (error) {
       let errorMessage = "An error occurred. Please try again.";
-      if (error.response) {
-        if (error.response.status === 409) {
-          errorMessage = "Already have an account"; // Conflict error for signup
-        } else if (isLogin && error.response.status === 401) {
-          errorMessage = "Invalid credentials"; // Unauthorized for login
-        }
+      if (error.response && error.response.status === 409) {
+        errorMessage = "Account already exists";
       }
       toast.error(errorMessage, {
         position: "top-center",
@@ -126,54 +110,52 @@ const Auth = () => {
           </div>
         </div>
 
-        {/* Right Side - Auth Form */}
+        {/* Right Side - Signup Form */}
         <div className="auth-form-container">
           <div className="auth-form-box">
             <div className="auth-header">
-              <h2>{isLogin ? 'Welcome Back' : 'Create Account'}</h2>
-              <p>{isLogin ? 'Access your dashboard' : 'Begin your journey'}</p>
+              <h2>Create Account</h2>
+              <p>Begin your journey</p>
             </div>
 
             <Formik
               initialValues={initialValues}
-              validationSchema={isLogin ? loginSchema : signupSchema}
+              validationSchema={signupSchema}
               onSubmit={handleSubmit}
             >
               {({ errors, touched, isSubmitting }) => (
                 <Form className="auth-form">
-                  {!isLogin && (
-                    <div className="form-group">
-                      <div className="input-wrapper">
-                        <div className="input-group">
-                          <AiOutlineHome className="input-icon" />
-                          <Field
-                            type="text"
-                            name="companyName"
-                            placeholder="Company Name"
-                            className={errors.companyName && touched.companyName ? 'error' : ''}
-                          />
-                        </div>
-                        {errors.companyName && touched.companyName && (
-                          <div className="auth-error-message">{errors.companyName}</div>
-                        )}
+                  <div className="form-group">
+                    <div className="input-wrapper">
+                      <div className="input-group">
+                        <AiOutlineHome className="input-icon" />
+                        <Field
+                          type="text"
+                          name="companyname"
+                          placeholder="Company Name"
+                          className={errors.companyname && touched.companyname ? 'error' : ''}
+                        />
                       </div>
-
-                      <div className="input-wrapper">
-                        <div className="input-group">
-                          <AiOutlineUser className="input-icon" />
-                          <Field
-                            type="text"
-                            name="username"
-                            placeholder="Username"
-                            className={errors.username && touched.username ? 'error' : ''}
-                          />
-                        </div>
-                        {errors.username && touched.username && (
-                          <div className="auth-error-message">{errors.username}</div>
-                        )}
-                      </div>
+                      {errors.companyname && touched.companyname && (
+                        <div className="auth-error-message">{errors.companyname}</div>
+                      )}
                     </div>
-                  )}
+
+                    <div className="input-wrapper">
+                      <div className="input-group">
+                        <AiOutlineUser className="input-icon" />
+                        <Field
+                          type="text"
+                          name="username"
+                          placeholder="Username"
+                          className={errors.username && touched.username ? 'error' : ''}
+                        />
+                      </div>
+                      {errors.username && touched.username && (
+                        <div className="auth-error-message">{errors.username}</div>
+                      )}
+                    </div>
+                  </div>
 
                   <div className="form-group">
                     <div className="input-wrapper">
@@ -214,19 +196,7 @@ const Auth = () => {
                     </div>
                   </div>
 
-                  {isLogin && (
-                    <div className="form-options">
-                      <label className="remember-me">
-                        <Field type="checkbox" name="rememberMe" />
-                        <span>Remember me</span>
-                      </label>
-                      <button type="button" className="forgot-password">
-                        Forgot password?
-                      </button>
-                    </div>
-                  )}
-
-                   <button 
+                  <button 
                     type="submit" 
                     className={`submit-button ${loading ? 'loading' : ''}`}
                     disabled={loading || isSubmitting}
@@ -235,7 +205,7 @@ const Auth = () => {
                       <span className="loading-spinner"></span>
                     ) : (
                       <>
-                        {isLogin ? 'Sign in to Dashboard' : 'Create Account'}
+                        Create Account
                         <AiOutlineArrowRight />
                       </>
                     )}
@@ -245,10 +215,8 @@ const Auth = () => {
             </Formik>
 
             <div className="auth-toggle">
-              <button onClick={() => setIsLogin(!isLogin)}>
-                {isLogin 
-                  ? "Don't have an account? Create one now" 
-                  : "Already have an account? Sign in instead"}
+              <button onClick={() => window.location.href = '/auth-login'}>
+                Already have an account? Sign in instead
               </button>
             </div>
           </div>
@@ -259,4 +227,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Signup;

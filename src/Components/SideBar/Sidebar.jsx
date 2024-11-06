@@ -35,6 +35,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         &times;
       </div>
       <aside className="no-scrollbar sidebar">
+      <div className="company-name-header">
+      <span className="highlight">OPFACT</span>
+        </div>
         <nav className="sidebar-menu">
           <ul className="list-item">
             <li className="active">
