@@ -13,39 +13,50 @@ import axios from "axios";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [isDialogOpen, setDialogOpen] = useState(false);
-
-  const openDialog = () => {
-    setDialogOpen(true);
-  };
-
-  const closeDialog = () => {
-    setDialogOpen(false);
-  };
-
+  const [searchQuery, setSearchQuery] = useState(""); // State to hold search query
   const navigate = useNavigate();
 
-  const handleMenuToggle = () => {
-    setShowMenu(!showMenu);
-  };
+  const openDialog = () => setDialogOpen(true);
+  const closeDialog = () => setDialogOpen(false);
+  const handleMenuToggle = () => setShowMenu(!showMenu);
 
   const handleLogout = async () => {
     try {
-      await axios.post(
-        "http://127.0.0.1:5000/api/auth/logout",
-        {},
-        {
-          withCredentials: true, 
-        }
-      );
-
-      
-      localStorage.removeItem("authToken"); 
-
-      // Redirect to login page
+      await axios.post("http://127.0.0.1:5000/api/auth/logout", {}, { withCredentials: true });
+      localStorage.removeItem("authToken");
       navigate("/");
     } catch (error) {
       console.error("Logout failed:", error);
     }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    // Navigate to sidebar tab based on search query
+    navigateToSidebarTab(searchQuery);
+  };
+
+  const navigateToSidebarTab = (query) => {
+    // Define sidebar tabs with names or IDs that correspond to your app structure
+    const sidebarTabs = ["Home", "Dashboard", "Productivity","Overall Equipment Efficiency(OEE)","Warehouse","Inventory","Machine Analysis","Power Analysis","Report","Help and Support"]; // Example tab names
+    const matchedTab = sidebarTabs.find((tab) =>
+      tab.toLowerCase().includes(query.toLowerCase())
+    );
+
+    if (matchedTab) {
+      // Navigate to matched tab
+      navigate(`/${matchedTab.toLowerCase()}`); // Adjust route as needed
+    }
+  };
+
+  const highlightQuery = (text) => {
+    if (!searchQuery) return text;
+    const regex = new RegExp(`(${searchQuery})`, "gi");
+    return text.replace(regex, (match) => `<span class="highlight">${match}</span>`);
   };
 
   return (
@@ -55,25 +66,21 @@ const Header = () => {
           <p>Opfact</p>
         </div>
         <div className="search-message">
-        <form className="search-box">
-          <input
-            type="text"
-            name="query"
-            id="query"
-            className="search"
-            placeholder="Type to search..."
-          />
-          <button className="search-btn">
-            <RiSearchLine size={24} color="#666" />
-          </button>
-        </form>
+          <form className="search-box" onSubmit={handleSearchSubmit}>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
+              className="search"
+              placeholder="Type to search..."
+            />
+            <button type="submit" className="search-btn">
+              <RiSearchLine size={24} color="#666" />
+            </button>
+          </form>
           <div className="notification">
             <span className="message-icon-div">
-              <RiMessage3Line
-                className="message-icon"
-                onClick={openDialog}
-                color="#666"
-              />
+              <RiMessage3Line className="message-icon" onClick={openDialog} color="#666" />
             </span>
             {isDialogOpen && <MessagePopup onClose={closeDialog} />}
           </div>
@@ -110,7 +117,7 @@ const Header = () => {
               </div>
             )}
           </div>
-          </div>
+        </div>
       </header>
     </>
   );

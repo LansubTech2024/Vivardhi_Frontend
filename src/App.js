@@ -18,6 +18,7 @@ import OEEanalysis from "./Pages/OEE analysis/OEE analysis.js";
 import MachineDetails from "./Pages/Machine_Detailes/Machine_details.js";
 import ProductivityTable from "./Pages/Productivity/Productivity.jsx";
 import MachineAnalysis from "./Pages/AnalysisMachine/MachineAnalysis.jsx";
+import Report from "./Pages/Report/Report.js";
 const App = () => {
   return (
     <BrowserRouter>
@@ -40,6 +41,7 @@ const App = () => {
         <Route path="/machine-details/:id" element={<MachineDetails/>}/>
         <Route path="/productivity" element={<ProductivityTable/>}/>
         <Route path="/machine-analysis" element={<MachineAnalysis/>}/>
+        <Route path="/Report" element={<Report/>}/>
         </Routes>
     </BrowserRouter>
   )
