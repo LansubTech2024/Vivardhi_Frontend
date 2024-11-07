@@ -256,7 +256,8 @@ const Dashboard = () => {
                     dataKey="production"
                     // stroke="rgb(59 7 100)"
                     // stroke="rgb(13 148 136)"
-                    stroke="#2e3047"
+                    // stroke="#2e3047"
+                   
                     strokeWidth={2.5}
                     dot={false}
                   />
@@ -277,7 +278,8 @@ const Dashboard = () => {
                         styles={buildStyles({
                           // pathColor: "rgb(59 7 100)",
                           // pathColor:"rgb(13 148 136)",
-                          pathColor:"#2e3047",
+                          // pathColor:"#2e3047",
+                        
                           textColor: "rgb(59 7 100)",
                           trailColor: "#e5e7eb",
                           textSize: "16px",
@@ -297,7 +299,8 @@ const Dashboard = () => {
                         styles={buildStyles({
                           // pathColor: "rgb(88 28 135)",
                           // pathColor:"rgb(20 184 166)",
-                          pathColor:"#57596b",
+                          // pathColor:"#57596b",
+                          
                           textColor: "rgb(88 28 135)",
                           trailColor: "#e5e7eb",
                           textSize: "16px",
@@ -318,7 +321,8 @@ const Dashboard = () => {
                       styles={buildStyles({
                         // pathColor: "rgb(107 33 168)",
                         // pathColor:"rgb(45 212 191)",
-                        pathColor:"#818290",
+                        // pathColor:"#818290",
+                        
                         textColor: parseFloat(latestData.achievementRate) >= 0 ? "green" : "red",
                         trailColor: "#e5e7eb",
                         textSize: "16px",
@@ -385,7 +389,8 @@ const Dashboard = () => {
                     name="Good Rate %"
                     // stroke="rgb(59 7 100)"
                     // stroke="rgb(13 148 136)"
-                    stroke="#424459"
+                    // stroke="#424459"
+                    
                     strokeWidth={2.5}
                   />
                   <Line
@@ -394,7 +399,8 @@ const Dashboard = () => {
                     name="Scrap Rate %"
                     // stroke="rgb(107 33 168)"
                     // stroke="rgb(20 184 166)"
-                    stroke="#6c6e7e"
+                    // stroke="#6c6e7e"
+                    
                     strokeWidth={2.5}
                   />
                   <Line
@@ -403,7 +409,8 @@ const Dashboard = () => {
                     name="Defect Rate %"
                     // stroke="rgb(126 34 206)"
                     // stroke="rgb(45 212 191)"
-                    stroke="#9697a3"
+                    // stroke="#9697a3"
+                   
                     strokeWidth={2.5}
                   />
                   <Line
@@ -412,7 +419,8 @@ const Dashboard = () => {
                     name="Recycle Rate %"
                     // stroke="rgb(168 85 247)"
                     // stroke="rgb(153 246 228)"
-                    stroke="#c0c0c7"
+                    // stroke="#c0c0c7"
+                   
                     strokeWidth={2.5}
                   />
                 </LineChart>
@@ -463,15 +471,16 @@ const Dashboard = () => {
                         //     "#6495ED",
                         //   ][index]
                         // }
-                        fill={
-                          [
-                            "#424459",
-                            "#6c6e7e",
-                            "#9697a3",
-                            "#c0c0c7",
-                            "#6495ED",
-                          ][index]
-                        }
+                        // fill={
+                        //   [
+                        //     "#424459",
+                        //     "#6c6e7e",
+                        //     "#9697a3",
+                        //     "#c0c0c7",
+                        //     "#6495ED",
+                        //   ][index]
+                        // }
+                        
                       />
                     ))}
                   </Pie>
