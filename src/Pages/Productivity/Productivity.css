@@ -4,30 +4,34 @@
     padding: 20px;
 }
 .productivity{
-    margin-left: 130px;
+    margin-left: 170px;
     margin-top: 70px;
 }
 .production-metrics-cards {
     display: flex;
-    gap: 25px;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
   }
   
   .production-card {
-    flex: 1;
-    background-color: #f3f4f6;
+    /* background-color: #f3f4f6; */
     border-radius:8px ;
-    border: none;
+    /* border:1px solid #E0E0E0; */
+    background-color:rgb(240 249 255);
     text-align: center;
     padding: 16px;
     margin-top: 20px;
+    width:190px;
     height: 100px;
-    transition: transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* transition: transform 0.2s ease; */
   }
-  .production-card:hover {
+  /* .production-card:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+  } */
   .production-card-meter{
     border:none;
   }
@@ -35,12 +39,14 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
     gap: 24px;
+    
   }
   .production-chart-container {
     margin: 20px 0;
-    border: none;
+    border:1px solid #E0E0E0;
     padding: 20px;
     border-radius: 8px;
+    margin-top: 90px;
   }
   
   .production-table table {

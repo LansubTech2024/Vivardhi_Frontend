@@ -1,4 +1,4 @@
-/* Main Container */
+
 .inventory-container {
   padding: 20px;
   max-width: 1200px;
@@ -86,7 +86,7 @@
 }
 
 .vendor-card {
-  border:1px solid;
+  border:1px solid #E0E0E0;
   border-radius: 8px;
   padding: 15px;
   display: flex;
@@ -121,6 +121,14 @@
 .label {
   font-weight: 500;
   color: #444;
+}
+
+.item{
+  border:1px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 16px;
+  overflow: hidden;
+  margin-bottom:20px;
 }
 
 /* Progress Bar */

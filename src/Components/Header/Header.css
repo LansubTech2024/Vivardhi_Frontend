@@ -1,11 +1,11 @@
 .header {
-  display: flex;
+  /* display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; */
   padding: 20px;
   width: 100%;
   height: 30px;
-  background-color: rgb(249 250 251);
+  /* background-color:  rgb(224 242 254) ; */
   margin: 0;
   position: fixed;
   margin-top: 0;
@@ -14,28 +14,28 @@
   color: black;
   /* box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.73); */
 }
-.company-name-header{
+/* .company-name-header{
   font-size: 24px;
   font-weight: 600;
-}
-.company-name-header p{
+} */
+/* .company-name-header p{
   text-align: center;
-}
+} */
 .heading {
   font-size: 23px;
   font-weight: bold;
 }
 .search-message{
   display: flex;
-  justify-content:space-evenly;
+  justify-content: flex-end;
   align-items: center;
-  margin: 30px;
+  margin-right: 20px;
   gap: 10px;
 }
 .search-box {
   display: flex;
   align-items: center;
-  background-color: white;
+  background-color: transparent;
   border: 2px solid; 
   border-radius: 20px; 
   height: 35px;
@@ -50,6 +50,7 @@
   border-radius:20px;
   outline: none;
   color: #34495E; 
+  background-color: transparent;
 }
 
 .search::placeholder {
@@ -65,7 +66,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
 }
 
 .search-btn i {

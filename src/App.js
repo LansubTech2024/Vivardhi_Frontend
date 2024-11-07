@@ -18,6 +18,8 @@ import OEEanalysis from "./Pages/OEE analysis/OEE analysis.js";
 import MachineDetails from "./Pages/Machine_Detailes/Machine_details.js";
 import ProductivityTable from "./Pages/Productivity/Productivity.jsx";
 import MachineAnalysis from "./Pages/AnalysisMachine/MachineAnalysis.jsx";
+import AuthLogin from "./Pages/AuthLogin/AuthLogin.jsx";
+import AuthSignup from "./Pages/AuthSignup/AuthSignup.jsx";
 const App = () => {
   return (
     <BrowserRouter>
@@ -40,6 +42,8 @@ const App = () => {
         <Route path="/machine-details/:id" element={<MachineDetails/>}/>
         <Route path="/productivity" element={<ProductivityTable/>}/>
         <Route path="/machine-analysis" element={<MachineAnalysis/>}/>
+        <Route path="/auth-login" element={<AuthLogin/>}/>
+        <Route path="/auth-signup" element={<AuthSignup/>}/>
         </Routes>
     </BrowserRouter>
   )

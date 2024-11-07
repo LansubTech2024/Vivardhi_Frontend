@@ -1,4 +1,3 @@
-// ProductivityTable.js
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,6 +5,8 @@ import { Line, Bar } from 'react-chartjs-2';
 import Speedometer from 'react-d3-speedometer';
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/SideBar/Sidebar";
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import './Productivity.css';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, LineElement, Title, Tooltip, Legend, PointElement } from 'chart.js';
 ChartJS.register(
@@ -23,6 +24,7 @@ const ProductivityTable = () => {
   const [data, setData] = useState([]);
   const [overallProductivity, setOverallProductivity] = useState(0);
   const [scrapRate, setScrapRate] = useState(0);
+  const [defectRate, setDefectRate] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +37,12 @@ const ProductivityTable = () => {
         setOverallProductivity(totalProductivity / response.data.length || 0);
         
         const totalScrap = response.data.reduce((sum, item) => sum + item.wasteScrap, 0);
-        setScrapRate((totalScrap / response.data.length) * 100 || 0);
+        const totalDefects = response.data.reduce((sum, item) => sum + item.wasteDefect, 0);
+        const totalActualProduction = response.data.reduce((sum, item) => sum + item.actualProduction, 0);
+
+        // Calculate scrap and defect rates as percentages
+        setScrapRate(totalActualProduction > 0 ? (totalScrap / totalActualProduction) * 100 : 0);
+        setDefectRate(totalActualProduction > 0 ? (totalDefects / totalActualProduction) * 100 : 0);
       } catch (error) {
         console.error('Error fetching productivity data:', error);
       }
@@ -70,6 +77,34 @@ const ProductivityTable = () => {
     ]
   };
 
+  const lineChartOptions = {
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false
+    },
+    plugins: {
+      tooltip: {
+        enabled: true
+      },
+      legend: {
+        display: true
+      }
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false
+        }
+      },
+      y: {
+        grid: {
+          display: false
+        }
+      }
+    }
+  };
+
   // Bar Chart Data for Material Flow
   const barChartData = {
     labels: data.map((item) => formatDate(item.date)),
@@ -82,9 +117,36 @@ const ProductivityTable = () => {
       {
         label: 'Raw Material Output',
         data: data.map(item => item.rawMaterialOutput),
-        backgroundColor: 'rgba(255, 206, 86, 0.6)',
+        backgroundColor: 'rgb(3 105 161)',
       }
     ]
+  };
+  const barChartOptions = {
+    responsive: true,
+    interaction: {
+      mode: 'index',
+      intersect: false
+    },
+    plugins: {
+      tooltip: {
+        enabled: true
+      },
+      legend: {
+        display: true
+      }
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false
+        }
+      },
+      y: {
+        grid: {
+          display: false
+        }
+      }
+    }
   };
 
   return (
@@ -104,43 +166,53 @@ const ProductivityTable = () => {
             <h3>Actual Production</h3>
             <p>{data.reduce((sum, item) => sum + item.actualProduction, 0)}</p>
           </div>
-          <div className="production-card-meter">
-            <h3>Overall Productivity</h3>
-            <Speedometer 
-              value={overallProductivity} 
-              minValue={0} 
-              maxValue={100} 
-              needleColor="steelblue" 
-              segments={5}
-              width={200}
-              height={160}
-            />
+          <div className="production-card-meter" style={{ width: '150px', height: '150px' }}>
+            <h3 style={{ width: '200px'}}>Overall Productivity</h3>
+            <CircularProgressbar
+                value={overallProductivity}
+                text={`${Math.round(overallProductivity)}%`}
+                styles={buildStyles({
+                  textColor: 'steelblue',
+                  pathColor: 'steelblue',
+                  trailColor: '#d6d6d6'
+                })}
+              />
           </div>
-          <div className="production-card-meter">
-            <h3>Scrap & Defects</h3>
-            <Speedometer 
-              value={scrapRate} 
-              minValue={0} 
-              maxValue={100} 
-              needleColor="red" 
-              segments={5}
-              width={200}
-              height={160}
-            />
-          </div>
+          <div className="production-card-meter"style={{ width: '150px', height: '150px' }}>
+              <h3>Scrap Rate</h3>
+              <CircularProgressbar
+                value={scrapRate}
+                text={`${Math.round(scrapRate)}%`}
+                styles={{
+                  path: { stroke: `Cornflower Blue` },
+                  text: { fill: 'red', fontSize: '16px' },
+                }}
+              />
+            </div>
+            <div className="production-card-meter"style={{ width: '150px', height: '150px' }}>
+              <h3>Defect Rate</h3>
+              <CircularProgressbar
+                value={defectRate}
+                text={`${Math.round(defectRate)}%`}
+                styles={{
+                  path: { stroke: `Deep Sky Blue` },
+                  text: { fill: 'orange', fontSize: '16px' },
+                }}
+              />
+            </div>
         </div>
 
         {/* Line Chart for Production Trend */}
         <div className='production-chart-grid'>
         <div className="production-chart-container">
           <h3>Production Trend (Target vs. Actual)</h3>
-          <Line width={500} height={300} data={lineChartData} />
+          <Line width={500} height={300} data={lineChartData} options={lineChartOptions}/>
         </div>
 
         {/* Bar Chart for Material Flow */}
         <div className="production-chart-container">
           <h3>Material Flow (Input vs. Output)</h3>
-          <Bar width={500} height={300} data={barChartData} />
+          <Bar width={500} height={300} data={barChartData} options={barChartOptions}/>
         </div>
         </div>
         {/* Detailed Table */}
