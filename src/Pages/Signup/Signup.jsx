@@ -8,10 +8,12 @@ import "./Signup.css";
 import Logo from "../../Images/lansubPT2.jpeg";
 
 const Validate = Yup.object().shape({
-  name: Yup.string()
-    .min(6, "Must be atleast 6 characters")
-    .max(30, "Must be less than 30 characters")
-    .required("Required"),
+  companyname: Yup.string()
+      .min(2, 'Company name must be at least 2 characters')
+      .required('Company name is required'),
+    username: Yup.string()
+      .min(3, 'Username must be at least 3 characters')
+      .required('Username is required'),
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
     .min(8, "Must be atleast 8 characters")
@@ -77,7 +79,8 @@ const Signup = () => {
           </div>
           <Formik
             initialValues={{
-              name: "",
+              companyname: "",
+              username:"",
               email: "",
               password: "",
             }}
@@ -92,12 +95,23 @@ const Signup = () => {
                 <div className="signup-form-div">
                   <Field
                     type="text"
-                    name="name"
+                    name="companyname"
+                    placeholder="Eg: Manufacturing"
+                    className="signup-input"
+                  />
+                  {errors.companyname && touched.companyname && (
+                    <p className="error-signup-message" style={{ color: "red" }}>{errors.companyname}</p>
+                  )}
+                </div>
+                <div className="signup-form-div">
+                  <Field
+                    type="text"
+                    name="username"
                     placeholder="Eg: John"
                     className="signup-input"
                   />
-                  {errors.name && touched.name && (
-                    <p className="error-signup-message" style={{ color: "red" }}>{errors.name}</p>
+                  {errors.username && touched.username && (
+                    <p className="error-signup-message" style={{ color: "red" }}>{errors.username}</p>
                   )}
                 </div>
                 <div className="signup-form-div">

@@ -1,70 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/SideBar/Sidebar";
 import "./MachineAnalysis.css";
-import { Bar } from "react-chartjs-2";
-import GaugeChart from "react-gauge-chart";
+// import { Bar } from "react-chartjs-2";
+// import GaugeChart from "react-gauge-chart";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 const MachineAnalysis = () => {
   const [machines, setMachines] = useState([]);
   const navigate = useNavigate();
-     // Get the selected metric from query parameters
-     const location = useLocation();
-     const params = new URLSearchParams(location.search);
-     const selectedMetric = params.get('metric');
+ 
 
+  // Fetch average machine data
   useEffect(() => {
-    const fetchMachines = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/detailed-machine"
-        );
-        setMachines(response.data);
-      } catch (error) {
-        console.error("Error fetching machines:", error);
-      }
-    };
-
-    fetchMachines();
+    axios.get("http://localhost:5000/api/machines/averages")
+      .then(response => setMachines(response.data))
+      .catch(error => console.error("Error fetching machine data:", error));
   }, []);
 
-  const powerData = {
-    labels: machines.map((machine) => machine.machineId),
-    datasets: [
-      {
-        label: "Power Consumption",
-        data: machines.map((machine) => machine.powerConsumed || 0),
-        backgroundColor: "rgb(59 130 246)",
-      },
-    ],
-  };
+  // const powerData = {
+  //   labels: machines.map((machine) => machine.machineId),
+  //   datasets: [
+  //     {
+  //       label: "Power Consumption",
+  //       data: machines.map((machine) => machine.powerConsumed || 0),
+  //       backgroundColor: "rgb(59 130 246)",
+  //     },
+  //   ],
+  // };
 
-  const averageEfficiency =
-    machines.reduce((sum, machine) => sum + machine.efficiency, 0) /
-    machines.length;
+  // const averageEfficiency =
+  //   machines.reduce((sum, machine) => sum + machine.efficiency, 0) /
+  //   machines.length;
 
-    const options = {
-      scales: {
-        x: {
-          grid: {
-            display: false, // Hides the grid lines for the x-axis
-          },
-        },
-        y: {
-          grid: {
-            display: false, // Hides the grid lines for the y-axis
-          },
-        },
-      },
-    };
+  //   const options = {
+  //     scales: {
+  //       x: {
+  //         grid: {
+  //           display: false, 
+  //         },
+  //       },
+  //       y: {
+  //         grid: {
+  //           display: false, 
+  //         },
+  //       },
+  //     },
+  //   };
 
     // Handle row click to display machine details
-    const handleRowClick = (machine) => {
-      navigate(`/machine-details/${machine.machineId}`, { state: { machine } });
+    const handleRowClick = (machineId) => {
+      navigate(`/machine-details/${machineId}`);
   };
 
   return (
@@ -111,24 +100,18 @@ const MachineAnalysis = () => {
               <thead>
                 <tr>
                   <th>Machine</th>
-                  {/* <th>Name</th>
-                            <th>Age</th>
-                            <th>Lifespan</th> */}
-                  <th>Power Consumed</th>
-                  <th>Total Downtime</th>
-                  <th>Good Pieces</th>
+                  <th>Production Rate</th>
+                  <th>Scrap Rate</th>
+                  <th>Downtime</th>
                 </tr>
               </thead>
               <tbody>
                 {machines.map((machine) => (
-                  <tr key={machine.machineId} onClick={() => handleRowClick(machine)}>
+                  <tr key={machine.machineId} onClick={() => handleRowClick(machine.machineId)}>
                     <td>{machine.machineId}</td>
-                    {/* <td>{machine.machineName}</td>
-                                <td>{machine.age}</td>
-                                <td>{machine.lifespan}</td> */}
-                    <td>{machine.powerConsumed}</td>
-                    <td>{machine.totalDowntimeDuration}</td>
-                    <td>{machine.goodPieces}</td>
+                    <td>{machine.averageProductionRate}</td>
+                    <td>{machine.averageScrapRate}</td>
+                    <td>{machine.averageDowntime}</td>
                   </tr>
                 ))}
               </tbody>

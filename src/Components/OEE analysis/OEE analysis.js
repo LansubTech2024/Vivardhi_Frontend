@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './OEE analysis.css';
 
@@ -7,7 +7,7 @@ const OeeDashboard = () => {
     const [machines, setMachines] = useState([]);
     const [searchZone, setSearchZone] = useState('');
     const [selectedZone, setSelectedZone] = useState('all');
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
      // Get the selected metric from query parameters
      const location = useLocation();
      const params = new URLSearchParams(location.search);
@@ -28,9 +28,9 @@ const OeeDashboard = () => {
     }, []);
 
     // Handle row click to display machine details
-    const handleRowClick = (machine) => {
-        navigate(`/machine-details/${machine.machineId}`, { state: { machine } });
-    };
+    // const handleRowClick = (machine) => {
+    //     navigate(`/machine-details/${machine.machineId}`, { state: { machine } });
+    // };
 
 
     // Filter machines by zone and search text
@@ -88,7 +88,7 @@ const OeeDashboard = () => {
                 <tbody>
                 {filteredMachines.length > 0 ? (
                     filteredMachines.map(machine => (
-                        <tr key={machine.machineId} onClick={() => handleRowClick(machine)}>
+                        <tr key={machine.machineId}>
                         <td className={getColumnClass('machine')}>{machine.machineId}</td>
                         <td className={getColumnClass('oee')}>{machine.oee}</td>
                         <td className={getColumnClass('availability')}>{machine.availability}</td>

@@ -18,9 +18,13 @@
     /* background-color: rgb(240 249 255); */
     /* background-color: rgb(250 245 255); */
     /* Anna */
+
     /* background-color:rgb(240 253 250); */
   
    
+
+
+    background-color:rgb(240 253 250);
 
 }
 .sidebar i{
@@ -36,7 +40,7 @@
   margin: 20px 0; 
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
-.company-name-header,.highlight{
+.company-name-header,.highlight-header{
   font-weight: bold;
   color: black;
 }

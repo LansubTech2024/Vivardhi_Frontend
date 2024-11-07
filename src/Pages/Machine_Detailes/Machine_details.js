@@ -1,15 +1,21 @@
-import { useLocation } from "react-router-dom";
+import React,{useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/SideBar/Sidebar";
 import "./Machine_details.css";
+import axios from "axios";
 
 const About = () => {
-  const location = useLocation();
-  const { machine } = location.state || {};
+ const { id } = useParams(); // Get machineId from the URL
+  const [machine, setMachine] = useState(null);
 
-  if (!machine) {
-    return <p>No machine selected.</p>;
-  }
+  useEffect(() => {
+    axios.get(`http://localhost:5000/api/machines/${id}`)
+      .then(response => setMachine(response.data))
+      .catch(error => console.error("Error fetching machine details:", error));
+  }, [id]);
+
+  if (!machine) return <p>Loading...</p>;
   return (
     <>
       <Header />
@@ -19,82 +25,26 @@ const About = () => {
           <h2 className="machine-header">
             Details for Machine {machine.machineId}
           </h2>
-          <div className="machine-card-container">
-            <div className="machine-oee">
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-up"></i>
-                <h3>Performance</h3>
-                <p>{machine.performance}%</p>
-              </div>
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-down"></i>
-                <h3>Quality</h3>
-                <p>{machine.quality}%</p>
-              </div>
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-right"></i>
-                <h3>Availability</h3>
-                <p>{machine.availability}%</p>
-              </div>
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-left"></i>
-                <h3>OEE</h3>
-                <p>{machine.oee}%</p>
-              </div>
-            </div>
-
-            <h2>Performance Details</h2>
-            <div className="machine-performance">
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-up"></i>
-                <h3>Total Pieces</h3>
-                <p>{machine.productionDetails?.totalPieces}</p>
-              </div>
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-down"></i>
-                <h3>Good Pieces</h3>
-                <p>{machine.productionDetails?.goodPieces}</p>
-              </div>
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-right"></i>
-                <h3>Target</h3>
-                <p>{machine.target}</p>
-              </div>
-            </div>
-
-            <h2>Quality Details</h2>
-            <div className="machine-quality">
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-up"></i>
-                <h3>Waste Scrap</h3>
-                <p>{machine.productionDetails?.wasteScrap}</p>
-              </div>
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-down"></i>
-                <h3>Waste Defect</h3>
-                <p>{machine.productionDetails?.wasteDefect}</p>
-              </div>
-            </div>
-
-            <h2>Availability Details</h2>
-            <div className="machine-availability">
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-up"></i>
-                <h3>Uptime</h3>
-                <p>{machine.uptime}</p>
-              </div>
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-down"></i>
-                <h3>Downtime</h3>
-                <p>{machine.downtime}</p>
-              </div>
-              <div className="machine-card">
-                <i className="fa-solid fa-arrow-right"></i>
-                <h3>Status</h3>
-                <p>{machine.machineStatus}</p>
-              </div>
-            </div>
-          </div>
+          <div className="details-container">
+          <div className="details-card"><strong>Spindle Speed:</strong> {machine.spindleSpeed}</div>
+        <div className="details-card"><strong>Production Rate:</strong> {machine.productionRate}</div>
+        <div className="details-card"><strong>Scrap Rate:</strong> {machine.scrapRate}</div>
+        <div className="details-card"><strong>Part Rejection Rate:</strong> {machine.partRejectionRate}</div>
+        <div className="details-card"><strong>Equipment Name:</strong> {machine.equipmentName}</div>
+        <div className="details-card"><strong>Allocated Hours:</strong> {machine.equipmentAllocatedHours}</div>
+        <div className="details-card"><strong>Utilization Rate:</strong> {machine.utilizationRate}</div>
+        <div className="details-card"><strong>Feed Rate:</strong> {machine.feedRate}</div>
+        <div className="details-card"><strong>Cycle Time:</strong> {machine.cycleTime}</div>
+        <div className="details-card"><strong>Machine Utilization:</strong> {machine.machineUtilization}</div>
+        <div className="details-card"><strong>Temperature:</strong> {machine.temperature}</div>
+        <div className="details-card"><strong>Chuck Pressure:</strong> {machine.chuckPressure}</div>
+        <div className="details-card"><strong>Downtime:</strong> {machine.downtime}</div>
+        <div className="details-card"><strong>Cut Depth:</strong> {machine.cutDepth}</div>
+        <div className="details-card"><strong>Material Removal Rate:</strong> {machine.materialRemovalRate}</div>
+        <div className="details-card"><strong>Surface Finish Quality:</strong> {machine.surfaceFinishQuality}</div>
+        <div className="details-card"><strong>Tool Life:</strong> {machine.toolLife}</div>
+        <div className="details-card"><strong>Tool Wear:</strong> {machine.toolWear}</div>
+      </div>
         </div>
       </div>
     </>
