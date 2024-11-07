@@ -2,7 +2,7 @@
 .loader {
   border: 4px solid rgba(0, 0, 0, 0.1);
   border-radius: 50%;
-  border-top: 4px solid #2563eb; /* You can change this color */
+  border-top: 4px solid #2563eb; 
   width: 40px;
   height: 40px;
   animation: spin 1s linear infinite;
@@ -15,14 +15,14 @@
 
 .alert {
   padding: 10px;
-  background-color: #f44336; /* Red background for alert */
+  background-color: #f44336; 
   color: white;
   border-radius: 4px;
   margin: 16px;
 }
 
 .alert-danger {
-  background-color: #dc3545; /* Adjust if needed */
+  background-color: #dc3545; 
 }
 .dashboard {
   padding: 24px; 
