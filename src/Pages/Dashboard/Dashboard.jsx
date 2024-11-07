@@ -208,7 +208,7 @@ const Dashboard = () => {
           <h2>Production</h2>
           <div className="charts-grid">
             {/* Production Growth Chart */}
-            <div className="chart-card" onClick={handleGraphClick}>
+            <div className="chart-card" style={{cursor: "pointer"}}onClick={handleGraphClick}>
               <div className="card-header">
                 <div className="header-content">
                   <h3>Production Output</h3>

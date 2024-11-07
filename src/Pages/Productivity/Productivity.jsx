@@ -63,14 +63,14 @@ const ProductivityTable = () => {
       {
         label: 'Target Production',
         data: data.map(item => item.targetProduction),
-        borderColor: '#318CE7',
+        borderColor: 'rgb(13 148 136)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         fill: true,
       },
       {
         label: 'Actual Production',
         data: data.map(item => item.actualProduction),
-        borderColor: '#7CB9E8',
+        borderColor: 'rgb(45 212 191)',
         backgroundColor: '#B9D9EB',
         fill: true,
       }
@@ -112,12 +112,12 @@ const ProductivityTable = () => {
       {
         label: 'Raw Material Input',
         data: data.map(item => item.rawMaterialInput),
-        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+        backgroundColor: 'rgb(20 184 166)',
       },
       {
         label: 'Raw Material Output',
         data: data.map(item => item.rawMaterialOutput),
-        backgroundColor: 'rgb(3 105 161)',
+        backgroundColor: 'rgb(153 246 228)',
       }
     ]
   };
@@ -172,8 +172,8 @@ const ProductivityTable = () => {
                 value={overallProductivity}
                 text={`${Math.round(overallProductivity)}%`}
                 styles={buildStyles({
-                  textColor: 'steelblue',
-                  pathColor: 'steelblue',
+                  textColor: 'rgb(13 148 136)',
+                  pathColor: 'rgb(13 148 136)',
                   trailColor: '#d6d6d6'
                 })}
               />
@@ -184,7 +184,7 @@ const ProductivityTable = () => {
                 value={scrapRate}
                 text={`${Math.round(scrapRate)}%`}
                 styles={{
-                  path: { stroke: `Cornflower Blue` },
+                  path: { stroke: `rgb(20 184 166)` },
                   text: { fill: 'red', fontSize: '16px' },
                 }}
               />
@@ -195,7 +195,7 @@ const ProductivityTable = () => {
                 value={defectRate}
                 text={`${Math.round(defectRate)}%`}
                 styles={{
-                  path: { stroke: `Deep Sky Blue` },
+                  path: { stroke: `rgb(45 212 191)` },
                   text: { fill: 'orange', fontSize: '16px' },
                 }}
               />

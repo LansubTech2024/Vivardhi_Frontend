@@ -36,7 +36,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
       </div>
       <aside className="no-scrollbar sidebar">
       <div className="company-name-header">
-      <span className="highlight">OPFACT</span>
+      <span className="highlight-header">OPFACT</span>
         </div>
         <nav className="sidebar-menu">
           <ul className="list-item">
@@ -61,7 +61,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             <li>
               <Link to="/productivity">
               {/* <i className="fa-solid fa-wrench"></i> */}
-                <span>Productivity</span>
+                <span>Productivity Analysis</span>
               </Link>
             </li>
             <li>
