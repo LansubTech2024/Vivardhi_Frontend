@@ -200,6 +200,10 @@
 .dropdown-menu li a:hover {
   color: #007bff;
 }
+.highlight {
+  background-color: yellow;
+  font-weight: bold;
+}
 
 /* Responsive styles */
 @media (max-width: 1200px){
