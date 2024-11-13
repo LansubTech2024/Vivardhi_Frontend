@@ -59,4 +59,4 @@ jobs:
           app-name: 'frontendserver'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_131463F7534C4084B18459D0156F5200 }}
-          package: ./build
+          package: './build'
