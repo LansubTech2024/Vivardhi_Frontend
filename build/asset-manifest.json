@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.5c4e3f3d.css",
-    "main.js": "/static/js/main.296c0a5a.js",
+    "main.css": "/static/css/main.240a3ef6.css",
+    "main.js": "/static/js/main.bb8e0b15.js",
     "static/js/453.ff7bc2e1.chunk.js": "/static/js/453.ff7bc2e1.chunk.js",
     "static/media/lansub.png": "/static/media/lansub.ba9d221f9a04911b5e31.png",
     "static/media/logo3.png": "/static/media/logo3.36adea6932c955f462d5.png",
     "static/media/lansubPT2.jpeg": "/static/media/lansubPT2.d9051494b7f176e3dd3d.jpeg",
     "index.html": "/index.html",
-    "main.5c4e3f3d.css.map": "/static/css/main.5c4e3f3d.css.map",
-    "main.296c0a5a.js.map": "/static/js/main.296c0a5a.js.map",
+    "main.240a3ef6.css.map": "/static/css/main.240a3ef6.css.map",
+    "main.bb8e0b15.js.map": "/static/js/main.bb8e0b15.js.map",
     "453.ff7bc2e1.chunk.js.map": "/static/js/453.ff7bc2e1.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.5c4e3f3d.css",
-    "static/js/main.296c0a5a.js"
+    "static/css/main.240a3ef6.css",
+    "static/js/main.bb8e0b15.js"
   ]
 }
