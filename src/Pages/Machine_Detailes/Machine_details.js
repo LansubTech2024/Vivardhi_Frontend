@@ -10,12 +10,9 @@ const About = () => {
   const [machine, setMachine] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/machines/${id}`)
-      .then((response) => setMachine(response.data))
-      .catch((error) =>
-        console.error("Error fetching machine details:", error)
-      );
+    axios.get(`https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/machines/${id}`)
+      .then(response => setMachine(response.data))
+      .catch(error => console.error("Error fetching machine details:", error));
   }, [id]);
 
   if (!machine) return <p>Loading...</p>;
