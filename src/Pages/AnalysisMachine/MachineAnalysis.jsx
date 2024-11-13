@@ -16,9 +16,10 @@ import {
 // ChartJS.register(ArcElement, Tooltip, Legend);
 
 const MachineAnalysis = () => {
+  //state
   const [machines, setMachines] = useState([]);
   const navigate = useNavigate();
-
+  
   // Fetch average machine data
   useEffect(() => {
     axios.get("https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/machines/averages")
