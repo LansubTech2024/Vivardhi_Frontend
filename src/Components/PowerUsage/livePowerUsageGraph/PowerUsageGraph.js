@@ -45,8 +45,8 @@ const LivePowerUsageChart = () => {
       }
     };
 
-    const interval = setInterval(fetchLiveData, 2000); // Fetch every 2 seconds
-    return () => clearInterval(interval); // Cleanup
+    const interval = setInterval(fetchLiveData, 2000); 
+    return () => clearInterval(interval); 
   }, []);
 
   const data = {
