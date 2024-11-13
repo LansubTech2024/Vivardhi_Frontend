@@ -14,7 +14,7 @@ function GetData() {
     const [filterText, setFilterText] = useState('');
 
     useEffect(() => {
-        axios('http://localhost:5000/api/resources/')
+        axios('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/resources/')
             .then(response => {
               console.log('Data fetched:', response.data);
                 setData(response.data);

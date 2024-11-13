@@ -45,7 +45,7 @@ const ProfileForm = () => {
 
     const handleSubmit = async (values, { setSubmitting }) => {
         try {
-            await axios.put('http://127.0.0.1:8000/api/auth/update-profile/', values, {
+            await axios.put('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/auth/update-profile/', values, {
                 withCredentials: true
             });
             alert('Profile updated successfully!');

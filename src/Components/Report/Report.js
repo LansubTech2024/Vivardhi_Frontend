@@ -16,10 +16,10 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const oeeResponse = await axios.get('http://localhost:5000/api/oee-summary');
-        const productionResponse = await axios.get('http://localhost:5000/api/production-target-achievement');
-        const inventoryResponse = await axios.get('http://localhost:5000/api/material-inventory');
-        const powerResponse = await axios.get('http://localhost:5000/api/power-consumption');
+        const oeeResponse = await axios.get('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/oee-summary');
+        const productionResponse = await axios.get('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/production-target-achievement');
+        const inventoryResponse = await axios.get('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/material-inventory');
+        const powerResponse = await axios.get('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/power-consumption');
         
         setOeeData(oeeResponse.data);
         setProductionData(productionResponse.data);

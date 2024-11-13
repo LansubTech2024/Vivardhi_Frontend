@@ -32,7 +32,7 @@ const LivePowerUsageChart = () => {
   useEffect(() => {
     const fetchLiveData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/live-power');
+        const response = await axios.get('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/live-power');
         const currentPower = response.data.livePowerUsage;
 
         setLiveData((prevData) => [...prevData.slice(-19), currentPower]); // Keep only the last 20 points

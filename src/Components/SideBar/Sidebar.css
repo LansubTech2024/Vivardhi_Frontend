@@ -236,10 +236,28 @@ ul li a i{
     padding: 20px;
   }
   }
+
+
+
+
+
   @media (max-width:576x){
     .sidebar{
-      width:40px;
+      height: 100vh;
+      width: 2px;
+      margin: 0;
+      position: fixed;
+      left: 0;
+      top: 0;
+      z-index: 1;
+     
     }
+    .sidebar-menu{
+      margin-top: 2rem;
+      padding-left: 0.4rem;
+      padding-right: 1rem;
+      color: black;
+  }
     .nav-toggle{
       left:40px;
     }
