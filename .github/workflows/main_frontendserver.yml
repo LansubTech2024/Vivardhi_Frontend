@@ -67,5 +67,5 @@ jobs:
         with:
           app-name: 'frontendserver'
           slot-name: 'Production'
-          package: ./build/*
+          package: ./build
           
