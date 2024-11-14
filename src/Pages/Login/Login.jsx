@@ -132,7 +132,7 @@ const Login = () => {
                     marginTop: "5px", // Optional: Adjusts space between the two lines
                   }}
                 >
-                  VIVARDHI
+                  OPFACT
                 </div>
               </>
             ) : (
