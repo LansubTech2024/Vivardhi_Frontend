@@ -81,15 +81,9 @@ tr:hover {
   opacity: 0.5;
 }
 
-/* Responsive Styles */
-@media (max-width: 768px) {
-  .card {
-      width: calc(50% - 20px); /* Two cards in a row */
-  }
-}
-
-@media (max-width: 480px) {
-  .card {
-      width: 100%; /* One card in a row */
+@media (max-width:768px) {
+  .oee-table-part{
+    margin-left: 90px;
+    margin-top: 30px;
   }
 }

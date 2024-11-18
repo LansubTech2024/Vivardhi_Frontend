@@ -39,29 +39,67 @@
 .home-overview p {
     margin: 10px 0 0;
 }
+@media (max-width: 1200px) {
+    .main {
+        margin-left: 150px; /* Adjust margin for smaller screens */
+    }
+}
 
-@media (max-width:1200x) {
-   .main{
-   padding:20px;
-   } 
-}
-@media (max-width:992x){
-    .main{
-        padding:20px;
+/* For medium screens */
+@media (max-width: 992px) {
+    .main {
+        margin-left: 100px; /* Adjust for tablets and smaller devices */
+    }
+    .home-overview {
+        margin-left: 50px; /* Reduce margin for smaller screens */
     }
 }
-@media (max-width:768x){
-    .main{
-        padding:20px;
+
+/* For smaller screens (tablets and below) */
+@media (max-width: 768px) {
+    .main {
+        margin-left: 0; /* Remove sidebar margin on small screens */
+        padding: 15px;
+    }
+    .home-main-content {
+        flex-direction: column; /* Stack content vertically */
+    }
+    .home-main-content img {
+        width: 100%; /* Full width on smaller screens */
+    }
+    .home-overview {
+        margin-left: 0; /* Center overview on smaller screens */
     }
 }
-@media (max-width:576x){
-    .main{
-        padding:10px;
+
+/* For mobile screens */
+@media (max-width: 576px) {
+    .main {
+        padding: 10px;
     }
-}
-.home-main-content img{
-  width:300px;
-  padding:20px;
-  margin-left: 50px;
+    .home-main-content {
+        margin-top: 40px;
+        margin-left: 150px;
+        width: 200px;
+    }
+    .home-main-content img {
+        width: 100%; /* Full width on mobile */
+        margin: 0 auto;
+    }
+    .home-main-content .social-contact {
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+    .home-overview-section {
+        gap: 15px; /* Reduce gap between overview sections */
+    }
+    .home-overview {
+        padding: 5px;
+        margin-left: 100px;
+    }
+    .home-overview h2 {
+        font-size: 1.2rem; /* Adjust heading size for mobile */
+    }
+    .home-overview p {
+        font-size: 0.9rem; /* Adjust paragraph size for mobile */
+    }
 }

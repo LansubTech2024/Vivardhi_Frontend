@@ -40,7 +40,7 @@ const Inventory = () => {
   useEffect(() => {
     const fetchInventoryData = async () => {
       try {
-        const response = await fetch("https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/inventory");
+        const response = await fetch("http://localhost:5000/api/inventory");
         const data = await response.json();
         setInventoryData(data);
 

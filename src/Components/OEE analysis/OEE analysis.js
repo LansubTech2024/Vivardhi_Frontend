@@ -18,7 +18,7 @@ const OeeDashboard = () => {
     useEffect(() => {
         const fetchMachineData = async () => {
             try {
-                const response = await axios.get('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/oeemachine'); // Update with your API URL
+                const response = await axios.get('http://localhost:5000/api/oeemachine'); // Update with your API URL
                 setMachines(response.data);
             } catch (error) {
                 console.error("Error fetching machine data:", error);
