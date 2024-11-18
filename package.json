@@ -43,9 +43,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
 
-    "start": "serve -s build",
-    "build": "cross-env CI=false react-scripts build --no-source-maps",
-
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron",
