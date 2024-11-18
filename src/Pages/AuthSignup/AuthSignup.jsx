@@ -49,7 +49,7 @@ const Signup = () => {
         });
         setTimeout(() => {
           resetForm();
-          window.location.href = '/auth-login';
+          window.location.href = '/';
         }, 3000);
       }
     } catch (error) {
@@ -198,11 +198,10 @@ const Signup = () => {
 
                   <button 
                     type="submit" 
-                    className={`submit-button ${loading ? 'loading' : ''}`}
-                    disabled={loading || isSubmitting}
+                    className="submit-btn col-12 btn btn-lg btn-block login-btn mt-4 mb-4 d-flex justify-content-center"
                   >
                     {loading ? (
-                      <span className="loading-spinner"></span>
+                      <span className="spinner-border text-warning"></span>
                     ) : (
                       <>
                         Create Account
@@ -215,8 +214,8 @@ const Signup = () => {
             </Formik>
 
             <div className="auth-toggle">
-              <button onClick={() => window.location.href = '/auth-login'}>
-                Already have an account? Sign in instead
+              <button onClick={() => window.location.href = '/'}>
+                Already have an account? <span>Sign in instead</span>
               </button>
             </div>
           </div>

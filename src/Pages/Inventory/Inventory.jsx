@@ -1,5 +1,5 @@
 import React from 'react';
-import Inventory from '../../Components/Inventory/Inventory';
+import Inventory from "../../Components/Inventory/Inventory";
 import Header from '../../Components/Header/Header';
 import Sidebar from '../../Components/SideBar/Sidebar';
 import './Inventory.css';
