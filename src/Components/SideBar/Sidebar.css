@@ -261,19 +261,25 @@ ul li a i{
 @media (max-width: 576px) {
     .sidebar {
         width: 100px; 
-        transition: width 0.3s ease; /* smooth transition for width */
+        transition: width 0.3s ease; 
     }
 
     .sidebar-menu {
         margin-top: 1rem;
-        padding-left: 0.4rem;
-        padding-right: 1rem;
+        margin-left: 1px;
+        margin-right: 10px;
         color: black;
-        font-size:40px ;
+        font-size: 10px;
     }
     .company-name-header{
         
         font-size: 1.2rem; 
-       
+    }
+    .list-item{
+      margin-right: 40px;
+      font-size: 10px;
+    }
+    .list-items li{
+      font-size: 80px;
     }
 }
