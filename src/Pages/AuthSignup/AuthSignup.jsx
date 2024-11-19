@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Logo from "../../Images/logo3.png";
 import * as Yup from 'yup';
 import { AiOutlineLock, AiOutlineUser, AiOutlineMail, AiOutlineCheckCircle, AiOutlineEye, AiOutlineEyeInvisible, AiOutlineArrowRight, AiOutlineHome } from 'react-icons/ai';
 import AxiosService from "../../Components/AuthService/AuthService";
@@ -85,8 +86,14 @@ const Signup = () => {
         <div className="branding-section">
           <div className="brand-header">
             <div className="brand-logo">
-              <AiOutlineHome className="logo-icon" />
-              <h1>ManufacturePro ERP</h1>
+            <img
+              src={Logo}
+              alt="logo"
+              className="logo-img"
+              width={70}
+              height={80}
+            />
+              <h1>OPFACT</h1>
             </div>
             <p className="brand-description">
               Next-Generation Manufacturing Solutions

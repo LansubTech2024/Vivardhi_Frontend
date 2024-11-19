@@ -43,43 +43,43 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             <li className="active">
               <Link to="/home">
                 {/* <i className="fa-solid fa-house-chimney"></i> */}
-                <span>Home</span>
+Home
               </Link>
             </li>
             <li>
               <Link to="/dashboard">
                 {/* <i className="fa-solid fa-gauge-high"></i> */}
-                <span>Dashboard</span>
+                Dashboard
               </Link>
             </li>
             <li>
               <Link to="/oeeanalysis">
               {/* <i className="fa-solid fa-wrench"></i> */}
-                <span>Overall Equipment Efficiency(OEE)</span>
+                Overall Equipment Efficiency(OEE)
               </Link>
             </li>
             <li>
               <Link to="/productivity">
               {/* <i className="fa-solid fa-wrench"></i> */}
-                <span>Productivity Analysis</span>
+                Productivity Analysis
               </Link>
             </li>
             <li>
               <Link to="/machine-analysis">
               {/* <i className="fa-solid fa-wrench"></i> */}
-                <span>Machine Analysis</span>
+                Machine Analysis
               </Link>
             </li>
             <li>
               <Link to="/power-usage">
                 {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
-                <span>Power Analysis</span>
+                Power Analysis
               </Link>
             </li>
             <li>
               <Link to="#">
                 {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
-                <span>Inventory Analysis</span>
+                Inventory Analysis
                 {InventoryOpen ?(
                   <RxChevronUp
                   onClick={CloseInventory}
@@ -116,13 +116,13 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             <li>
               <Link to="#">
                 {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
-                <span>Report</span>
+                Report
               </Link>
             </li>
             <li>
               <Link to="/help">
                 {/* <i className="fa-solid fa-question-circle"></i> */}
-                <span>Help and Support</span>
+                Help and Support
               </Link>
             </li>
             {/* <li>

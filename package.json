@@ -39,9 +39,8 @@
   },
   "main": "public/electron.js",
   "scripts": {
-    "start": "serve -s build start",
+    "start": "serve -s build",
     "build": "cross-env CI=false react-scripts build --no-source-maps",
-
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron",

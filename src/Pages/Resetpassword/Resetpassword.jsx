@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import AxiosService from "../../Components/AuthService/AuthService";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import "./Restpassword.css";
 import Logo from "../../Images/lansubPT2.jpeg";
+import axios from 'axios';
+
 
 const Validate = Yup.object({
   password: Yup.string()
@@ -17,8 +18,8 @@ const Validate = Yup.object({
 });
 
 const ResetPassword = () => {
-  const[password,setPassword] = useState("");
-  const[confirmPassword, setConfirmPassword] = useState("");
+  // const[password,setPassword] = useState("");
+  // const[confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -30,14 +31,11 @@ const ResetPassword = () => {
   const { randomString, expirationTimestamp } = useParams();
   const navigate = useNavigate();
 
-  const handleReset = async () => {
+  const handleReset = async (values) => {
     setLoading(true);
     try {
-      let res = await AxiosService.post(`reset-password/${randomString}/${expirationTimestamp}`, {
-          newPassword: password,
-          confirmPassword: confirmPassword,
-      });
-      if (res.status === 201) {
+      let res = await axios.post(`https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/reset-password/${randomString}/${expirationTimestamp}`,values);
+      if (res.status === 200) {
         toast.success("Password updated successfully", {
           position: "top-center",
           autoClose: 3000, 
@@ -78,7 +76,7 @@ const ResetPassword = () => {
             {({ errors, touched }) => (
               <Form className="reset-form-main">
                 <div className="reset-form-div">
-                  <label>Password</label>
+                  <label>New Password</label>
                   <Field
                     type={showPassword ? "text" : "password"}
                     name="password"
