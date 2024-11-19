@@ -1,65 +1,62 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Formik, Form, Field, ErrorMessage } from 'formik';  // Formik imports
-import * as Yup from 'yup';  // Yup for validation
+import {  useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import { Formik, Form, Field, ErrorMessage } from 'formik';  
+import * as Yup from 'yup';  
 import './Profile .css';
+import AxiosService from "../../Components/AuthService/AuthService";
 import Header from '../../Components/Header/Header';
 import Sidebar from '../../Components/SideBar/Sidebar';
 
 // Validation schema using Yup
 const validationSchema = Yup.object({
+    companyname: Yup.string().required('Company name is required'),
     name: Yup.string().required('Name is required'),
     email: Yup.string().email('Invalid email format').required('Email is required'),
     designation: Yup.string().required('Designation is required'),
 });
 
 const ProfileForm = () => {
+    const [loading, setLoading] = useState(true);
+    const[token, setToken] = useState("")
+    const [loggedUser, setLoggedUser] = useState("");
+
     const [initialValues, setInitialValues] = useState({
-        name: '',
-        email: '',
+        companyname: loggedUser.companyname,
+        name:loggedUser.username,
+        email: loggedUser.email,
         designation: ''
     });
-    
-    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchProfileData = async () => {
-            try {
-                const response = await axios.get('https://vivardhi.in/api/auth/update-profile/', {
-                    withCredentials: true
-                });
-                setInitialValues({
-                    name: response.data.name,
-                    email: response.data.email,
-                    designation: response.data.designation || 'Not specified'
-                });
-            } catch (error) {
-                console.error('Error fetching profile data:', error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setInitialValues((prevValues) => ({
+          ...prevValues,
+          [name]: value,
+        }));
+      };
 
-        fetchProfileData();
-    }, []);
-
-    const handleSubmit = async (values, { setSubmitting }) => {
+    const navigate = useNavigate();
+    const handleSubmit = async(data ,{ setSubmitting }) => {
+        setSubmitting(true);
         try {
-            await axios.put('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/auth/update-profile/', values, {
-                withCredentials: true
-            });
-            alert('Profile updated successfully!');
-        } catch (error) {
-            console.error('Error updating profile:', error);
-            alert('Failed to update profile. Please try again.');
-        } finally {
-            setSubmitting(false);
-        }
-    };
-
-    if (isLoading) {
-        return <div>Loading...</div>;  // Show loading state while data is being fetched
-    }
+            const response = await AxiosService.put("updateprofile/", data);
+            const user = response.data.matcheduser;
+            const updatedData = { token, user };
+            localStorage.setItem("loggedInUser", JSON.stringify(updatedData));
+            setLoggedUser(updatedData.user);
+            toast.success("Profile updated successfully");
+            setLoading(false);
+            setTimeout(() => {
+              navigate("/class");
+            }, 2000);
+          } catch (err) {
+            toast.error("Something went wrong , Please try again later");
+          } finally {
+            setLoading(false);
+          }
+        setSubmitting(false);
+      };
 
     return (
         <>
@@ -69,7 +66,7 @@ const ProfileForm = () => {
                 <Formik
                     initialValues={initialValues}
                     validationSchema={validationSchema}
-                    enableReinitialize  // Reinitialize form with fetched data
+                    enableReinitialize  
                     onSubmit={handleSubmit}
                 >
                     {({ isSubmitting }) => (
@@ -77,20 +74,37 @@ const ProfileForm = () => {
                             <div className="profile-details">
                                 <h3>Profile Details</h3>
 
-                                <label>Name:</label>
+                                <label>Company Name:</label>
+                                <Field 
+                                    type="text"
+                                    id="companyname" 
+                                    name="companyname"
+                                    className="input-field"
+                                    value={initialValues.companyname}
+                                    onChange={handleChange}
+                                />
+                                <ErrorMessage name="companyname" component="div" className="error-message" />
+
+                                <label>User Name:</label>
                                 <Field 
                                     type="text" 
-                                    name="name"
+                                    name="username"
+                                    id="username"
                                     className="input-field"
+                                    value={initialValues.username}
+                                    onChange={handleChange}
                                 />
-                                <ErrorMessage name="name" component="div" className="error-message" />
+                                <ErrorMessage name="username" component="div" className="error-message" />
 
                                 <label>Email:</label>
                                 <Field 
                                     type="email" 
                                     name="email"
+                                    id="email"
                                     className="input-field"
-                                    disabled  // Read-only field
+                                    value={initialValues.email}
+                                    onChange={handleChange}
+                                   
                                 />
                                 <ErrorMessage name="email" component="div" className="error-message" />
 
@@ -98,7 +112,10 @@ const ProfileForm = () => {
                                 <Field 
                                     type="text" 
                                     name="designation"
+                                    id="designation"
                                     className="input-field"
+                                    value={initialValues.designation}
+                                    onChange={handleChange}
                                 />
                                 <ErrorMessage name="designation" component="div" className="error-message" />
                             </div>
@@ -109,6 +126,7 @@ const ProfileForm = () => {
                     )}
                 </Formik>
             </div>
+            <ToastContainer position="top-center" autoClose={3000} />
         </>
     );
 };

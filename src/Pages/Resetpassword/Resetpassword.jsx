@@ -78,7 +78,7 @@ const ResetPassword = () => {
             {({ errors, touched }) => (
               <Form className="reset-form-main">
                 <div className="reset-form-div">
-                  <label>New Password</label>
+                  <label>Password</label>
                   <Field
                     type={showPassword ? "text" : "password"}
                     name="password"

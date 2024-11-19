@@ -132,7 +132,7 @@
 }
 
 /* Progress Bar */
-.progress-bar {
+.bar {
   height: 8px;
   background-color: #e0e0e0;
   border-radius: 4px;
@@ -140,7 +140,7 @@
   margin: 10px 0;
 }
 
-.progress-fill {
+.bar-fill {
   height: 100%;
   background-color: #4CAF50;
   transition: width 0.3s ease;

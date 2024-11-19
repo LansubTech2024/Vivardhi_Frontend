@@ -8,12 +8,13 @@ import {
   RiSearchLine,
 } from "react-icons/ri";
 import MessagePopup from "../MessagePopup/MessagePopup";
-import axios from "axios";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const[token, setToken] = useState("")
+  const [loggedUser, setLoggedUser] = useState("");
   const [isDialogOpen, setDialogOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(""); // State to hold search query
+  const [searchQuery, setSearchQuery] = useState(""); 
   const navigate = useNavigate();
 
   const openDialog = () => setDialogOpen(true);
@@ -21,13 +22,10 @@ const Header = () => {
   const handleMenuToggle = () => setShowMenu(!showMenu);
 
   const handleLogout = async () => {
-    try {
-      await axios.post("http://127.0.0.1:5000/api/auth/logout", {}, { withCredentials: true });
-      localStorage.removeItem("authToken");
-      navigate("/");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
+    setToken(null);
+    setLoggedUser(null);
+    navigate("/");
+    localStorage.clear();
   };
 
   const handleSearchChange = (e) => {
@@ -110,7 +108,7 @@ const Header = () => {
                 </li>
                 <li>
                   <RiLogoutBoxLine size={22} />
-                  <a href="/" onClick={handleLogout}>
+                  <a className="logout-link" onClick={handleLogout}>
                     Logout
                   </a>
                 </li>

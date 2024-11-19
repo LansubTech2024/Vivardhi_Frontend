@@ -114,7 +114,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               )}
             </li>
             <li>
-              <Link to="/Report">
+              <Link to="#">
                 {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
                 <span>Report</span>
               </Link>

@@ -7,11 +7,16 @@
     margin-left: 170px;
     margin-top: 100px;
 }
+.power-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    gap: 24px;
+}
 .power-graph{
+    margin: 20px 0;
     border:1px solid #E0E0E0;
+    padding: 10px;
     border-radius: 8px;
-    padding: 20px;
-    width:800px;
 }
 .historical-graph{
     border:1px solid #E0E0E0;

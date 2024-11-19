@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-//import ProgressBar from "react-progressbar.js";
 import "./Inventory.css";
 
 const Inventory = () => {
@@ -40,7 +39,7 @@ const Inventory = () => {
   useEffect(() => {
     const fetchInventoryData = async () => {
       try {
-        const response = await fetch("https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/inventory");
+        const response = await fetch("http://localhost:5000/api/inventory");
         const data = await response.json();
         setInventoryData(data);
 
@@ -104,20 +103,19 @@ const Inventory = () => {
               </p>
               <p>Current Stock: {item.currentStock}</p>
               <p>Minimum Required: {item.minimumRequired}</p>
-              {/* <div style={{ width: "300px", height: "20px" }}>
-                <ProgressBar
-                  completed={(item.currentStock / item.minimumRequired) * 100}
-                  options={{
-                    strokeWidth: 1,
-                    color:
+              {/* <div className="bar">
+                <div
+                  className="bar-fill"
+                  style={{
+                    width: `${
+                      (item.currentStock / item.minimumRequired) * 100
+                    }%`,
+                    backgroundColor:
                       item.currentStock < item.minimumRequired
                         ? "#ff0000"
                         : "#3e98c7",
-                    trailColor: "#d3d3d3",
-                    easing: "easeInOut",
-                    duration: 1400,
                   }}
-                />
+                ></div>
               </div> */}
             </div>
           ))}
@@ -135,25 +133,19 @@ const Inventory = () => {
               </p>
               <p>Current Stock: {item.finishedGoodCurrentStock}</p>
               <p>Minimum Required: {item.finishedGoodMinimumRequired}</p>
-              {/* <div style={{ width: "300px", height: "20px" }}>
-                <ProgressBar
-                  completed={
-                    (item.finishedGoodCurrentStock /
-                      item.finishedGoodMinimumRequired) *
-                    100
-                  }
-                  options={{
-                    strokeWidth: 1,
-                    color:
-                      item.finishedGoodCurrentStock <
-                      item.finishedGoodMinimumRequired
+              {/* <div className="bar">
+                <div
+                  className="bar-fill"
+                  style={{
+                    width: `${
+                      (item.finishedGoodCurrentStock / item.finishedGoodMinimumRequired) * 100
+                    }%`,
+                    backgroundColor:
+                      item.finishedGoodCurrentStock < item.finishedGoodMinimumRequired
                         ? "#ff0000"
                         : "#3e98c7",
-                    trailColor: "#d3d3d3",
-                    easing: "easeInOut",
-                    duration: 1400,
                   }}
-                />
+                ></div>
               </div> */}
             </div>
           ))}

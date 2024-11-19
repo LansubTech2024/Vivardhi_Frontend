@@ -49,7 +49,7 @@ const Login = () => {
         }
       } catch (error) {
         console.error("Failed to parse user data:", error);
-        localStorage.removeItem("loggedInUser"); // Remove invalid data
+        localStorage.removeItem("loggedInUser"); 
       }
     }
 
@@ -81,7 +81,7 @@ const Login = () => {
 
       setLoading(false);
 
-      navigate("/home");
+      navigate("/dashboard");
 
       if (response.status === 201) {
         toast.success("login successful", {
