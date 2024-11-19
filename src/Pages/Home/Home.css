@@ -3,6 +3,9 @@
     max-width: 1200px;
     margin: 0 auto;
     margin-left: 200px;
+    background-image:url("https://img.freepik.com/free-vector/technology-white-background_23-2148387729.jpg?t=st=1732025975~exp=1732029575~hmac=61162db54c9f1c03c40106d2943abbc5c79e382f8595ec5ca6149626435abe28&w=996");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .home-main-content,.home-logo{
    display: flex;
