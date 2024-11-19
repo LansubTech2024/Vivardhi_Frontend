@@ -39,8 +39,9 @@
   },
   "main": "public/electron.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "serve -s build start",
+    "build": "CI=false react-scripts build"
+
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron",
