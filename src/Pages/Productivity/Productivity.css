@@ -64,3 +64,94 @@
     background-color: #f2f2f2;
     font-weight: bold;
   }
+
+  @media (min-width: 1200px) {
+    .production-metrics-cards {
+      grid-template-columns: repeat(4, 1fr); /* Four cards per row */
+    }
+  }
+  
+  /* Large Screens (992px to 1199px) */
+  @media (max-width: 1199px) {
+    .productivity {
+      margin-left: 150px;
+    }
+  
+    .production-metrics-cards {
+      grid-template-columns: repeat(3, 1fr); /* Three cards per row */
+    }
+  
+    .production-chart-container {
+      padding: 15px;
+    }
+  }
+  
+  /* Medium Screens (768px to 991px) */
+  @media (max-width: 991px) {
+    .productivity {
+      margin-left: 50px;
+    }
+  
+    .production-metrics-cards {
+      grid-template-columns: repeat(2, 1fr); /* Two cards per row */
+      gap: 16px;
+    }
+  
+    .production-chart-container {
+      margin-top: 40px;
+    }
+  }
+  
+  /* Small Screens (576px to 767px) */
+  @media (max-width: 768px) {
+    .productivity {
+      margin-left: 120px;
+      gap: 24px;
+    }
+    .production-cards-meter{
+      gap:18px;
+    }
+   
+    .production-chart-container {
+      margin-top: 30px;
+      padding: 10px;
+    }
+    .production-chart-grid{
+       width: 100px;
+    }
+  }
+  
+  /* Extra Small Screens (below 576px) */
+  @media (max-width: 576px) {
+    .productivity-container {
+      padding: 10px;
+    }
+  
+    .production-metrics-cards {
+      gap: 12px;
+    }
+  
+    .production-card {
+      padding: 12px;
+      font-size: 14px; /* Smaller font size */
+    }
+    .production-cards-meter{
+      gap: 18px;
+      margin-left: 40px;
+    }
+    .production-chart-grid {
+      grid-template-columns: 1fr; 
+      margin-top: 5rem;
+      margin-left: 10px;
+      margin-right: 90px;
+    }
+  
+    .production-chart-container {
+      padding: 8px;
+    }
+  
+    .production-table th, 
+    .production-table td {
+      padding: 6px; /* Adjust table cell padding */
+    }
+  }

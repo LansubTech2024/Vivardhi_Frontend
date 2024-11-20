@@ -252,34 +252,65 @@
   font-weight: normal;
 }
 
-@media (max-width: 768px) {
-  .metrics-grid {
-    grid-template-columns: repeat(2, 1fr);
+@media (max-width: 992px) {
+  .dashboard-container {
+    margin-left: 100px;
   }
-  
-  .charts-grid {
-    flex-direction: column; /* Stack charts on small screens */
-    align-items: center;
+  .metrics-grid, .charts-grid {
+    gap: 20px;
   }
-
-  .chart-card {
-    overflow-x: auto;
+  .metric-card {
+    width: 180px;
+    height: 90px;
   }
-   .chart-card {
-    overflow-x: auto;
-  }
-
-  .circular-progressbars {
-    flex-direction: column; /* Stack progress bars on small screens */
-    align-items: flex-start; /* Align items to the start */
-  }
-
-  .progress-item {
-    flex-direction: row; /* Keep the direction for better readability */
+  .production-circle-card {
     width: 100%;
   }
+}
 
-  .progress-label {
-    text-align: left;
+/* For small screens (mobile) */
+@media (max-width: 768px) {
+  .dashboard-container {
+    margin-left: 20px;
+    margin-top: 30px;
+  }
+  .metrics-grid {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .metric-card {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+  .charts-grid {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .chart-card {
+   width: 20px;
+   margin-right: 100px;
+   
+  }
+  .raw-material-finished-goods {
+    flex-direction: column;
+  }
+  .production-circle-card {
+    width: 200px;
+    flex-direction: column;
+  }
+}
+
+/* For extra small screens */
+@media (max-width: 576px) {
+  .dashboard {
+    padding: 16px;
+  }
+  .metrics-details {
+    grid-template-columns: 1fr; /* Stack metric details */
+  }
+  .metric-card {
+    font-size: 0.9rem;
+    padding: 8px;
   }
 }

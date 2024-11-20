@@ -60,15 +60,94 @@
   margin: auto;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-  .machine-table th,
-  .machine-table td {
-    padding: 8px;
-    font-size: 0.9em;
+@media (min-width: 1200px) {
+  .machine-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 charts per row */
+  }
+}
+
+/* Large Screens (992px to 1199px) */
+@media (max-width: 1199px) {
+  .machines-content {
+    margin-left: 100px;
   }
 
+  .machine-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 charts per row */
+  }
+
+  .chart-container {
+    padding: 12px;
+  }
+}
+
+/* Medium Screens (768px to 991px) */
+@media (max-width: 991px) {
+  .machines-content {
+    margin-left: 50px;
+    margin-top: 50px;
+  }
+
+  .machine-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 charts per row */
+  }
+
+ 
+
+  .chart-container {
+    padding: 10px;
+  }
+}
+
+/* Small Screens (576px to 767px) */
+@media (max-width: 768px) {
+  .machines-content {
+    margin-left: 20px;
+    width: 50px;
+  }
+
+  .machine-grid {
+    grid-template-columns: 1fr; 
+    margin-left: 100px;
+    margin-top: 40px;
+    margin-right: 140px;
+    width: 60px;
+  }
+
+  .chart-container {
+    margin-top: 20px;
+    padding: 10px;
+  }
+
+  .analysis-table{
+    width: 20px;
+    margin-left: 25rem;
+    margin-right: 11rem;
+
+  }
+}
+
+/* Extra Small Screens (below 576px) */
+@media (max-width: 575px) {
+  .machines-container {
+    padding: 10px;
+  }
+
+  .machines-content {
+    margin: 10px 0;
+  }
+
+  .machine-grid {
+    grid-template-columns: 1fr; /* Single-column layout */
+    gap: 16px;
+  }
+
+  .chart-container {
+    padding: 8px;
+  }
+
+ 
   h2, h3 {
-    font-size: 1.1em;
+    font-size: 0.9rem;
   }
 }
