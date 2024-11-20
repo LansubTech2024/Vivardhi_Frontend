@@ -128,8 +128,8 @@ const Login = () => {
               src={Logo}
               alt="logo"
               className="logo-img"
-              width={100}
-              height={100}
+              width={70}
+              height={80}
             />
             <h1>OPFACT</h1>
             </div>

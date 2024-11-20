@@ -23,7 +23,7 @@ const MachineAnalysis = () => {
   
   // Fetch average machine data
   useEffect(() => {
-    axios.get("http://localhost:5000/api/machines/averages")
+    axios.get("https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/machines/averages")
       .then(response => setMachines(response.data))
       .catch(error => console.error("Error fetching machine data:", error));
   }, []);
