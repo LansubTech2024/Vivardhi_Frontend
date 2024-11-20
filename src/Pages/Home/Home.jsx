@@ -9,7 +9,7 @@ const Home = () => {
     <>
       <Header />
       <Sidebar />
-      <main className="main">
+      <main className="home-main">
         <div className="home-main-content">
           <img src={Logo} alt='home-logo' />
         </div>
@@ -17,7 +17,7 @@ const Home = () => {
                 <div className="home-overview">
                     <h2>Application Overview</h2>
                     <p>
-                        Our application &apos;Opfact&apos; is designed to provide real-time insights into manufacturing performance by visualizing critical data such as temperature trends, temperature changes, average pressures, and their distributions. We present this information through intuitive graphs and impact cards to help users make informed decisions. By analyzing data on temperature fluctuations and pressure metrics, users can monitor equipment performance, assess efficiency, and identify areas for improvement. Our application integrates seamlessly with MES (Manufacturing Execution Systems) to offer comprehensive visibility into production processes, ensuring operational excellence and enhanced decision-making.
+                    Our application 'Opfact' visualizes real-time manufacturing data and features a professional OEE-based dashboard. It includes modules for productivity analysis, machine performance, inventory tracking, and power consumption insights, providing a comprehensive overview for operational excellence.
                     </p>
                 </div>
             </section>
