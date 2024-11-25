@@ -10,22 +10,23 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Legend,
   ResponsiveContainer,
 } from "recharts";
-// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+// import { Chart as ChartJS, ArcElement,Tooltip, Legend } from "chart.js";
 // ChartJS.register(ArcElement, Tooltip, Legend);
 
 const MachineAnalysis = () => {
   //state
   const [machines, setMachines] = useState([]);
   const navigate = useNavigate();
- 
-  
+
   // Fetch average machine data
   useEffect(() => {
-    axios.get("https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/machines/averages")
-      .then(response => setMachines(response.data))
-      .catch(error => console.error("Error fetching machine data:", error));
+    axios
+      .get("https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/machines/averages")
+      .then((response) => setMachines(response.data))
+      .catch((error) => console.error("Error fetching machine data:", error));
   }, []);
 
   // Handle row click to display machine details
@@ -36,15 +37,23 @@ const MachineAnalysis = () => {
   // Preparing chart data (adjust based on available fields)
   const productionChartData = machines.map((machine) => ({
     machineId: machine.machineId,
-    productionRate: parseFloat(machine.productionRate),
-    scrapRate: parseFloat(machine.scrapRate),
+    productionRate: parseFloat(machine.avgProductionRate),
+    scrapRate: parseFloat(machine.avgScrapRate),
   }));
 
   const conditionChartData = machines.map((machine) => ({
     machineId: machine.machineId,
-    temperature: parseFloat(machine.temperature),
-    downtime: parseFloat(machine.downtime),
+    temperature: parseFloat(machine.avgTemperature),
+    downtime: parseFloat(machine.avgDowntime),
   }));
+
+  // Function to return "-" if value is null or undefined
+  const formatValue = (value) => {
+    if (value == null || value === "" || value === "NaN") {
+      return "-";
+    }
+    return parseFloat(value).toFixed(2);
+  };
 
   return (
     <>
@@ -61,6 +70,11 @@ const MachineAnalysis = () => {
                   <XAxis dataKey="machineId" />
                   <YAxis />
                   <Tooltip />
+                  <Legend
+                    layout="horizontal"
+                    verticalAlign="bottom"
+                    align="center"
+                  />
                   <Line
                     type="monotone"
                     dataKey="productionRate"
@@ -87,6 +101,11 @@ const MachineAnalysis = () => {
                   <XAxis dataKey="machineId" />
                   <YAxis />
                   <Tooltip />
+                  <Legend
+                    layout="horizontal"
+                    verticalAlign="bottom"
+                    align="center"
+                  />
                   <Line
                     type="monotone"
                     dataKey="temperature"
@@ -125,11 +144,11 @@ const MachineAnalysis = () => {
                     onClick={() => handleRowClick(machine.machineId)}
                   >
                     <td>{machine.machineId}</td>
-                    <td>{parseFloat(machine.productionRate).toFixed(2)}</td>
-                    <td>{parseFloat(machine.scrapRate).toFixed(2)}</td>
-                    <td>{parseFloat(machine.downtime).toFixed(2)}</td>
-                    <td>{parseFloat(machine.temperature).toFixed(2)}</td>
-                    <td>{parseFloat(machine.energyConsumption).toFixed(2)}</td>
+                    <td>{formatValue(machine.avgProductionRate)}</td>
+                    <td>{formatValue(machine.avgScrapRate)}</td>
+                    <td>{formatValue(machine.avgDowntime)}</td>
+                    <td>{formatValue(machine.avgTemperature)}</td>
+                    <td>{formatValue(machine.avgEnergyConsumption)}</td>
                   </tr>
                 ))}
               </tbody>

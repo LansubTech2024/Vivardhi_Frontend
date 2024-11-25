@@ -437,9 +437,9 @@ const Dashboard = () => {
                     outerRadius={120}
                     paddingAngle={5}
                     dataKey="value"
-                    label={({ name, percent }) =>
-                      `${name} (${(percent * 100).toFixed(1)}%)`
-                    }
+                    //label={({ name, percent }) =>
+                     // `${name} (${(percent * 100).toFixed(1)}%)`
+                    //}
                   >
                     {pieChartData.map((entry, index) => (
                       <Cell
