@@ -3,19 +3,36 @@ import { useParams } from "react-router-dom";
 import Header from "../../Components/Header/Header";
 import Sidebar from "../../Components/SideBar/Sidebar";
 import "./Machine_details.css";
-import axios from "axios";
 
-const About = () => {
-  const { id } = useParams(); // Get machineId from the URL
+const MachineDetails = () => {
+  const { id } = useParams(); 
   const [machine, setMachine] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/machines/${id}`)
-      .then(response => setMachine(response.data))
-      .catch(error => console.error("Error fetching machine details:", error));
+    // Fetch data from the backend for the selected machineId
+    const fetchMachineDetails = async () => {
+      try {
+        const response = await fetch(`https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/machines/${id}`);
+        const data = await response.json();
+        setMachine(data[0]); // Since it's a single machine
+      } catch (error) {
+        console.error("Error fetching machine details:", error);
+      }
+    };
+
+    fetchMachineDetails();
   }, [id]);
 
   if (!machine) return <p>Loading...</p>;
+
+  // Function to handle NaN or missing values
+  const formatValue = (value) => {
+    if (value == null || value === "" || value === "NaN") {
+      return "-";
+    }
+    return parseFloat(value).toFixed(2); 
+  };
+  
   return (
     <>
       <Header />
@@ -23,52 +40,52 @@ const About = () => {
       <div className="machine-container">
         <div className="machine-details">
           <h2 className="machine-header">
-            Details for Machine {machine.equipmentName}
+            Details for {machine.equipmentName}
           </h2>
           <div className="details-container">
             <div className="details-card">
-              <strong>Spindle Speed:</strong> {machine.spindleSpeed}
+              <strong>Spindle Speed:</strong> {formatValue(machine.avgSpindleSpeed)}
             </div>
             <div className="details-card">
-              <strong>Part Rejection Rate:</strong> {machine.partRejectionRate}
+              <strong>Part Rejection Rate:</strong> {formatValue(machine.avgPartRejectionRate)}
             </div>
             <div className="details-card">
-              <strong>Utilization Rate:</strong> {machine.utilizationRate}
+              <strong>Utilization Rate:</strong> {formatValue(machine.avgUtilizationRate)}
             </div>
             <div className="details-card">
-              <strong>Feed Rate:</strong> {machine.feedRate}
+              <strong>Feed Rate:</strong> {formatValue(machine.avgFeedRate)}
             </div>
             <div className="details-card">
-              <strong>Cycle Time:</strong> {machine.cycleTime}
+              <strong>Cycle Time:</strong> {formatValue(machine.avgCycleTime)}
             </div>
             <div className="details-card">
-              <strong>Machine Utilization:</strong> {machine.machineUtilization}
+              <strong>Machine Utilization:</strong> {formatValue(machine.avgMachineUtilization)}
             </div>
             <div className="details-card">
-              <strong>Temperature:</strong> {machine.temperature}
+              <strong>Temperature:</strong> {formatValue(machine.avgTemperature)}
             </div>
             <div className="details-card">
-              <strong>Chuck Pressure:</strong> {machine.chuckPressure}
+              <strong>Chuck Pressure:</strong> {formatValue(machine.avgChuckPressure)}
             </div>
             <div className="details-card">
-              <strong>Downtime:</strong> {machine.downtime}
+              <strong>Downtime:</strong> {formatValue(machine.avgDowntime)}
             </div>
             <div className="details-card">
-              <strong>Cut Depth:</strong> {machine.cutDepth}
+              <strong>Cut Depth:</strong> {formatValue(machine.avgCutDepth)}
             </div>
             <div className="details-card">
               <strong>Material Removal Rate:</strong>{" "}
-              {machine.materialRemovalRate}
+              {formatValue(machine.avgMaterialRemovalRate)}
             </div>
             <div className="details-card">
               <strong>Surface Finish Quality:</strong>{" "}
-              {machine.surfaceFinishQuality}
+              {formatValue(machine.avgSurfaceFinishQuality)}
             </div>
             <div className="details-card">
-              <strong>Tool Life:</strong> {machine.toolLife}
+              <strong>Tool Life:</strong> {formatValue(machine.avgToolLife)}
             </div>
             <div className="details-card">
-              <strong>Tool Wear:</strong> {machine.toolWear}
+              <strong>Tool Wear:</strong> {formatValue(machine.avgToolWear)}
             </div>
           </div>
         </div>
@@ -77,4 +94,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default MachineDetails;
