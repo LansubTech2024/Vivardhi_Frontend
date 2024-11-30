@@ -13,11 +13,11 @@ import OEEanalysis from "./Pages/OEE analysis/OEE analysis.js";
 import MachineDetails from "./Pages/Machine_Detailes/Machine_details.js";
 import ProductivityTable from "./Pages/Productivity/Productivity.jsx";
 import MachineAnalysis from "./Pages/AnalysisMachine/MachineAnalysis.jsx";
-
 import Report from "./Pages/Report/Report.js";
-
 import AuthLogin from "./Pages/AuthLogin/AuthLogin.jsx";
 import AuthSignup from "./Pages/AuthSignup/AuthSignup.jsx";
+
+//import ChatBot from "./Components/ChatBot/ChatBot.js";
 
 const App = () => {
   return (
@@ -27,7 +27,7 @@ const App = () => {
         <Route path="/home" element={<Home/>}/>
         <Route path="/resources" element={<Resources/>}/>
         <Route path="/help" element={<HelpandSupport/>}/>
-        <Route path="/dashboard" element={<Dashboard/>}/>
+        <Route path="/dashboard" element={<Dashboard />}/>
         <Route path="/power-usage" element={<PowerUsage/>}/>
         <Route path="/profile" element={<Profile/>}/>
         <Route path="/forgetpassword" element={<ForgetPassword/>}/>
