@@ -10,6 +10,7 @@
     "chart.js": "^4.4.4",
     "concurrently": "^9.0.1",
     "cross-env": "^7.0.3",
+    "electron-is-dev": "^3.0.1",
     "formik": "^2.4.6",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.2",
@@ -37,9 +38,9 @@
     "web-vitals": "^2.1.4",
     "yup": "^1.4.0"
   },
-  "main": "public/electron.js",
+  "main": "public/electron.mjs",
   "scripts": {
-    "start": "serve -s build",
+    "start": "react-scripts start --no-source-maps",
     "build": "cross-env CI=false react-scripts build --no-source-maps",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -49,48 +50,39 @@
   },
   "build": {
     "appId": "com.example.vivardhi",
+    "productName": "Opfact",
     "asar": true,
-    "asarUnpack": [
-      "public/assets/**",
-      "**/*.mp4",
-      "**/*.zip",
-      "**/*.png",
-      "**/node_modules/**"
-    ],
     "files": [
-      {
-        "from": "public",
-        "to": "public",
-        "filter": [
-          "**/*",
-          "!**/*.md",
-          "!**/*.log"
-        ]
-      },
-      {
-        "from": "dist",
-        "to": "dist",
-        "filter": [
-          "**/*",
-          "!**/*.map"
-        ]
-      }
+      "build/**/*",
+      "electron.mjs",
+      "preload.js",
+      "package.json"
     ],
     "extraResources": [
       {
-        "from": "assets",
-        "to": "assets",
-        "filter": [
-          "**/*"
-        ]
+        "from": "public/assets",
+        "to": "assets"
       }
     ],
-    "mac": null,
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "icon": "public/icon.icns"
+    },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon": "public/icon.ico",
+      "forceCodeSigning": false
     },
     "linux": {
-      "target": "AppImage"
+      "target": "AppImage",
+      "icon": "public/icon.png",
+      "forceCodeSigning": false
+    },
+    "directories": {
+      "output": "dist"
     }
   },
   "eslintConfig": {

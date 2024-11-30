@@ -6,6 +6,7 @@
   width: 100%;
   height: 30px;
   /* background-color:  rgb(224 242 254) ; */
+  background:white;
   margin: 0;
   position: fixed;
   margin-top: 0;
@@ -126,6 +127,46 @@
     transform: scale(2);
     opacity: 0;
   }
+}
+.notification-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+}
+/* Popup Animation */
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.notification-popup {
+  position: fixed;
+  top: 70px; 
+  right: 0; 
+  left:auto;
+  background: white;
+  border-left: 1px solid #ccc;
+  padding: 16px;
+  z-index: 100;
+  height: 100vh;
+  overflow-y: auto;
+  width: 300px; 
+  transform: translateX(100%); 
+  transition: transform 0.3s ease; 
+}
+.notification-popup.visible {
+  transform: translateX(0); /* Slide into view */
 }
 .profile {
   display: flex;

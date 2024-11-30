@@ -40,12 +40,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         </div>
         <nav className="sidebar-menu">
           <ul className="list-item">
-            <li className="active">
+            {/* <li className="active">
               <Link to="/home">
-                {/* <i className="fa-solid fa-house-chimney"></i> */}
-Home
+                <i className="fa-solid fa-house-chimney"></i>
+                  Home
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/dashboard">
                 {/* <i className="fa-solid fa-gauge-high"></i> */}
