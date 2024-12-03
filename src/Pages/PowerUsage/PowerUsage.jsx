@@ -13,7 +13,7 @@ const PowerUsageDashboard = () => {
       <Sidebar />
       <div className="power-container-div">
       <div className="power-dashboard">
-        <h1>Power Usage Dashboard</h1>
+        <h2>Power Analysis</h2>
         <div className="power-container">
           <div className="power-card">
             <PowerUsageCard />

@@ -155,7 +155,7 @@ const ProductivityTable = () => {
     <Sidebar/>
     <div className='productivity-container'>
         <div className='productivity'>
-
+        <h2>Productivity</h2>
         {/* Metrics Cards */}
         <div className="production-metrics-cards">
           <div className="production-card">
@@ -166,8 +166,8 @@ const ProductivityTable = () => {
             <h3>Actual Production</h3>
             <p>{data.reduce((sum, item) => sum + item.actualProduction, 0)}</p>
           </div>
-          <div className="production-card-meter" style={{ width: '150px', height: '150px' }}>
-            <h3 style={{ width: '200px'}}>Overall Productivity</h3>
+          <div className="production-card-meter" style={{ width: '140px', height: '150px' }}>
+            
             <CircularProgressbar
                 value={overallProductivity}
                 text={`${Math.round(overallProductivity)}%`}
@@ -177,9 +177,10 @@ const ProductivityTable = () => {
                   trailColor: '#d6d6d6'
                 })}
               />
+              <h3>Overall Productivity</h3>
           </div>
-          <div className="production-card-meter"style={{ width: '150px', height: '150px' }}>
-              <h3>Scrap Rate</h3>
+          <div className="production-card-meter"style={{ width: '140px', height: '150px' }}>
+              
               <CircularProgressbar
                 value={scrapRate}
                 text={`${Math.round(scrapRate)}%`}
@@ -188,9 +189,10 @@ const ProductivityTable = () => {
                   text: { fill: 'red', fontSize: '16px' },
                 }}
               />
+              <h3>Scrap Rate</h3>
             </div>
-            <div className="production-card-meter"style={{ width: '150px', height: '150px' }}>
-              <h3>Defect Rate</h3>
+            <div className="production-card-meter"style={{ width: '140px', height: '150px' }}>
+              
               <CircularProgressbar
                 value={defectRate}
                 text={`${Math.round(defectRate)}%`}
@@ -199,6 +201,7 @@ const ProductivityTable = () => {
                   text: { fill: 'orange', fontSize: '16px' },
                 }}
               />
+              <h3>Defect Rate</h3>
             </div>
         </div>
 

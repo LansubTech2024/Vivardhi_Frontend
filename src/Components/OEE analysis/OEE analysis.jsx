@@ -63,7 +63,7 @@ const OeeDashboard = () => {
 
   return (
     <div className="oee-table-part">
-      <h2>Machine OEE Dashboard</h2>
+      <h2>Machines</h2>
 
       {/* Dropdown to filter by zone */}
       <select

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef , useEffect} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Header.css";
 import {
@@ -7,9 +7,10 @@ import {
   RiUser3Line,
   RiSearchLine,
 } from "react-icons/ri";
+import { RxBell } from "react-icons/rx";
 import MessagePopup from "../MessagePopup/MessagePopup";
 
-const Header = () => {
+const Header = ({ addedItems }) => {
   const [showMenu, setShowMenu] = useState(false);
   const[token, setToken] = useState("")
   const [loggedUser, setLoggedUser] = useState("");
@@ -20,6 +21,11 @@ const Header = () => {
   const openDialog = () => setDialogOpen(true);
   const closeDialog = () => setDialogOpen(false);
   const handleMenuToggle = () => setShowMenu(!showMenu);
+  const [showPopup, setShowPopup] = useState(false);
+  const popupRef = useRef(null);
+
+  // Toggle popup visibility
+  const togglePopup = () => setShowPopup(!showPopup);
 
   const handleLogout = async () => {
     setToken(null);
@@ -51,11 +57,32 @@ const Header = () => {
     }
   };
 
-  const highlightQuery = (text) => {
-    if (!searchQuery) return text;
-    const regex = new RegExp(`(${searchQuery})`, "gi");
-    return text.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+  // const highlightQuery = (text) => {
+  //   if (!searchQuery) return text;
+  //   const regex = new RegExp(`(${searchQuery})`, "gi");
+  //   return text.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+  // };
+
+   // Close popup if clicked outside
+   const handleClickOutside = (event) => {
+    if (popupRef.current && !popupRef.current.contains(event.target)) {
+      setShowPopup(false); // Close the popup
+    }
   };
+
+  useEffect(() => {
+    // Add event listener when the popup is open
+    if (showPopup) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    // Cleanup event listener on component unmount or when popup closes
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showPopup]);
 
   return (
     <>
@@ -82,6 +109,29 @@ const Header = () => {
             </span>
             {isDialogOpen && <MessagePopup onClose={closeDialog} />}
           </div>
+          <div className="notification">
+            <span className="message-icon-div">
+              <RxBell className="message-icon" color="#666" onClick={togglePopup}/>
+              <span className="notification-count">{addedItems?.length || 0}</span>
+            </span>
+          </div>
+          {/* Notification Popup */}
+      {showPopup && (
+        <div className={`notification-popup visible`} ref={popupRef}>
+          <h3>Added Materials</h3>
+          {addedItems.length === 0 ? (
+            <p>No materials added yet.</p>
+          ) : (
+            <ul>
+              {addedItems.map((item, index) => (
+                <li key={index}>
+                  {item.rawMaterialName} - {item.currentStock} units
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
           <div className="user-menu">
             <svg
               className="svg-profile"

@@ -61,6 +61,7 @@ const MachineAnalysis = () => {
       <Sidebar />
       <div className="machines-container">
         <div className="machines-content">
+          <h2>Machines Analysis</h2>
           <div className="machine-grid">
             {/* Production Metrics Chart */}
             <div className="chart-container">

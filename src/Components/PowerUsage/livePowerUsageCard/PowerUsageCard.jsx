@@ -22,10 +22,6 @@ const PowerUsageMetrics = () => {
         <h3>Peak Power</h3>
         <p>{metrics.peakPower} kW</p>
       </div>
-      <div className="power-cards">
-        <h3>Downtime</h3>
-        <p>{metrics.downtime} minutes</p>
-      </div>
       {/* Alert and Suggestion */}
         {metrics.alert && (
         <div className="alert">

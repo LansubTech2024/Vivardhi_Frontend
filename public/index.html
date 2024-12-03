@@ -31,6 +31,34 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link
+      rel="stylesheet"
+      href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css"
+    />
+    <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+
+    <style>
+      df-messenger {
+        z-index: 999;
+        position: fixed;
+        --df-messenger-font-color: #000;
+        --df-messenger-font-family: Google Sans;
+        --df-messenger-chat-background: #f3f6fc;
+        --df-messenger-message-bot-background: #fff;
+        bottom: 16px;
+        right: 16px;
+      }
+      df-messenger-chat-bubble {
+        --df-messenger-chat-window-height: 500px;
+        --df-messenger-titlebar-background:#5f999f;
+        --df-messenger-titlebar-font-color:white;
+        --df-messenger-message-user-background:#5f999f;
+        --df-messenger-message-user-font-color:white;
+        --df-messenger-send-icon-color:#5f999f;
+        --df-messenger-send-icon-color-hover:#5f999f;
+        --df-messenger-input-box-focus-border:2px solid #5f999f;
+      }
+    </style>
     <title>Opfact</title>
   </head>
   <body>
@@ -46,5 +74,12 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <df-messenger
+      project-id="plated-axon-440713-d1"
+      agent-id="14115f0d-46f2-4212-a897-0c7e8bf19698"
+      language-code="en"
+    >
+      <df-messenger-chat-bubble chat-title="Opfact"></df-messenger-chat-bubble>
+    </df-messenger>
   </body>
 </html>

@@ -1,3 +1,4 @@
+
 import { app, BrowserWindow, protocol } from 'electron';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
