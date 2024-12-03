@@ -1,46 +1,68 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, protocol } from 'electron';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import path from 'path';
 
-// Manually define __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 async function createWindow() {
-  const isDev = await import('electron-is-dev');  // Dynamic import for electron-is-dev
+  const isDev = (await import('electron-is-dev')).default;
 
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'), // __dirname now defined
-      nodeIntegration: true,
-      contextIsolation: false,
+      preload: path.join(__dirname, 'preload.js'), // Ensure this file exists
+      nodeIntegration: false,
+      contextIsolation: true,
     },
   });
 
-  const startURL = isDev.default
+  const startURL = isDev
     ? 'http://localhost:3000'
-    : `file://${path.join(__dirname, '../build/index.html')}`;
-  
-  win.loadURL(startURL);
+    : `file://${path.resolve(__dirname, '../build/index.html')}`;
 
-  if (isDev.default) {
-    win.webContents.openDevTools();
+  console.log('Start URL:', startURL); // Debugging
+
+  try {
+    await win.loadURL(startURL);
+  } catch (error) {
+    console.error('Error loading the URL:', error);
+  }
+
+  if (isDev) {
+    win.webContents.openDevTools({ mode: 'detach' });
   }
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+  console.log('App is ready');
+  try {
+    createWindow();
+  } catch (error) {
+    console.error('Error creating the window:', error);
+  }
+
+  app.on('activate', () => {
+    console.log('App activated');
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
+  });
+});
 
 app.on('window-all-closed', () => {
+  console.log('All windows closed');
   if (process.platform !== 'darwin') {
     app.quit();
   }
 });
 
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+// Enable file protocol
+app.whenReady().then(() => {
+  protocol.interceptFileProtocol('file', (request, callback) => {
+    const url = request.url.substring(7);
+    callback({ path: path.normalize(url) });
+  });
 });

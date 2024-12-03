@@ -1,20 +1,20 @@
 import "./App.css";
-import Home from './Pages/Home/Home';
-import HelpandSupport from "./Pages/HelpandSupport/HelpandSupport";
-import Dashboard from "./Pages/Dashboard/Dashboard";
+import Home from './Pages/Home/Home.jsx';
+import HelpandSupport from "./Pages/HelpandSupport/HelpandSupport.jsx";
+import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import PowerUsage from "./Pages/PowerUsage/PowerUsage.jsx";
-import Resources from "./Pages/Resource/Resource";
-import Profile from"./Pages/Profile/Profile";
+import Resources from "./Pages/Resource/Resource.jsx";
+import Profile from"./Pages/Profile/Profile.jsx";
 import { BrowserRouter,Routes,Route } from "react-router-dom";
-import ForgetPassword from "./Pages/Forgetpassword/Forgetpassword";
-import ResetPassword from "./Pages/Resetpassword/Resetpassword";
-import Inventory from "./Pages/Inventory/Inventory";
-import OEEanalysis from "./Pages/OEE analysis/OEE analysis.js";
-import MachineDetails from "./Pages/Machine_Detailes/Machine_details.js";
+import ForgetPassword from "./Pages/Forgetpassword/Forgetpassword.jsx";
+import ResetPassword from "./Pages/Resetpassword/Resetpassword.jsx";
+import Inventory from "./Pages/Inventory/Inventory.jsx";
+import OEEanalysis from "./Pages/OEE analysis/OEE analysis.jsx";
+import MachineDetails from "./Pages/Machine_Detailes/Machine_details.jsx";
 import ProductivityTable from "./Pages/Productivity/Productivity.jsx";
 import MachineAnalysis from "./Pages/AnalysisMachine/MachineAnalysis.jsx";
 
-import Report from "./Pages/Report/Report.js";
+import Report from "./Pages/Report/Report.jsx";
 
 import AuthLogin from "./Pages/AuthLogin/AuthLogin.jsx";
 import AuthSignup from "./Pages/AuthSignup/AuthSignup.jsx";
