@@ -18,14 +18,20 @@ body {
 .no-scrollbar::-webkit-scrollbar{
   display: none;
 }
-df-messenger {
+/* df-messenger {
   z-index: 999;
   position: fixed;
+  --df-messenger-bot-message: #bdfcbf;
   --df-messenger-font-color: #000;
   --df-messenger-font-family: 'Google Sans', sans-serif;
   --df-messenger-chat-background: #f3f6fc;
   --df-messenger-message-user-background: #d3e3fd;
+  --df-messenger-send-icon: #7ec472;
   --df-messenger-message-bot-background: #fff;
   bottom: 16px;
   right: 16px;
-}
+} */
+/* .df-messenger-chat-bubble{
+  --df-messenger-chat-window-height:100px;
+  --df-messenger-chat-window-width:100px;
+} */
