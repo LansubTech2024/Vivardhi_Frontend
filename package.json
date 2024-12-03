@@ -1,7 +1,10 @@
 {
-  "name": "vivardhi_frontend",
+  "name": "opfact",
   "version": "0.1.0",
   "private": true,
+  "description": "My Electron app with React and Node.js",
+  "author": "Lansub <lansubtechnologies2024@gmail.com>",
+
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
