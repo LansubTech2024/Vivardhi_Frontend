@@ -18,6 +18,7 @@ async function createWindow() {
       nodeIntegration: false,
       contextIsolation: true,
     },
+    icon: path.join(__dirname, 'public/logo3.ico'),
   });
 
   const startURL = isDev
