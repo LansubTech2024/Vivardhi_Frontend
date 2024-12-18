@@ -15,6 +15,7 @@
     /* background-color: rgb(250 245 255); */
     /* background-color:rgb(240 253 250); */
     background-color:#c4eae1;
+    overflow-y: auto;
 
 }
 .sidebar i{
@@ -97,6 +98,14 @@ ul li a i{
   flex-direction: column;
   justify-content: center;
   list-style-type: none;
+  padding-left: 1.5rem;
+}
+.inventory-list-items li {
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 .inventory-list-items li:hover{
   background-color: #c4eae1;
@@ -173,6 +182,7 @@ ul li a i{
     padding-left:1.5rem;
     list-style-type: none;
 }
+
 /* .nav-toggle {
     position: fixed;
     top: 75px;
@@ -239,6 +249,8 @@ ul li a i{
     transform: rotate(-45deg);
   } */
 
+
+  
   @media (max-width: 1200px) {
     .sidebar {
         width: 250px;
@@ -253,41 +265,119 @@ ul li a i{
 }
 
 @media (max-width: 768px) {
-    .sidebar {
-        width: 100px; 
-        transition: width 0.3s ease; 
-    }
-    .sidebar i {
-        font-size: 18px; 
-    }
-    .company-name-header {
-      font-size: 0.5rem; 
-    }
-}
+  .sidebar {
+      width: 200px;
+  }
 
+  .company-name-header {
+      font-size: 1.2rem;
+      margin: 15px 0;
+  }
+
+  .list-item {
+      padding: 12px;
+  }
+
+  .inventory-item {
+    transform: translateX(1px);
+    overflow: visible; /* Change from 'hidden' to 'visible' */
+    display: block;
+  }
+
+  .inventory-list-items {
+    margin-top: 0.5rem;
+    padding-left: 1rem; /* Reduce the left padding on smaller screens */
+    background-color: #c4eae1; /* Add a background color to make the dropdown visible */
+    border-radius: 0.5rem; /* Add some rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  }
+
+  .inventory-list-items li {
+    margin-bottom: 0.25rem;
+    padding: 0.5rem 1rem; /* Add some padding to the list items */
+  }
+
+  .inven-item {
+    padding-right: 2rem;
+    font-size: 14px;
+  }
+
+}
 
 @media (max-width: 576px) {
-    .sidebar {
-        width: 100px; 
-        transition: width 0.3s ease; 
-    }
-
-    .sidebar-menu {
-        margin-top: 1rem;
-        margin-left: 1px;
-        margin-right: 10px;
-        color: black;
-        font-size: 10px;
-    }
-    .company-name-header{
-        
-        font-size: 1.2rem; 
-    }
-    .list-item{
-      margin-right: 40px;
-      font-size: 10px;
-    }
-    .list-items li{
-      font-size: 80px;
-    }
+  .sidebar {
+      width: 87px;
+      overflow: visible;
+  }
+  .sidebar.open {
+    width: 240px;
 }
+
+  .close-btn {
+    display: block;
+    font-size: 20px;
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+}
+
+  .company-name-header {
+    font-size: 1.2rem; 
+  }
+
+  ul li a {
+    justify-content: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+  .list-item li {
+    text-align: center;
+}
+
+  .list-item li a {
+      padding-left: 0;
+      padding-right: 0;
+  }
+
+  .cnc-item, .setting-item, .help-items {
+    padding: 5px;
+    font-weight: 700;
+}
+  .inventory-item ul {
+    padding-left: 10px;
+}
+  .sidebar.open {
+    width: 240px;
+}
+
+  .sidebar .close-btn {
+   display: none;
+}
+ .inventory-item {
+  transform: translateX(2px);
+  overflow: visible;
+  display: block;
+}
+
+ .inventory-list-items {
+  margin-top: 0.25rem;
+  padding-left: 0.5rem; /* Reduce the left padding even further on smaller screens */
+  background-color: #c4eae1;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+ .inventory-list-items li {
+  margin-bottom: 0.1rem;
+  padding: 0.25rem 0.5rem; /* Reduce the padding on smaller screens */
+}
+
+ .inven-item {
+  padding-right: 1rem;
+  font-size: 12px;
+}
+
+}
+
+

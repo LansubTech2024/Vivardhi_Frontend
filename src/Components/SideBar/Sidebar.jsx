@@ -9,7 +9,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   // const[helpOpen,setHelpOpen] = useState(false)
   //const [toggle, setToggle] = useState(false);
   const[InventoryOpen, setInventoryOpen] = useState(false);
-
+  
   // const ToggleSetting = () =>{
   //     setSettingOpen(!settingOpen);
   // }
@@ -30,8 +30,10 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   }
 
   return (
+    
+    
     <div className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
-      <div className="close-btn" onClick={toggleSidebar}>
+     <div className="close-btn" onClick={toggleSidebar}>
         &times;
       </div>
       <aside className="no-scrollbar sidebar">
