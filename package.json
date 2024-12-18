@@ -44,6 +44,7 @@
   },
   "type": "module",
   "main": "public/electron.js",
+  "homepage" :"./",
   "scripts": {
     "start": "react-scripts start --no-source-maps",
     "build": "cross-env CI=false react-scripts build --no-source-maps",
@@ -66,18 +67,20 @@
     ],
     "files": [
       "build/**/*",
+
       "public/electron.js",
       "preload.js"
     ],
-    "extraResources": [
-      {
-        "from": "build/",
-        "to": "build/",
-        "filter": [
-          "**/*"
-        ]
-      }
-    ],
+    
+   "extraResources": [
+    {
+      "from": "build/",
+      "to": "build/",
+      "filter": ["**/*"]
+    }
+  ],
+  "icon": "public/logo3",
+
     "mac": {
       "target": "dmg",
       "icon": "public/icon.icns"
@@ -88,14 +91,14 @@
         "nsis",
         "portable"
       ],
-      "icon": "public/icon.ico",
+      "icon": "public/logo3.ico",
       "forceCodeSigning": false
     },
     "linux": {
       "target": [
         "AppImage"
       ],
-      "icon": "public/logo3.png",
+      "icon": "public/assets/logo3.png",
       "category": "Development",
       "forceCodeSigning": false
     },
@@ -103,6 +106,12 @@
       "buildResources": "build",
       "output": "dist"
     },
+    "nsis": {
+    "oneClick": false,
+    "allowToChangeInstallationDirectory": true,
+    "createDesktopShortcut": true,
+    "shortcutName": "Opfact"
+  },
     "extraMetadata": {
       "main": "public/electron.js"
     }

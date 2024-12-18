@@ -45,6 +45,10 @@
   /* border:1px solid #E0E0E0; */
   /* background-color: rgb(240 249 255) ; */
   /* background-color:rgb(250 245 255); */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: #c4eae1;
   cursor: pointer;
 
@@ -72,6 +76,17 @@
   margin: 0;
   text-align: center;
 }
+
+/* .semi-circle-wrapper {
+  position: relative;
+  width: 120px;
+  height: 60px; 
+  overflow: hidden;
+}
+
+.semi-circle-wrapper .CircularProgressbar {
+  transform: translateY(-50%); 
+} */
 
 .charts-grid {
   display: flex;
