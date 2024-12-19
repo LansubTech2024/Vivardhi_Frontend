@@ -263,6 +263,35 @@
   .header{
     padding: 10px;
   }
+  .company-name-header p{
+    font-weight: 5;
+    font-size: 20px;
+  }
+  .heading{
+    font-size: 10;
+  }
+  .search-box {
+    width: 140px;
+    height: 20px;
+    padding: 5px;
+  }
+  .search {
+    width: 100%;
+    padding: 5px;
+    border-radius:10px;
+    
+  }
+  
+  .message-icon-div{
+    width:30px;
+    height: 30px;
+    margin-left: 1px;
+  }
+  .user-menu{
+    width: 40px;
+    height: 25px;
+    margin-right: 10px;
+  }
 }
 @media (max-width: 576px){
   .header{
@@ -291,7 +320,7 @@
   .message-icon-div{
     width:30px;
     height: 30px;
-    margin-left: 10px;
+    margin-left: 1px;
   }
   .user-menu{
     width: 40px;

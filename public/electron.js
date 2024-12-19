@@ -1,5 +1,4 @@
-
-import { app, BrowserWindow, protocol } from 'electron';
+import { app, BrowserWindow } from 'electron';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import path from 'path';
@@ -14,7 +13,8 @@ async function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'), // Ensure this file exists
+      // Remove or include preload.js if needed
+      // preload: path.join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
     },
@@ -36,6 +36,10 @@ async function createWindow() {
   if (isDev) {
     win.webContents.openDevTools({ mode: 'detach' });
   }
+
+  win.webContents.on('did-fail-load', (event, errorCode, errorDescription) => {
+    console.error(`Page failed to load (${errorCode}): ${errorDescription}`);
+  });
 }
 
 app.whenReady().then(() => {
@@ -59,12 +63,4 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
-});
-
-// Enable file protocol
-app.whenReady().then(() => {
-  protocol.interceptFileProtocol('file', (request, callback) => {
-    const url = request.url.substring(7);
-    callback({ path: path.normalize(url) });
-  });
 });

@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?display=swap&family=Inter:wght@400;500;700;900&family=Noto+Sans:wght@400;500;700;900');
 
 body {
@@ -17,6 +18,19 @@ body {
 .no-scrollbar::-webkit-scrollbar{
   display: none;
 }
+@font-face {
+  font-family: 'Astos';
+  src: url('/fonts/Astos-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Astos';
+  src: url('/fonts/Astos-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+
 /* df-messenger {
   z-index: 999;
   position: fixed;

@@ -537,3 +537,13 @@
       transform: translateY(0);
     }
   }
+  @media (max-width: 768px) {
+   .input-group{
+    width: 220px
+   }
+  }
+  @media (max-width:576px) {
+    .input-group{
+     width: 200px
+    }
+   }
