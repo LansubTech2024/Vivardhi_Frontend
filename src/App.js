@@ -5,7 +5,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard.jsx";
 import PowerUsage from "./Pages/PowerUsage/PowerUsage.jsx";
 import Resources from "./Pages/Resource/Resource.jsx";
 import Profile from"./Pages/Profile/Profile.jsx";
-import { BrowserRouter,Routes,Route } from "react-router-dom";
+import { HashRouter,Routes,Route } from "react-router-dom";
 import ForgetPassword from "./Pages/Forgetpassword/Forgetpassword.jsx";
 import ResetPassword from "./Pages/Resetpassword/Resetpassword.jsx";
 import Inventory from "./Pages/Inventory/Inventory.jsx";
@@ -26,7 +26,7 @@ import AuthSignup from "./Pages/AuthSignup/AuthSignup.jsx";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <HashRouter>
        <Routes>
         <Route path="/" element={<AuthLogin/>}/>
         <Route path="/home" element={<Home/>}/>
@@ -46,7 +46,7 @@ const App = () => {
         <Route path="/auth-signup" element={<AuthSignup/>}/>
 
         </Routes>
-    </BrowserRouter>
+    </HashRouter>
   )
 }
 

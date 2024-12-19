@@ -37,7 +37,9 @@ const Dashboard = () => {
       try {
         setLoading(true);
         // Replace this URL with your actual API endpoint
-        const response = await axios.get("https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/dashboard");
+        const response = await axios.get(
+          "https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/dashboard"
+        );
         setMetrics(response.data);
         setError(null);
       } catch (error) {
@@ -170,6 +172,12 @@ const Dashboard = () => {
     return (value / maxProductionValue) * 100;
   };
 
+  // const getBarColor = (value) => {
+  //   if (value >= 80) return "#4caf50"; 
+  //   if (value >= 50) return "#FFC107"; 
+  //   return "#F44336"; 
+  // };
+
   return (
     <>
       <Header />
@@ -198,6 +206,22 @@ const Dashboard = () => {
                 key={metric.key}
                 onClick={() => handleCardClick(metric.key)}
               >
+                {/* <div className="semi-circle-wrapper">
+                  <CircularProgressbar
+                    value={metric.value}
+                    maxValue={100}
+                    text={`${metric.value}%`}
+                    styles={buildStyles({
+                      rotation: 0.75, 
+                      strokeLinecap: "round",
+                      textSize: "14px",
+                      pathTransitionDuration: 0.5,
+                      pathColor: getBarColor(metric.value),
+                      textColor: "#000",
+                      trailColor: "#ddd",
+                    })}
+                  />
+                </div> */}
                 <h3>{metric.title}</h3>
                 <p className="metric-value">{metric.value}%</p>
               </div>
@@ -438,7 +462,7 @@ const Dashboard = () => {
                     paddingAngle={5}
                     dataKey="value"
                     //label={({ name, percent }) =>
-                     // `${name} (${(percent * 100).toFixed(1)}%)`
+                    // `${name} (${(percent * 100).toFixed(1)}%)`
                     //}
                   >
                     {pieChartData.map((entry, index) => (
