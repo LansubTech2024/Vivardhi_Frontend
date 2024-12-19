@@ -17,8 +17,11 @@ const OeeDashboard = () => {
   useEffect(() => {
     const fetchMachineData = async () => {
       try {
+        // const response = await axios.get(
+        //   "https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/oeemachine/"
+        // );
         const response = await axios.get(
-          "https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/oeemachine/"
+          "http://localhost:5000/api/oeemachine/"
         );
         setMachines(response.data);
       } catch (error) {

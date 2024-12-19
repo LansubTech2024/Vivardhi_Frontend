@@ -38,7 +38,8 @@ const Dashboard = () => {
         setLoading(true);
         // Replace this URL with your actual API endpoint
         const response = await axios.get(
-          "https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/dashboard"
+          // "https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/dashboard"
+          "http://localhost:5000/api/dashboard"
         );
         setMetrics(response.data);
         setError(null);
