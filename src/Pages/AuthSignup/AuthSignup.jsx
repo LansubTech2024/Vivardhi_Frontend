@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
+import {  Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logo from "../../Images/logo3.png";
@@ -221,9 +222,9 @@ const Signup = () => {
             </Formik>
 
             <div className="auth-toggle">
-              <button onClick={() => window.location.href = '/'}>
+              <Link to = "/">
                 Already have an account? <span>Sign in instead</span>
-              </button>
+              </Link>
             </div>
           </div>
         </div>

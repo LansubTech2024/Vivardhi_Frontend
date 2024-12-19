@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Formik, Form, Field } from 'formik';
+import React, { useState, useEffect } from "react";
+import { Formik, Form, Field } from "formik";
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import Logo from "../../Images/logo3.png";
 import "react-toastify/dist/ReactToastify.css";
-import * as Yup from 'yup';
-import { AiOutlineLock,AiOutlineCheckCircle, AiOutlineMail, AiOutlineEye, AiOutlineEyeInvisible, AiOutlineArrowRight, AiOutlineHome } from 'react-icons/ai';
+import * as Yup from "yup";
+import {
+  AiOutlineLock,
+  AiOutlineCheckCircle,
+  AiOutlineMail,
+  AiOutlineEye,
+  AiOutlineEyeInvisible,
+  AiOutlineArrowRight,
+} from "react-icons/ai";
 import AxiosService from "../../Components/AuthService/AuthService";
-import '../Auth/Auth.css';
+import "../Auth/Auth.css";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -27,16 +34,16 @@ const Login = () => {
 
   const loginSchema = Yup.object().shape({
     email: Yup.string()
-      .email('Invalid email address')
-      .required('Email is required'),
+      .email("Invalid email address")
+      .required("Email is required"),
     password: Yup.string()
-      .min(8, 'Password must be at least 8 characters')
-      .required('Password is required')
+      .min(8, "Password must be at least 8 characters")
+      .required("Password is required"),
   });
 
   const initialValues = {
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   };
 
   useEffect(() => {
@@ -57,7 +64,7 @@ const Login = () => {
         }
       } catch (error) {
         console.error("Failed to parse user data:", error);
-        localStorage.removeItem("loggedInUser"); 
+        localStorage.removeItem("loggedInUser");
       }
     }
 
@@ -90,9 +97,14 @@ const Login = () => {
       navigate("/dashboard");
 
       if (response.status === 201) {
-        toast.success(isNewUser ? "Welcome to ManufacturePro ERP!" : "Welcome back to ManufacturePro ERP!", {
-          position: "top-center",
-        });
+        toast.success(
+          isNewUser
+            ? "Welcome to ManufacturePro ERP!"
+            : "Welcome back to ManufacturePro ERP!",
+          {
+            position: "top-center",
+          }
+        );
       }
     } catch (error) {
       console.log(error);
@@ -105,7 +117,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="auth-container">
@@ -124,14 +135,14 @@ const Login = () => {
         <div className="branding-section">
           <div className="brand-header">
             <div className="brand-logo">
-            <img
-              src={Logo}
-              alt="logo"
-              className="logo-img"
-              width={70}
-              height={80}
-            />
-            <h1>OPFACT</h1>
+              <img
+                src={Logo}
+                alt="logo"
+                className="logo-img"
+                width={70}
+                height={80}
+              />
+              <h1>OPFACT</h1>
             </div>
             <p className="brand-description">
               Next-Generation Manufacturing Solutions
@@ -140,12 +151,12 @@ const Login = () => {
 
           <div className="features-grid">
             {[
-              'Real-time Production Tracking',
-              'Inventory Management',
-              'Quality Assurance',
-              'Resource Planning',
-              'Supply Chain Integration',
-              'Analytics Dashboard'
+              "Real-time Production Tracking",
+              "Inventory Management",
+              "Quality Assurance",
+              "Resource Planning",
+              "Supply Chain Integration",
+              "Analytics Dashboard",
             ].map((feature, index) => (
               <div key={index} className="feature-card">
                 <AiOutlineCheckCircle className="feature-icon" />
@@ -159,8 +170,8 @@ const Login = () => {
         <div className="auth-form-container">
           <div className="auth-form-box">
             <div className="auth-header">
-            <h2>{isReturningUser ? "Welcome Back" : "Welcome to"}</h2>
-            <p>{isReturningUser ? "Access your dashboard" : "OPFACT"}</p>
+              <h2>{isReturningUser ? "Welcome Back" : "Welcome to"}</h2>
+              <p>{isReturningUser ? "Access your dashboard" : "OPFACT"}</p>
             </div>
 
             <Formik
@@ -178,7 +189,9 @@ const Login = () => {
                           type="email"
                           name="email"
                           placeholder="Email Address"
-                          className={errors.email && touched.email ? 'error' : ''}
+                          className={
+                            errors.email && touched.email ? "error" : ""
+                          }
                         />
                       </div>
                       {errors.email && touched.email && (
@@ -190,21 +203,29 @@ const Login = () => {
                       <div className="input-group">
                         <AiOutlineLock className="input-icon" />
                         <Field
-                          type={showPassword ? 'text' : 'password'}
+                          type={showPassword ? "text" : "password"}
                           name="password"
                           placeholder="Password"
-                          className={errors.password && touched.password ? 'error' : ''}
+                          className={
+                            errors.password && touched.password ? "error" : ""
+                          }
                         />
                         <button
                           type="button"
                           onClick={() => setShowPassword(!showPassword)}
                           className="password-toggle"
                         >
-                          {showPassword ? <AiOutlineEyeInvisible size={24} /> : <AiOutlineEye size={24} />}
+                          {showPassword ? (
+                            <AiOutlineEyeInvisible size={24} />
+                          ) : (
+                            <AiOutlineEye size={24} />
+                          )}
                         </button>
                       </div>
                       {errors.password && touched.password && (
-                        <div className="auth-error-message">{errors.password}</div>
+                        <div className="auth-error-message">
+                          {errors.password}
+                        </div>
                       )}
                     </div>
                   </div>
@@ -215,25 +236,25 @@ const Login = () => {
                       <span>Remember me</span>
                     </label>
                     <button type="button" className="forgot-password">
-                    <Link to="/forgetpassword" className="forgot">
-                    Forgot Password?
-                  </Link>
+                      <Link to="/forgetpassword" className="forgot">
+                        Forgot Password?
+                      </Link>
                     </button>
                   </div>
 
-                  <button 
-                    type="submit" 
+                  <button
+                    type="submit"
                     className="submit-btn col-12 btn btn-lg btn-block login-btn mt-4 mb-4 d-flex justify-content-center"
                   >
-                    <span className = "button-content">
-                    {loading ? (
-                      <span className="spinner-border text-warning"></span>
-                    ) : (
-                      <>
-                        Sign in to Dashboard
-                        <AiOutlineArrowRight />
-                      </>
-                    )}
+                    <span className="button-content">
+                      {loading ? (
+                        <span className="spinner-border text-warning"></span>
+                      ) : (
+                        <>
+                          Sign in to Dashboard
+                          <AiOutlineArrowRight />
+                        </>
+                      )}
                     </span>
                   </button>
                 </Form>
@@ -241,9 +262,9 @@ const Login = () => {
             </Formik>
 
             <div className="auth-toggle">
-              <button onClick={() => window.location.href = '/auth-signup'}>
-                Don't have an account?<span>Create one now</span> 
-              </button>
+              <Link to="/auth-signup">
+                Don't have an account? <span>Create one now</span>
+              </Link>
             </div>
           </div>
         </div>

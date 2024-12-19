@@ -2,7 +2,7 @@
   "name": "opfact",
   "version": "0.1.0",
   "private": true,
-  "description": "My Electron app with React and Node.js",
+  "description": "Opfact",
   "author": "Lansub <lansubtechnologies2024@gmail.com>",
 
   "dependencies": {

@@ -371,9 +371,18 @@
     color: rgba(255, 255, 255, 0.8);
     cursor: pointer;
   }
+  .auth-toggle a {
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 12px;
+  }
   .auth-toggle button span:hover{
      color:#388087;
   }
+  .auth-toggle a span:hover{
+    color:#388087;
+ }
   
   /* Responsive Design */
   @media (max-width: 1024px) {
