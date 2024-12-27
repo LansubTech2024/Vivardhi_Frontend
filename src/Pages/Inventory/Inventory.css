@@ -87,6 +87,11 @@
     font-size: 16px;
     color: #333;
   }
+  .button-count-container {
+    display: flex;
+    align-items: center;
+    gap:10px;
+  }
   .add-button {
     background-color: #28a745;
     color: white;
@@ -99,6 +104,15 @@
   
   .add-button:hover {
     background-color: #218838;
+  }
+  .count{
+    border:1px solid;
+    padding:6px;
+    width:15px;
+    height:10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
   }
   
   /* Vendors Grid */

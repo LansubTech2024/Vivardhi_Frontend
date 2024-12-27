@@ -1,0 +1,105 @@
+.qr-code-page {
+    padding: 2rem;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+  }
+  
+  .qr-code-container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-top:50px;
+  }
+  
+  .qr-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .qr-header h2 {
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .qr-header p {
+    color: #666;
+  }
+  
+  .qr-display {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    padding: 1rem;
+    background: #f8f8f8;
+    border-radius: 8px;
+  }
+  
+  .qr-image {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+  }
+  
+  .no-qr {
+    padding: 2rem;
+    color: #666;
+    text-align: center;
+  }
+  
+  .qr-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .refresh-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .refresh-button:hover {
+    background-color: #45a049;
+  }
+  
+  .refresh-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .spinning {
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .qr-info {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #f8f8f8;
+    border-radius: 4px;
+    width: 100%;
+  }
+  
+  .qr-info p {
+    margin: 0.5rem 0;
+    color: #666;
+  }

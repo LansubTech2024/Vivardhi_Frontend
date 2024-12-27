@@ -10,7 +10,7 @@ import {
 import { RxBell } from "react-icons/rx";
 import MessagePopup from "../MessagePopup/MessagePopup";
 
-const Header = ({ addedItems }) => {
+const Header = ({ addedItems, setAddedItems, handleRemoveItem }) => {
   const [showMenu, setShowMenu] = useState(false);
   const[token, setToken] = useState("")
   const [loggedUser, setLoggedUser] = useState("");
@@ -84,6 +84,12 @@ const Header = ({ addedItems }) => {
     };
   }, [showPopup]);
 
+  // Handle delete item
+  // const handleDelete = (index) => {
+  //   const updatedItems = addedItems.filter((_, i) => i !== index);
+  //   setAddedItems(updatedItems);
+  // };
+
   return (
     <>
       <header className="header">
@@ -126,10 +132,19 @@ const Header = ({ addedItems }) => {
               {addedItems.map((item, index) => (
                 <li key={index}>
                   {item.rawMaterialName} - {item.currentStock} units
+                  <button
+                    className="delete-btn"
+                    onClick={() => handleRemoveItem(item)}
+                  >
+                    Delete
+                  </button>
                 </li>
               ))}
             </ul>
           )}
+          <button onClick={() => setShowPopup(false)} style={{ marginTop: "20px" }}>
+            Close
+          </button>
         </div>
       )}
           <div className="user-menu">

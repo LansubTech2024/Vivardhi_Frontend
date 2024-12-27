@@ -17,6 +17,19 @@ body {
 .no-scrollbar::-webkit-scrollbar{
   display: none;
 }
+
+/* @font-face {
+  font-family: 'Astos';
+  src: url('/fonts/Astos-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Astos';
+  src: url('/fonts/Astos-Bold.ttf') format('truetype');
+  font-weight: 700;
+} */
+
 /* df-messenger {
   z-index: 999;
   position: fixed;

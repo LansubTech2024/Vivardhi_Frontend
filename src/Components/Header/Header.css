@@ -152,7 +152,7 @@
 
 .notification-popup {
   position: fixed;
-  top: 70px; 
+  top: 100px; 
   right: 0; 
   left:auto;
   background: white;
@@ -167,6 +167,20 @@
 }
 .notification-popup.visible {
   transform: translateX(0); /* Slide into view */
+}
+.delete-btn {
+  margin-left: 10px;
+  padding: 5px 8px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.delete-btn:hover {
+  background-color: #e60000;
 }
 .profile {
   display: flex;
