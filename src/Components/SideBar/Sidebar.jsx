@@ -122,6 +122,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
               </Link>
             </li>
             <li>
+              <Link to="/qr-code">
+                {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
+                QR-Code Generation
+              </Link>
+            </li>
+            <li>
               <Link to="/help">
                 {/* <i className="fa-solid fa-question-circle"></i> */}
                 Help and Support

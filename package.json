@@ -98,7 +98,7 @@
       "target": [
         "AppImage"
       ],
-      "icon": "public/assets/logo3.png",
+      "icon": "public/logo3win.png",
       "category": "Development",
       "forceCodeSigning": false
     },

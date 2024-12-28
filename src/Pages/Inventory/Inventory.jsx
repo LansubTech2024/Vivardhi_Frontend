@@ -1,9 +1,9 @@
-import React,{useState,useEffect} from 'react';
-import Header from '../../Components/Header/Header';
-import Sidebar from '../../Components/SideBar/Sidebar';
-import './Inventory.css';
+import React, { useState, useEffect } from "react";
+import Header from "../../Components/Header/Header";
+import Sidebar from "../../Components/SideBar/Sidebar";
+import "./Inventory.css";
 
-const Inventory = () =>{
+const Inventory = () => {
   const [inventoryData, setInventoryData] = useState([]);
   const [lowStockAlert, setLowStockAlert] = useState([]);
   const [addedItems, setAddedItems] = useState([]);
@@ -83,39 +83,70 @@ const Inventory = () =>{
 
   const handleAddItem = (item) => {
     setAddedItems((prevItems) => [...prevItems, item]);
+    // Update the inventoryData with incremented addedCount
+    const updatedItems = inventoryData.map((inventoryItem) =>
+      inventoryItem.id === item.id
+        ? { ...inventoryItem, addedCount: (inventoryItem.addedCount || 0) + 1 }
+        : inventoryItem
+    );
+    setInventoryData(updatedItems);
+  };
+
+  const handleRemoveItem = (item) => {
+    setAddedItems((prevItems) =>
+      prevItems.filter((addedItem) => addedItem.id !== item.id)
+    );
+
+    // Update the inventoryData by decrementing addedCount
+    const updatedItems = inventoryData.map((inventoryItem) =>
+      inventoryItem.id === item.id
+        ? {
+            ...inventoryItem,
+            addedCount: Math.max(
+              0,
+              (inventoryItem.addedCount || 0) - 1 // Prevent negative values
+            ),
+          }
+        : inventoryItem
+    );
+    setInventoryData(updatedItems);
   };
   return (
     <>
-    <Header addedItems={addedItems}/>
-    <Sidebar/>
-    <div className="raw-container">
-      <div className="raw-section">
-        <h2>Raw Material Inventory</h2>
-        <div className="inventory-container">
-      <div className="insight-card">
-        {lowStockAlert.length > 0 && (
-          <div className="alert">
-            {lowStockAlert.map((alert, index) => (
-              <p key={index} style={{ color: "red", fontWeight: "bold" }}>
-                {alert}
-              </p>
-            ))}
-          </div>
-        )}
-      </div>
+      <Header
+        addedItems={addedItems}
+        setAddedItems={setAddedItems}
+        handleRemoveItem={handleRemoveItem}
+      />
+      <Sidebar />
+      <div className="raw-container">
+        <div className="raw-section">
+          <h2>Raw Material Inventory</h2>
+          <div className="inventory-container">
+            <div className="insight-card">
+              {lowStockAlert.length > 0 && (
+                <div className="alert">
+                  {lowStockAlert.map((alert, index) => (
+                    <p key={index} style={{ color: "red", fontWeight: "bold" }}>
+                      {alert}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
 
-      <section className="inventory-section">
-        <h2 className="section-title">Predictive Restocking</h2>
-        <div className="materials-grid">
-          {inventoryData.map((item, index) => (
-            <div className="item" key={index}>
-              <p>
-                <strong>Raw Material:</strong> {item.rawMaterialName} (
-                {item.rawMaterialId})
-              </p>
-              <p>Current Stock: {item.currentStock}</p>
-              <p>Minimum Required: {item.minimumRequired}</p>
-              {/* <div className="bar">
+            <section className="inventory-section">
+              <h2 className="section-title">Predictive Restocking</h2>
+              <div className="materials-grid">
+                {inventoryData.map((item, index) => (
+                  <div className="item" key={index}>
+                    <p>
+                      <strong>Raw Material:</strong> {item.rawMaterialName} (
+                      {item.rawMaterialId})
+                    </p>
+                    <p>Current Stock: {item.currentStock}</p>
+                    <p>Minimum Required: {item.minimumRequired}</p>
+                    {/* <div className="bar">
                 <div
                   className="bar-fill"
                   style={{
@@ -129,29 +160,34 @@ const Inventory = () =>{
                   }}
                 ></div>
               </div> */}
-              <button
-                className="add-button"
-                onClick={() => handleAddItem(item)}
-              >
-                Add
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
+                    <div className="button-count-container">
+                      <button
+                        className="add-button"
+                        onClick={() => handleAddItem(item)}
+                      >
+                        Add
+                      </button>
+                      <p className="count">
+                        <strong>+</strong> {item.addedCount}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
 
-      <section className="inventory-section">
-        <h2 className="section-title">Finished Goods Inventory</h2>
-        <div className="materials-grid">
-          {inventoryData.map((item, index) => (
-            <div className="item" key={index}>
-              <p>
-                <strong>Finished Good:</strong> {item.finishedGoodName} (
-                {item.finishedGoodId})
-              </p>
-              <p>Current Stock: {item.finishedGoodCurrentStock}</p>
-              <p>Minimum Required: {item.finishedGoodMinimumRequired}</p>
-              {/* <div className="bar">
+            <section className="inventory-section">
+              <h2 className="section-title">Finished Goods Inventory</h2>
+              <div className="materials-grid">
+                {inventoryData.map((item, index) => (
+                  <div className="item" key={index}>
+                    <p>
+                      <strong>Finished Good:</strong> {item.finishedGoodName} (
+                      {item.finishedGoodId})
+                    </p>
+                    <p>Current Stock: {item.finishedGoodCurrentStock}</p>
+                    <p>Minimum Required: {item.finishedGoodMinimumRequired}</p>
+                    {/* <div className="bar">
                 <div
                   className="bar-fill"
                   style={{
@@ -165,55 +201,59 @@ const Inventory = () =>{
                   }}
                 ></div>
               </div> */}
-              <button
-                className="add-button"
-                onClick={() => handleAddItem(item)}
-              >
-                Add
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="inventory-section">
-        <h2 className="section-title">Vendor Availability</h2>
-        <div className="vendors-grid">
-          {vendors.map((vendor, index) => (
-            <div className="vendor-card" key={index}>
-              <img
-                src={vendor.logo}
-                alt={vendor.name}
-                className="vendor-logo"
-              />
-              <div className="vendor-info">
-                <h3 className="vendor-name">{vendor.name}</h3>
-                <div className="info-row">
-                  <span className="label">Lead Time:</span> {vendor.leadTime}
-                </div>
-                <div className="info-row">
-                  <span className="label">Stock:</span>{" "}
-                  {vendor.stock.toLocaleString()} units
-                </div>
-                <div className="info-row">
-                  <span
-                    className={`risk-badge ${getRiskClass(
-                      vendor.supplyChainRisk
-                    )}`}
-                  >
-                    {vendor.supplyChainRisk} Risk
-                  </span>
-                </div>
+                    <div className="button-count-container">
+                      <button
+                        className="add-button"
+                        onClick={() => handleAddItem(item)}
+                      >
+                        Add
+                      </button>
+                      <p className="count">+{item.addedCount}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
-          ))}
+            </section>
+
+            <section className="inventory-section">
+              <h2 className="section-title">Vendor Availability</h2>
+              <div className="vendors-grid">
+                {vendors.map((vendor, index) => (
+                  <div className="vendor-card" key={index}>
+                    <img
+                      src={vendor.logo}
+                      alt={vendor.name}
+                      className="vendor-logo"
+                    />
+                    <div className="vendor-info">
+                      <h3 className="vendor-name">{vendor.name}</h3>
+                      <div className="info-row">
+                        <span className="label">Lead Time:</span>{" "}
+                        {vendor.leadTime}
+                      </div>
+                      <div className="info-row">
+                        <span className="label">Stock:</span>{" "}
+                        {vendor.stock.toLocaleString()} units
+                      </div>
+                      <div className="info-row">
+                        <span
+                          className={`risk-badge ${getRiskClass(
+                            vendor.supplyChainRisk
+                          )}`}
+                        >
+                          {vendor.supplyChainRisk} Risk
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
-      </section>
-    </div>
       </div>
-    </div>
     </>
   );
-}
+};
 
 export default Inventory;
