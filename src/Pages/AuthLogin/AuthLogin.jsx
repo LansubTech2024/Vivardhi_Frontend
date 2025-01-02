@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import Logo from "../../Images/logo3.png";
 import "react-toastify/dist/ReactToastify.css";
+import ReCAPTCHA from "react-google-recaptcha";
 import * as Yup from "yup";
 import {
   AiOutlineLock,
@@ -17,6 +18,8 @@ import AxiosService from "../../Components/AuthService/AuthService";
 import "../Auth/Auth.css";
 
 const Login = () => {
+  
+  const[Capval, setCapval]=useState(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isReturningUser, setIsReturningUser] = useState(false);
@@ -229,6 +232,10 @@ const Login = () => {
                       )}
                     </div>
                   </div>
+                  <ReCAPTCHA
+                    sitekey="6Lfs7qsqAAAAACtyxM7v2NorKDYVxa4cVWqSax2U"
+                    onChange={(val)=> setCapval(val)}
+                  />
 
                   <div className="form-options">
                     <label className="remember-me">
@@ -242,7 +249,7 @@ const Login = () => {
                     </button>
                   </div>
 
-                  <button
+                  <button disabled={!Capval}
                     type="submit"
                     className="submit-btn col-12 btn btn-lg btn-block login-btn mt-4 mb-4 d-flex justify-content-center"
                   >

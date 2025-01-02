@@ -19,6 +19,7 @@
     "jspdf": "^2.5.2",
     "lucide-react": "^0.468.0",
     "maplibre-gl": "^4.7.1",
+    "qrcode.react": "^4.2.0",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
     "react-circular-progressbar": "^2.1.0",
@@ -30,6 +31,7 @@
     "react-dom": "^18.3.1",
     "react-gauge-chart": "^0.5.1",
     "react-google-charts": "^4.0.7",
+    "react-google-recaptcha": "^3.1.0",
     "react-icons": "^5.4.0",
     "react-modal": "^3.16.1",
     "react-plotly.js": "^2.6.0",
@@ -44,7 +46,7 @@
   },
   "type": "module",
   "main": "public/electron.js",
-  "homepage" :"./",
+  "homepage": "./",
   "scripts": {
     "start": "react-scripts start --no-source-maps",
     "build": "cross-env CI=false react-scripts build --no-source-maps",
@@ -67,20 +69,19 @@
     ],
     "files": [
       "build/**/*",
-
       "public/electron.js",
       "preload.js"
     ],
-    
-   "extraResources": [
-    {
-      "from": "build/",
-      "to": "build/",
-      "filter": ["**/*"]
-    }
-  ],
-  "icon": "public/logo3",
-
+    "extraResources": [
+      {
+        "from": "build/",
+        "to": "build/",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "icon": "public/logo3",
     "mac": {
       "target": "dmg",
       "icon": "public/icon.icns"
@@ -107,11 +108,11 @@
       "output": "dist"
     },
     "nsis": {
-    "oneClick": false,
-    "allowToChangeInstallationDirectory": true,
-    "createDesktopShortcut": true,
-    "shortcutName": "Opfact"
-  },
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "Opfact"
+    },
     "extraMetadata": {
       "main": "public/electron.js"
     }
