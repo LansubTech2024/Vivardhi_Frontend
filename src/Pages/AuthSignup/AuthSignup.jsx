@@ -20,6 +20,9 @@ const Signup = () => {
     username: Yup.string()
       .min(3, 'Username must be at least 3 characters')
       .required('Username is required'),
+    phonenumber: Yup.string()
+      .matches(/^\d{10}$/, "Phone number must be exactly 10 digits")
+      .required('Phone number is required'),
     email: Yup.string()
       .email('Invalid email address')
       .required('Email is required'),
@@ -35,6 +38,7 @@ const Signup = () => {
   const initialValues = {
     companyname: '',
     username: '',
+    phonenumber: '',
     email: '',
     password: ''
   };
@@ -163,7 +167,22 @@ const Signup = () => {
                         <div className="auth-error-message">{errors.username}</div>
                       )}
                     </div>
+                    <div className="input-wrapper">
+                      <div className="input-group">
+                        <AiOutlineUser className="input-icon" />
+                        <Field
+                          type="text"
+                          name="phonenumber"
+                          placeholder="Phonenumber"
+                          className={errors.phonenumber && touched.phonenumber ? 'error' : ''}
+                        />
+                      </div>
+                      {errors.phonenumber && touched.phonenumber && (
+                        <div className="auth-error-message">{errors.phonenumber}</div>
+                      )}
+                    </div>
                   </div>
+
 
                   <div className="form-group">
                     <div className="input-wrapper">

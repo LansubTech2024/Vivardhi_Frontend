@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {  AiOutlineReload } from 'react-icons/ai';
+import {  AiOutlineReload, AiOutlineWhatsApp } from 'react-icons/ai';
 import AxiosService from '../../Components/AuthService/AuthService';
 import { ToastContainer,toast } from 'react-toastify';
 import Header from "../../Components/Header/Header";
@@ -8,14 +8,17 @@ import "./qrCode.css"
 
 const QRCodePage = () => {
   const [qrCode, setQrCode] = useState('');
+  const [whatsappLink, setWhatsappLink] = useState('');
   const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [lastUpdated, setLastUpdated] = useState(new Date());
 
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
     if (loggedInUser) {
       setUserData(loggedInUser);
       setQrCode(loggedInUser.qr_code);
+      setWhatsappLink(loggedInUser.whatsapp_group_link);
     }
   }, []);
 
@@ -31,8 +34,10 @@ const QRCodePage = () => {
 
       if (response.data.qr_code) {
         setQrCode(response.data.qr_code);
+        setWhatsappLink(response.data.whatsappGroupLink);
+        setLastUpdated(new Date());
         // Update localStorage
-        const updatedUserData = { ...userData, qr_code: response.data.qr_code };
+        const updatedUserData = { ...userData, qr_code: response.data.qr_code, whatsapp_group_link: response.data.whatsappGroupLink  };
         localStorage.setItem('loggedInUser', JSON.stringify(updatedUserData));
         setUserData(updatedUserData);
         
@@ -52,6 +57,15 @@ const QRCodePage = () => {
     }
   };
 
+  const handleWhatsAppJoin = () => {
+    if (whatsappLink) {
+      window.open(whatsappLink, '_blank');
+      toast.info('Opening WhatsApp chat. You will receive an automated welcome message shortly.');
+    } else {
+      toast.error('WhatsApp link not available');
+    }
+  };
+
   return (
     <>
     <Header/>
@@ -64,12 +78,21 @@ const QRCodePage = () => {
         </div>
         
         <div className="qr-display">
-          {qrCode ? (
-            <img src={qrCode} alt="Access QR Code" className="qr-image" />
-          ) : (
-            <div className="no-qr">No QR Code available</div>
-          )}
-        </div>
+            {qrCode ? (
+              <>
+                <img src={qrCode} alt="Access QR Code" className="qr-image" />
+                <button 
+                  className="whatsapp-button"
+                  onClick={handleWhatsAppJoin}
+                >
+                  <AiOutlineWhatsApp />
+                  Join WhatsApp Group
+                </button>
+              </>
+            ) : (
+              <div className="no-qr">No QR Code available</div>
+            )}
+          </div>
         
         <div className="qr-actions">
           <button 
