@@ -16,7 +16,7 @@ import MachineAnalysis from "./Pages/AnalysisMachine/MachineAnalysis.jsx";
 import Report from "./Pages/Report/Report.jsx";
 import AuthLogin from "./Pages/AuthLogin/AuthLogin.jsx";
 import AuthSignup from "./Pages/AuthSignup/AuthSignup.jsx";
-import QRCode from "./Pages/QRCode/qrCode.jsx";
+// import QRCode from "./Pages/QRCode/qrCode.jsx";
 
 //import ChatBot from "./Components/ChatBot/ChatBot.js";
 
@@ -43,7 +43,7 @@ const App = () => {
         <Route path="/machine-analysis" element={<MachineAnalysis />} />
         <Route path="/Report" element={<Report />} />
         <Route path="/auth-signup" element={<AuthSignup />} />
-        <Route path="/qr-code" element={<QRCode/>}/>
+        {/* <Route path="/qr-code" element={<QRCode/>}/> */}
       </Routes>
     </Router>
   );
