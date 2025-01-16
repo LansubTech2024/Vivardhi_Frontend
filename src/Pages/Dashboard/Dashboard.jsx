@@ -60,6 +60,7 @@ const Dashboard = () => {
   if (error) {
     return <div className="error">{error}</div>;
   }
+  
 
   const handleCardClick = (metric) => {
     setSelectedMetric(metric); // Set the selected metric

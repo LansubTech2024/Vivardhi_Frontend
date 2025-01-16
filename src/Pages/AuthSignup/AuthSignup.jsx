@@ -163,6 +163,7 @@ const Signup = () => {
                         <div className="auth-error-message">{errors.username}</div>
                       )}
                     </div>
+
                     {/* <div className="input-wrapper">
                       <div className="input-group">
                         <AiOutlineUser className="input-icon" />

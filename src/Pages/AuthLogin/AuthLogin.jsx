@@ -18,8 +18,10 @@ import AxiosService from "../../Components/AuthService/AuthService";
 import "../Auth/Auth.css";
 
 const Login = () => {
-  
+ 
   const[Capval, setCapval]=useState(null);
+ 
+
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [isReturningUser, setIsReturningUser] = useState(false);
@@ -232,10 +234,15 @@ const Login = () => {
                       )}
                     </div>
                   </div>
+                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center",  padding: "5px", borderRadius: "8px" }}>
                   <ReCAPTCHA
-                    sitekey="6Lfs7qsqAAAAACtyxM7v2NorKDYVxa4cVWqSax2U"
+                    sitekey={process.env.REACT_APP_RECAPTCHA_SITEKEY}
                     onChange={(val)=> setCapval(val)}
+                    theme="white"
                   />
+                  </div>
+                  
+               
 
                   <div className="form-options">
                     <label className="remember-me">
@@ -267,7 +274,6 @@ const Login = () => {
                 </Form>
               )}
             </Formik>
-
             <div className="auth-toggle">
               <Link to="/auth-signup">
                 Don't have an account? <span>Create one now</span>
@@ -278,6 +284,7 @@ const Login = () => {
       </div>
       <ToastContainer position="top-center" autoClose={3000} />
     </div>
+    
   );
 };
 
