@@ -14,7 +14,7 @@ function GetData() {
     const [filterText, setFilterText] = useState('');
 
     useEffect(() => {
-        axios('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/resources/')
+        axios('https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/resources/')
             .then(response => {
               console.log('Data fetched:', response.data);
                 setData(response.data);
