@@ -50,8 +50,8 @@
   "main": "public/electron.js",
   "homepage": "./",
   "scripts": {
-    "start": "react-scripts start --no-source-maps",
-    "build": "cross-env CI=false react-scripts build --no-source-maps",
+    "start": "serve -s build",
+    "build": "CI=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron",
