@@ -121,12 +121,12 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                 Report
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="/qr-code">
-                {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
+                <i className="fa-solid fa-magnifying-glass-chart"></i>
                 QR-Code Generation
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/help">
                 {/* <i className="fa-solid fa-question-circle"></i> */}

@@ -163,6 +163,21 @@ const Signup = () => {
                         <div className="auth-error-message">{errors.username}</div>
                       )}
                     </div>
+
+                    {/* <div className="input-wrapper">
+                      <div className="input-group">
+                        <AiOutlineUser className="input-icon" />
+                        <Field
+                          type="text"
+                          name="phonenumber"
+                          placeholder="Phonenumber"
+                          className={errors.phonenumber && touched.phonenumber ? 'error' : ''}
+                        />
+                      </div>
+                      {errors.phonenumber && touched.phonenumber && (
+                        <div className="auth-error-message">{errors.phonenumber}</div>
+                      )}
+                    </div> */}
                   </div>
 
 
