@@ -256,7 +256,8 @@ const Login = () => {
                     </button>
                   </div>
 
-                  <button disabled={!Capval}
+                  {/* <button disabled={!Capval} */}
+                  <button
                     type="submit"
                     className="submit-btn col-12 btn btn-lg btn-block login-btn mt-4 mb-4 d-flex justify-content-center"
                   >
