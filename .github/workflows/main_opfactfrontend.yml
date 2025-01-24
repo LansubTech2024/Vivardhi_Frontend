@@ -61,5 +61,5 @@ jobs:
         with:
           app-name: 'opfactfrontend'
           slot-name: 'Production'
-          package: .
+          package: ./build
           
