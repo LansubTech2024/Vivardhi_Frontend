@@ -4,7 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import Logo from "../../Images/logo3.png";
 import "react-toastify/dist/ReactToastify.css";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import * as Yup from "yup";
 import {
   AiOutlineLock,
@@ -234,13 +234,13 @@ const Login = () => {
                       )}
                     </div>
                   </div>
-                  <div style={{ display: "flex", justifyContent: "center", alignItems: "center",  padding: "5px", borderRadius: "8px" }}>
-                  <ReCAPTCHA
+                  {/* <div style={{ display: "flex", justifyContent: "center", alignItems: "center",  padding: "5px", borderRadius: "8px" }}> */}
+                  {/* <ReCAPTCHA
                     sitekey={process.env.REACT_APP_RECAPTCHA_SITEKEY}
                     onChange={(val)=> setCapval(val)}
                     theme="white"
                   />
-                  </div>
+                  </div> */}
                   
                
 
