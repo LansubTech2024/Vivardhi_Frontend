@@ -10,6 +10,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  CartesianGrid,
   Legend,
   ResponsiveContainer,
 } from "recharts";
@@ -24,7 +25,11 @@ const MachineAnalysis = () => {
   // Fetch average machine data
   useEffect(() => {
     axios
+
       // .get("https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/machines/averages")
+
+      //  .get("https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/machines/averages")
+
        .get("http://localhost:5000/api/machines/averages")
       .then((response) => setMachines(response.data))
       .catch((error) => console.error("Error fetching machine data:", error));
@@ -68,8 +73,10 @@ const MachineAnalysis = () => {
             <div className="chart-container">
               <h3>Production Metrics</h3>
               <ResponsiveContainer width={500} height={300}>
+             
                 <LineChart data={productionChartData}>
                   <XAxis dataKey="machineId" />
+                  <CartesianGrid strokeDasharray="3 3" />
                   <YAxis />
                   <Tooltip />
                   <Legend
@@ -101,6 +108,7 @@ const MachineAnalysis = () => {
               <ResponsiveContainer width={500} height={300}>
                 <LineChart data={conditionChartData}>
                   <XAxis dataKey="machineId" />
+                  <CartesianGrid strokeDasharray="3 3" />
                   <YAxis />
                   <Tooltip />
                   <Legend

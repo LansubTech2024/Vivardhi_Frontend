@@ -32,7 +32,11 @@ const LivePowerUsageChart = () => {
   useEffect(() => {
     const fetchLiveData = async () => {
       try {
+
         // const response = await axios.get("https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/live-power");
+
+        //  const response = await axios.get("https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/live-power");
+
          const response = await axios.get('http://localhost:5000/api/live-power');
         const currentPower = response.data.livePowerUsage;
 
@@ -57,8 +61,8 @@ const LivePowerUsageChart = () => {
         label: 'Live Power Usage (kW)',
         data: liveData,
         fill: true,
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        borderColor: 'rgb(13 148 136)',
+        backgroundColor: '#77C2FF',
+        borderColor: '#77C2FF',
         tension: 0.4, // Smooth the line
       },
     ],

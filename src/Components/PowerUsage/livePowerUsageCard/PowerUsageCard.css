@@ -1,3 +1,57 @@
+.power-usage-card {
+  padding: 20px;
+}
+
+.power-cards {
+  display: inline-block;
+  width: 250px;
+  padding: 15px;
+  margin: 10px;
+  border: 2px solid #87CEFA; /* Light blue border */
+  border-radius: 10px;
+  text-align: center;
+  background-color: white;
+  box-shadow: 2px 2px 10px rgba(0, 0, 255, 0.2); /* Soft blue shadow */
+}
+
+.power-label {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.power-value {
+  font-size: 22px;
+  font-weight: bold;
+  color: black;
+}
+
+.alert {
+  padding: 15px;
+  margin-top: 20px;
+  background-color: #ffcccc;
+  border: 1px solid red;
+  border-radius: 15px;
+  font-size: 18px;
+  line-height: 1.5;
+  text-align: left;
+  font-family: Arial, sans-serif;
+}
+
+.alert h3 {
+  color:black;
+}
+
+.alert p {
+  text-align: center;
+  color:red;
+  font-style: italic;
+  font-weight: 500;
+  margin-top: 5px;
+}
+
+
+
+/*
 .power-usage-card{
   display:flex;
   flex-direction:row;
@@ -5,10 +59,29 @@
   justify-content:center;
   align-items:center;
 }
+.power-label {
+  color: #333333;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
 
-.power-cards, .downtime-card {
+.power-value {
+  color: #000000;
+  font-size: 28px;
+  font-weight: bold;
+}
+.power-cards{
+    border-radius:8px ;
+    background-color: #fff;
+    text-align: center;
+    margin-top: 20px;
+    width:500px;
+    height: 150px;
+    margin: 5px;
+    box-shadow: 0px 1px 6px 2px rgba(43, 166, 249, 0.88);
+}
+.downtime-card {
     padding: 10px;
-    /* border:1px solid #E0E0E0; */
     background-color: #c4eae1;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -34,3 +107,4 @@
   .alert p {
     margin: 0.5rem 0 0;
   }
+  */
