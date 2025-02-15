@@ -14,12 +14,13 @@
 }
 .power-graph{
     margin: 20px 0;
-    border:1px solid #E0E0E0;
+    border:1px solid 
+    #77C2FF;
     padding: 10px;
     border-radius: 8px;
 }
 .historical-graph{
-    border:1px solid #E0E0E0;
+    border:1px solid #77C2FF;
     border-radius: 8px;
     padding: 20px;
     margin-top: 20px;

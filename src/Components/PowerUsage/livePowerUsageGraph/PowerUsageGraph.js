@@ -57,8 +57,8 @@ const LivePowerUsageChart = () => {
         label: 'Live Power Usage (kW)',
         data: liveData,
         fill: true,
-        backgroundColor: 'rgba(75,192,192,0.2)',
-        borderColor: 'rgb(13 148 136)',
+        backgroundColor: '#77C2FF',
+        borderColor: '#77C2FF',
         tension: 0.4, // Smooth the line
       },
     ],

@@ -57,7 +57,11 @@ const EnergyConsumptionGraph = () => {
       {
         label: 'Energy Consumption (kW)',
         data: graphData, 
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      //  borderColor: "red", 
+      //  backgroundColor: "rgba(255, 0, 0, 0.2)", 
+      //  pointBorderColor: "blue", 
+      //  pointBackgroundColor: "yellow",
+        backgroundColor: 'rgba(38, 174, 174, 0.2)',
         borderColor: 'rgba(75, 192, 192, 1)',
         borderWidth: 2,
         tension: 0.4, 
