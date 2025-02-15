@@ -93,9 +93,9 @@ const Header = ({ addedItems, setAddedItems, handleRemoveItem }) => {
   return (
     <>
       <header className="header">
-        {/* <div className="company-name-header">
+        { <div className="company-name-header">
           <p>Opfact</p>
-        </div> */}
+        </div> }
         <div className="search-message">
           <form className="search-box" onSubmit={handleSearchSubmit}>
             <input

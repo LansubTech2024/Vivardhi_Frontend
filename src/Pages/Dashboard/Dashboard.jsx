@@ -12,6 +12,9 @@ import {
   PieChart,
   Pie,
   Cell,
+  Area,
+  AreaChart,
+  CartesianGrid,
   XAxis,
   YAxis,
   Tooltip,
@@ -38,8 +41,8 @@ const Dashboard = () => {
         setLoading(true);
         // Replace this URL with your actual API endpoint
         const response = await axios.get(
-           "https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/dashboard"
-          // "http://localhost:5000/api/dashboard"
+          //  "https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/dashboard"
+          "http://localhost:5000/api/dashboard"
         );
         setMetrics(response.data);
         setError(null);
@@ -60,7 +63,6 @@ const Dashboard = () => {
   if (error) {
     return <div className="error">{error}</div>;
   }
-  
 
   const handleCardClick = (metric) => {
     setSelectedMetric(metric); // Set the selected metric
@@ -175,9 +177,9 @@ const Dashboard = () => {
   };
 
   // const getBarColor = (value) => {
-  //   if (value >= 80) return "#4caf50"; 
-  //   if (value >= 50) return "#FFC107"; 
-  //   return "#F44336"; 
+  //   if (value >= 80) return "#4caf50";
+  //   if (value >= 50) return "#FFC107";
+  //   return "#F44336";
   // };
 
   return (
@@ -232,13 +234,10 @@ const Dashboard = () => {
 
           {/* Charts */}
           <h2>Production</h2>
+          <div className="Production-grid">
           <div className="charts-grid">
             {/* Production Growth Chart */}
-            <div
-              className="chart-card"
-              style={{ cursor: "pointer" }}
-              onClick={handleGraphClick}
-            >
+            <div style={{ cursor: "pointer" }} onClick={handleGraphClick}>
               <div className="card-header">
                 <div className="header-content">
                   <h3>Production Output</h3>
@@ -261,7 +260,266 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className="card-content">
+                <AreaChart width={430} height={350} data={chartData}>
+                  <defs>
+                    <linearGradient
+                      id="colorProduction"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="5%" stopColor="#60a5fa" stopOpacity={0.8} />
+                      <stop
+                        offset="95%"
+                        stopColor="#60a5fa"
+                        stopOpacity={0.2}
+                      />
+                    </linearGradient>
+                  </defs>
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <Tooltip />
+                  <Area
+                    type="monotone"
+                    dataKey="production"
+                    stroke="#2563eb"
+                    fillOpacity={1}
+                    fill="url(#colorProduction)"
+                  />
+                </AreaChart>
+              </div>
+            </div>
+          </div>
+
+          {/* Production Bar Chart Card */}
+          <div className="production-circle-card">
+            <div className="card-content production-progress">
+              <div className="circular-progressbars">
+                {/* Target Production Circle */}
+                <div className="progress-item">
+                  <div className="progress-circle">
+                    <CircularProgressbar
+                      value={calculatePercentage(latestData.targetProduction)}
+                      text={`${latestData.targetProduction.toLocaleString()}`}
+                      styles={buildStyles({
+                        // pathColor: "rgb(59 7 100)",
+                        //pathColor: "rgb(13 148 136)",
+                        pathColor: "#00AEEF",
+                        textColor: "rgb(13 148 136)",
+                        trailColor: "#e5e7eb",
+                        textSize: "16px",
+                        pathTransitionDuration: 0.5,
+                      })}
+                    />
+                  </div>
+                  <div className="progress-label">Target Production</div>
+                </div>
+
+                {/* Actual Production Circle */}
+                <div className="progress-item">
+                  <div className="progress-circle">
+                    <CircularProgressbar
+                      value={calculatePercentage(latestData.totalProduction)}
+                      text={`${latestData.totalProduction.toLocaleString()}`}
+                      styles={buildStyles({
+                        // pathColor: "rgb(88 28 135)",
+                        //pathColor: "rgb(20 184 166)",
+                        pathColor: "#A0E3FA",
+                        textColor: "rgb(20 184 166)",
+                        trailColor: "#e5e7eb",
+                        textSize: "16px",
+                        pathTransitionDuration: 0.5,
+                      })}
+                    />
+                  </div>
+                  <div className="progress-label">Actual Production</div>
+                </div>
+              </div>
+
+              {/* Achievement Rate Circle */}
+              <div className="progress-item">
+                <div className="progress-circle">
+                  <CircularProgressbar
+                    value={parseFloat(latestData.achievementRate)}
+                    text={`${latestData.achievementRate}%`}
+                    styles={buildStyles({
+                      // pathColor: "rgb(107 33 168)",
+                      // pathColor: "rgb(45 212 191)",
+                      pathColor: "#C7EDFC",
+                      textColor:
+                        parseFloat(latestData.achievementRate) >= 0
+                          ? "green"
+                          : "red",
+                      trailColor: "#e5e7eb",
+                      textSize: "16px",
+                      pathTransitionDuration: 0.5,
+                    })}
+                  />
+                </div>
+                <div className="progress-label">Achievement Rate</div>
+              </div>
+
+              {/* Growth Rate Display */}
+              <div className="growth-rate">
+                <span className="growth-label">Growth Rate:</span>
+                <span
+                  className={`growth-value ${
+                    parseFloat(latestData.growthPercentage) >= 0
+                      ? "positive"
+                      : "negative"
+                  }`}
+                >
+                  {parseFloat(latestData.growthPercentage) >= 0 ? "+" : ""}
+                  {latestData.growthPercentage}%
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        {/* Quality Rates Trend */}
+        <h2>Quality</h2>
+        <div className="charts-grid">
+          {/* Quality Metrics Trend - Line Chart */}
+          <div className="chart-card">
+            <div className="card-header">
+              <h3>Quality Metrics Trend</h3>
+            </div>
+            <div className="card-content">
+              <LineChart width={430} height={350} data={chartData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend
+                  formatter={(value) => (
+                    <span style={{ color: "#333" }}>{value}</span>
+                  )}
+                />
+                {/* <Line type="monotone" dataKey="goodRate" name="Good Rate %" stroke="rgb(13 148 136)" strokeWidth={2.5} />
+         <Line type="monotone" dataKey="scrapRate" name="Scrap Rate %" stroke="rgb(20 184 166)" strokeWidth={2.5} />
+         <Line type="monotone" dataKey="defectRate" name="Defect Rate %" stroke="rgb(45 212 191)" strokeWidth={2.5} />
+         <Line type="monotone" dataKey="recycleRate" name="Recycle Rate %" stroke="rgb(153 246 228)" strokeWidth={2.5} /> */}
+                <Line
+                  type="monotone"
+                  dataKey="goodRate"
+                  name="Good Rate %"
+                  stroke="#00AEEF"
+                  strokeWidth={2.5}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="scrapRate"
+                  name="Scrap Rate %"
+                  stroke="#A0E3FA"
+                  strokeWidth={2.5}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="defectRate"
+                  name="Defect Rate %"
+                  stroke="#C7EDFC"
+                  strokeWidth={2.5}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="recycleRate"
+                  name="Recycle Rate %"
+                  stroke="#E3F7FE"
+                  strokeWidth={2.5}
+                />
+              </LineChart>
+            </div>
+          </div>
+
+          {/* Quality Distribution Pie Chart */}
+          <div className="chart-card">
+            <div className="card-header">
+              <h3>Current Quality Distribution</h3>
+              <div className="card-subtitle">
+                Total Pieces:{" "}
+                {latestQualityData?.totalPieces.toLocaleString() || 0}
+              </div>
+            </div>
+            <div className="card-content">
+              <PieChart width={500} height={350}>
+                <Pie
+                  data={pieChartData}
+                  cx={220}
+                  cy={150}
+                  innerRadius={60}
+                  outerRadius={110}
+                  paddingAngle={5}
+                  dataKey="value"
+                  labelLine={false}
+                >
+                  {pieChartData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={["#00AEEF", "#A0E3FA", "#C7EDFC", "#E3F7FE"][index]} // Good Product -> Dark Blue
+                    />
+                  ))}
+                </Pie>
+                <Tooltip />
+                <Legend
+                  align="right"
+                  verticalAlign="middle"
+                  layout="vertical"
+                  formatter={(value) => (
+                    <span style={{ color: "#333" }}>{value}</span>
+                  )}
+                />
+              </PieChart>
+            </div>
+          </div>
+        </div>
+
+        {/* Manpower Utilization Chart */}
+        <h2>Manpower</h2>
+        <div className="charts-grid">
+          <div className="chart-card">
+            <div className="card-header">
+              <h3>Manpower Utilization</h3>
+            </div>
+            <div className="card-content">
+              <div className="metrics-details">
+                <div className="metric-detail-card">
+                  <h4>Current Utilization</h4>
+                  <div className="metric-value">
+                    {chartData[chartData.length - 1]?.manpowerUtilization || 0}%
+                  </div>
+                </div>
+                <div className="metric-detail-card">
+                  <h4>Total Manpower</h4>
+                  <div className="metric-value">
+                    {latestData.totalManpower || 0}
+                  </div>
+                </div>
+                <div className="metric-detail-card">
+                  <h4>Allocated Hours</h4>
+                  <div className="metric-value">
+                    {latestData.totalAllocatedHours || 0}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Raw Material Efficiency Chart */}
+        <h2>Inventory</h2>
+        <div className="charts-grid">
+          <div className="raw-material-finished-goods">
+            <div className="chart-card">
+              <div className="card-header">
+                <h3>Raw Material Efficiency</h3>
+              </div>
+              <div className="card-content">
                 <LineChart width={430} height={350} data={chartData}>
+                  <CartesianGrid strokeDasharray="3 3" />
                   <defs>
                     <linearGradient
                       id="colorProduction"
@@ -281,347 +539,42 @@ const Dashboard = () => {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip />
+                  <Legend />
                   <Line
                     type="monotone"
-                    dataKey="production"
-                    // stroke="rgb(59 7 100)"
-                    stroke="rgb(13 148 136)"
-                    strokeWidth={2.5}
-                    dot={false}
-                  />
-                </LineChart>
-              </div>
-            </div>
-
-            {/* Production Bar Chart Card */}
-            <div className="production-circle-card">
-              <div className="card-content production-progress">
-                <div className="circular-progressbars">
-                  {/* Target Production Circle */}
-                  <div className="progress-item">
-                    <div className="progress-circle">
-                      <CircularProgressbar
-                        value={calculatePercentage(latestData.targetProduction)}
-                        text={`${latestData.targetProduction.toLocaleString()}`}
-                        styles={buildStyles({
-                          // pathColor: "rgb(59 7 100)",
-                          pathColor: "rgb(13 148 136)",
-                          textColor: "rgb(13 148 136)",
-                          trailColor: "#e5e7eb",
-                          textSize: "16px",
-                          pathTransitionDuration: 0.5,
-                        })}
-                      />
-                    </div>
-                    <div className="progress-label">Target Production</div>
-                  </div>
-
-                  {/* Actual Production Circle */}
-                  <div className="progress-item">
-                    <div className="progress-circle">
-                      <CircularProgressbar
-                        value={calculatePercentage(latestData.totalProduction)}
-                        text={`${latestData.totalProduction.toLocaleString()}`}
-                        styles={buildStyles({
-                          // pathColor: "rgb(88 28 135)",
-                          pathColor: "rgb(20 184 166)",
-                          textColor: "rgb(20 184 166)",
-                          trailColor: "#e5e7eb",
-                          textSize: "16px",
-                          pathTransitionDuration: 0.5,
-                        })}
-                      />
-                    </div>
-                    <div className="progress-label">Actual Production</div>
-                  </div>
-                </div>
-
-                {/* Achievement Rate Circle */}
-                <div className="progress-item">
-                  <div className="progress-circle">
-                    <CircularProgressbar
-                      value={parseFloat(latestData.achievementRate)}
-                      text={`${latestData.achievementRate}%`}
-                      styles={buildStyles({
-                        // pathColor: "rgb(107 33 168)",
-                        pathColor: "rgb(45 212 191)",
-                        textColor:
-                          parseFloat(latestData.achievementRate) >= 0
-                            ? "green"
-                            : "red",
-                        trailColor: "#e5e7eb",
-                        textSize: "16px",
-                        pathTransitionDuration: 0.5,
-                      })}
-                    />
-                  </div>
-                  <div className="progress-label">Achievement Rate</div>
-                </div>
-
-                {/* Growth Rate Display */}
-                <div className="growth-rate">
-                  <span className="growth-label">Growth Rate:</span>
-                  <span
-                    className={`growth-value ${
-                      parseFloat(latestData.growthPercentage) >= 0
-                        ? "positive"
-                        : "negative"
-                    }`}
-                  >
-                    {parseFloat(latestData.growthPercentage) >= 0 ? "+" : ""}
-                    {latestData.growthPercentage}%
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Quality Rates Trend */}
-          <h2>Quality</h2>
-          <div className="charts-grid">
-            <div className="chart-card">
-              <div className="card-header">
-                <h3>Quality Metrics Trend</h3>
-              </div>
-              <div className="card-content">
-                <LineChart width={430} height={350} data={chartData}>
-                  <XAxis dataKey="name" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend
-                    formatter={(value, entry, index) => (
-                      <span
-                        style={{
-                          color:
-                            index === 0
-                              ? "#333"
-                              : index === 1
-                              ? "#333"
-                              : index === 2
-                              ? "#333"
-                              : index === 3
-                              ? "#333"
-                              : "#333",
-                        }}
-                      >
-                        {value}
-                      </span>
-                    )}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="goodRate"
-                    name="Good Rate %"
-                    // stroke="rgb(59 7 100)"
-                    stroke="rgb(13 148 136)"
-                    strokeWidth={2.5}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="scrapRate"
-                    name="Scrap Rate %"
-                    // stroke="rgb(107 33 168)"
-                    stroke="rgb(20 184 166)"
-                    strokeWidth={2.5}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="defectRate"
-                    name="Defect Rate %"
-                    // stroke="rgb(126 34 206)"
-                    stroke="rgb(45 212 191)"
-                    strokeWidth={2.5}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="recycleRate"
-                    name="Recycle Rate %"
-                    // stroke="rgb(168 85 247)"
-                    stroke="rgb(153 246 228)"
+                    dataKey="rawMaterialEfficiency"
+                    //stroke="rgb(13 148 136)"
+                    stroke="#00AEEF"
                     strokeWidth={2.5}
                   />
                 </LineChart>
               </div>
             </div>
 
-            {/* Quality Distribution Pie Chart */}
+            {/* Finished Goods Chart */}
             <div className="chart-card">
               <div className="card-header">
-                <h3>Current Quality Distribution</h3>
-                <div className="card-subtitle">
-                  Total Pieces:{" "}
-                  {latestQualityData?.totalPieces.toLocaleString() || 0}
-                </div>
-              </div>
-              <div className="card-content">
-                <PieChart width={500} height={400}>
-                  <Pie
-                    data={pieChartData}
-                    cx={250}
-                    cy={150}
-                    innerRadius={60}
-                    outerRadius={120}
-                    paddingAngle={5}
-                    dataKey="value"
-                    //label={({ name, percent }) =>
-                    // `${name} (${(percent * 100).toFixed(1)}%)`
-                    //}
-                  >
-                    {pieChartData.map((entry, index) => (
-                      <Cell
-                        key={`cell-${index}`}
-                        // fill={
-                        //   [
-                        //     "rgb(107 33 168)",
-                        //     "rgb(147 51 234)",
-                        //     "rgb(168 85 247)",
-                        //     "rgb(192 132 252)",
-                        //     "#6495ED",
-                        //   ][index]
-                        // }
-
-                        fill={
-                          [
-                            "rgb(13 148 136)",
-                            "rgb(20 184 166)",
-                            "rgb(45 212 191)",
-                            "rgb(153 246 228)",
-                            "#6495ED",
-                          ][index]
-                        }
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip />
-                  <Legend
-                    formatter={(value, entry, index) => (
-                      <span
-                        style={{
-                          color:
-                            index === 0
-                              ? "#333"
-                              : index === 1
-                              ? "#333"
-                              : index === 2
-                              ? "#333"
-                              : index === 3
-                              ? "#333"
-                              : "#333",
-                        }}
-                      >
-                        {value}
-                      </span>
-                    )}
-                  />
-                </PieChart>
-              </div>
-            </div>
-          </div>
-
-          {/* Manpower Utilization Chart */}
-          <h2>Manpower</h2>
-          <div className="charts-grid">
-            <div className="chart-card">
-              <div className="card-header">
-                <h3>Manpower Utilization</h3>
+                <h3>Finished Goods Ratio</h3>
               </div>
               <div className="card-content">
                 <div className="metrics-details">
                   <div className="metric-detail-card">
-                    <h4>Current Utilization</h4>
+                    <h4>Current Ratio</h4>
                     <div className="metric-value">
-                      {chartData[chartData.length - 1]?.manpowerUtilization ||
-                        0}
+                      {chartData[chartData.length - 1]?.finishedGoodsRatio || 0}
                       %
                     </div>
                   </div>
                   <div className="metric-detail-card">
-                    <h4>Total Manpower</h4>
+                    <h4>Current Stock</h4>
                     <div className="metric-value">
-                      {latestData.totalManpower || 0}
+                      {latestData.finishedGoodsStock || 0}
                     </div>
                   </div>
                   <div className="metric-detail-card">
-                    <h4>Allocated Hours</h4>
+                    <h4>Minimum Required</h4>
                     <div className="metric-value">
-                      {latestData.totalAllocatedHours || 0}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Raw Material Efficiency Chart */}
-          <h2>Inventory</h2>
-          <div className="charts-grid">
-            <div className="raw-material-finished-goods">
-              <div className="chart-card">
-                <div className="card-header">
-                  <h3>Raw Material Efficiency</h3>
-                </div>
-                <div className="card-content">
-                  <LineChart width={430} height={350} data={chartData}>
-                    <defs>
-                      <linearGradient
-                        id="colorProduction"
-                        x1="0"
-                        y1="0"
-                        x2="0"
-                        y2="1"
-                      >
-                        <stop
-                          offset="5%"
-                          stopColor="#2563eb"
-                          stopOpacity={0.8}
-                        />
-                        <stop
-                          offset="95%"
-                          stopColor="#60a5fa"
-                          stopOpacity={0.4}
-                        />
-                      </linearGradient>
-                    </defs>
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Line
-                      type="monotone"
-                      dataKey="rawMaterialEfficiency"
-                      stroke="rgb(13 148 136)"
-                      strokeWidth={2.5}
-                    />
-                  </LineChart>
-                </div>
-              </div>
-
-              {/* Finished Goods Chart */}
-              <div className="chart-card">
-                <div className="card-header">
-                  <h3>Finished Goods Ratio</h3>
-                </div>
-                <div className="card-content">
-                  <div className="metrics-details">
-                    <div className="metric-detail-card">
-                      <h4>Current Ratio</h4>
-                      <div className="metric-value">
-                        {chartData[chartData.length - 1]?.finishedGoodsRatio ||
-                          0}
-                        %
-                      </div>
-                    </div>
-                    <div className="metric-detail-card">
-                      <h4>Current Stock</h4>
-                      <div className="metric-value">
-                        {latestData.finishedGoodsStock || 0}
-                      </div>
-                    </div>
-                    <div className="metric-detail-card">
-                      <h4>Minimum Required</h4>
-                      <div className="metric-value">
-                        {latestData.finishedGoodMinimumRequired || 0}
-                      </div>
+                      {latestData.finishedGoodMinimumRequired || 0}
                     </div>
                   </div>
                 </div>

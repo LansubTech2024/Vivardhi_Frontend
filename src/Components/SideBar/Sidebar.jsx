@@ -2,6 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { RxChevronUp,RxChevronDown } from "react-icons/rx";
+import { MdOutlinePowerSettingsNew } from "react-icons/md";
+import { HiOutlineHomeModern } from "react-icons/hi2";
+import { FaTachometerAlt } from "react-icons/fa";
+import { AiOutlineFile } from "react-icons/ai";
+import { PiNotionLogo } from "react-icons/pi";
+import { CiSettings } from "react-icons/ci";
+import { IoMdHelpCircleOutline } from "react-icons/io";
 import "./Sidebar.css";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
@@ -37,9 +44,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
         &times;
       </div>
       <aside className="no-scrollbar sidebar">
-      <div className="company-name-header">
+      {/* <div className="company-name-header">
       <span className="highlight-header">OPFACT</span>
-        </div>
+        </div> */}
         <nav className="sidebar-menu">
           <ul className="list-item">
             {/* <li className="active">
@@ -51,36 +58,42 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             <li>
               <Link to="/dashboard">
                 {/* <i className="fa-solid fa-gauge-high"></i> */}
+                {<FaTachometerAlt />}
                 Dashboard
               </Link>
             </li>
             <li>
               <Link to="/oeeanalysis">
               {/* <i className="fa-solid fa-wrench"></i> */}
+              {  <PiNotionLogo />}
                 Overall Equipment Efficiency(OEE)
               </Link>
             </li>
             <li>
               <Link to="/productivity">
               {/* <i className="fa-solid fa-wrench"></i> */}
+              {<PiNotionLogo />}
                 Productivity Analysis
               </Link>
             </li>
             <li>
               <Link to="/machine-analysis">
               {/* <i className="fa-solid fa-wrench"></i> */}
+              {<CiSettings />}
                 Machine Analysis
               </Link>
             </li>
             <li>
               <Link to="/power-usage">
                 {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
+                {<MdOutlinePowerSettingsNew />}
                 Power Analysis
               </Link>
             </li>
             <li>
               <Link to="#">
-                {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
+                {/* {<i className="fa-solid fa-magnifying-glass-chart"></i> } */}
+                {<HiOutlineHomeModern />}
                 Inventory Analysis
                 {InventoryOpen ?(
                   <RxChevronUp
@@ -118,6 +131,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             <li>
               <Link to="#">
                 {/* <i className="fa-solid fa-magnifying-glass-chart"></i> */}
+                {<AiOutlineFile />}
                 Report
               </Link>
             </li>
@@ -130,6 +144,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             <li>
               <Link to="/help">
                 {/* <i className="fa-solid fa-question-circle"></i> */}
+                {<IoMdHelpCircleOutline />}
                 Help and Support
               </Link>
             </li>

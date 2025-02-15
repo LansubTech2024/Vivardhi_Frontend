@@ -17,12 +17,12 @@ const OeeDashboard = () => {
   useEffect(() => {
     const fetchMachineData = async () => {
       try {
-          const response = await axios.get(
-           "https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/oeemachine/"
-        );
-        // const response = await axios.get(
-        //   "http://localhost:5000/api/oeemachine/"
+        //   const response = await axios.get(
+        //    "https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/oeemachine/"
         // );
+         const response = await axios.get(
+           "http://localhost:5000/api/oeemachine/"
+         );
         setMachines(response.data);
       } catch (error) {
         console.error("Error fetching machine data:", error);
