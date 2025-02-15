@@ -93,8 +93,8 @@ const Header = ({ addedItems, setAddedItems, handleRemoveItem }) => {
   return (
     <>
       <header className="header">
-        { <div className="company-name-header">
-          <p>Opfact</p>
+        { <div className="company-header">
+          <h6>Opfact</h6>
         </div> }
         <div className="search-message">
           <form className="search-box" onSubmit={handleSearchSubmit}>
