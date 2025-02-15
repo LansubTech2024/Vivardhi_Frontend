@@ -30,8 +30,8 @@ const ProductivityTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/productivity');
-        // const response = await axios.get('http://localhost:5000/api/productivity');
+        // const response = await axios.get('https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/productivity');
+         const response = await axios.get('http://localhost:5000/api/productivity');
         setData(response.data);
         // Calculate summary values for speedometers
         const totalProductivity = response.data.reduce((sum, item) => sum + item.overallProductivity, 0);
@@ -64,14 +64,14 @@ const ProductivityTable = () => {
       {
         label: 'Target Production',
         data: data.map(item => item.targetProduction),
-        borderColor: 'rgb(13 148 136)',
+        borderColor: 'rgb(27 148 228 / 82%)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         fill: true,
       },
       {
         label: 'Actual Production',
         data: data.map(item => item.actualProduction),
-        borderColor: 'rgb(45 212 191)',
+        borderColor: 'rgb(158 216 255 / 85%)',
         backgroundColor: '#B9D9EB',
         fill: true,
       }
@@ -113,12 +113,12 @@ const ProductivityTable = () => {
       {
         label: 'Raw Material Input',
         data: data.map(item => item.rawMaterialInput),
-        backgroundColor: 'rgb(20 184 166)',
+        backgroundColor: 'rgb(27 148 228 / 82%)',
       },
       {
         label: 'Raw Material Output',
         data: data.map(item => item.rawMaterialOutput),
-        backgroundColor: 'rgb(153 246 228)',
+        backgroundColor: 'rgb(158 216 255 / 85%)',
       }
     ]
   };
@@ -173,8 +173,8 @@ const ProductivityTable = () => {
                 value={overallProductivity}
                 text={`${Math.round(overallProductivity)}%`}
                 styles={buildStyles({
-                  textColor: 'rgb(13 148 136)',
-                  pathColor: 'rgb(13 148 136)',
+                  textColor: 'rgb(0 212 83)',
+                  pathColor: 'rgb(52 152 219 / 87%)',
                   trailColor: '#d6d6d6'
                 })}
               />
@@ -186,8 +186,8 @@ const ProductivityTable = () => {
                 value={scrapRate}
                 text={`${Math.round(scrapRate)}%`}
                 styles={{
-                  path: { stroke: `rgb(20 184 166)` },
-                  text: { fill: 'red', fontSize: '16px' },
+                  path: { stroke: 'rgb(103 191 250 / 86%)' },
+                  text: { fill: '#1f1f1f', fontSize: '16px' },
                 }}
               />
               <h3>Scrap Rate</h3>
@@ -198,7 +198,8 @@ const ProductivityTable = () => {
                 value={defectRate}
                 text={`${Math.round(defectRate)}%`}
                 styles={{
-                  path: { stroke: `rgb(45 212 191)` },
+                  trailColor: '#f3f6fc',
+                  path: { stroke: 'rgb(158 216 255 / 85%)' },
                   text: { fill: 'orange', fontSize: '16px' },
                 }}
               />

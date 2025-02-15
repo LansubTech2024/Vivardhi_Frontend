@@ -12,8 +12,8 @@ const MachineDetails = () => {
     // Fetch data from the backend for the selected machineId
     const fetchMachineDetails = async () => {
       try {
-        const response = await fetch(`https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/machines/${id}`);
-        // const response = await fetch(`http://localhost:5000/api/machines/${id}`);
+        // const response = await fetch(`https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/machines/${id}`);
+         const response = await fetch(`http://localhost:5000/api/machines/${id}`);
         const data = await response.json();
         setMachine(data[0]); // Since it's a single machine
       } catch (error) {

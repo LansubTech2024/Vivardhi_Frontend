@@ -34,7 +34,7 @@ const ResetPassword = () => {
   const handleReset = async (values) => {
     setLoading(true);
     try {
-      let res = await axios.post(`https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/reset-password/${randomString}/${expirationTimestamp}`,values);
+      let res = await axios.post(`https://localhost:5000/api/reset-password/${randomString}/${expirationTimestamp}`,values);
       if (res.status === 200) {
         toast.success("Password updated successfully", {
           position: "top-center",

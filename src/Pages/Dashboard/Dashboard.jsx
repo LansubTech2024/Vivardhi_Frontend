@@ -38,8 +38,8 @@ const Dashboard = () => {
         setLoading(true);
         // Replace this URL with your actual API endpoint
         const response = await axios.get(
-           "https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/dashboard"
-          // "http://localhost:5000/api/dashboard"
+          // "https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/dashboard"
+           "http://localhost:5000/api/dashboard"
         );
         setMetrics(response.data);
         setError(null);
