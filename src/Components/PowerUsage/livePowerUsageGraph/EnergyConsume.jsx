@@ -27,7 +27,11 @@ const EnergyConsumptionGraph = () => {
   useEffect(() => {
     const fetchEnergyConsumption = async () => {
       try {
-        const response = await axios.get("https://localhost:5001/api/energy-consumption", {
+
+        // const response = await axios.get("https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/energy-consumption", {
+          const response = await axios.get("https://localhost:5000/api/energy-consumption", {
+        const response = await axios.get("http://localhost:5000/api/energy-consumption", {
+
             params: { startDate, endDate }, // Send date range to the backend
           });
         const data = response.data;

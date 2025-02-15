@@ -14,14 +14,15 @@
     /* background-color: rgb(240 249 255); */
     /* background-color: rgb(250 245 255); */
     /* background-color:rgb(240 253 250); */
-    background-color:#c4eae1;
+    background-color:white;
     overflow-y: auto;
+    margin-top: 70px;
 
 }
 .sidebar i{
   color: black;
 }
-.company-name-header{
+/* .company-name-header{
   font-family: 'Poppins', sans-serif; 
   font-size: 1.5rem; 
   font-weight: bold;
@@ -34,7 +35,7 @@
 .company-name-header,.highlight-header{
   font-weight: bold;
   color: black;
-}
+} */
 .sidebar-menu{
     margin-top: 2rem;
     padding-left: 0.4rem;
@@ -68,7 +69,7 @@
   padding-right:0.5rem;
 }
 .list-item li:hover{
-  background-color: rgba(241, 236, 236, 0.983);
+  background-color: rgba(27, 17, 220, 0.983);
   border-radius: 12px;
 }
 
@@ -108,7 +109,7 @@ ul li a i{
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 .inventory-list-items li:hover{
-  background-color: #c4eae1;
+  background-color: #2b0fcc;
   border-radius: 12px;
 }
 .inven-item{

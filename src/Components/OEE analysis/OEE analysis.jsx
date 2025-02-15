@@ -17,11 +17,12 @@ const OeeDashboard = () => {
   useEffect(() => {
     const fetchMachineData = async () => {
       try {
-          const response = await axios.get(
+         const response = await axios.get(
            "https://localhost:5001/api/oeemachine/"
         );
         // const response = await axios.get(
         //   "http://localhost:5000/api/oeemachine/"
+
         // );
         setMachines(response.data);
       } catch (error) {
