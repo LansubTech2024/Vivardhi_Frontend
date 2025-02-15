@@ -93,12 +93,11 @@
     gap:10px;
   }
   .add-button {
-    background-color: #28a745;
     color: white;
     border: none;
     padding: 7px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 15px;
     width:60px;
   }
   
@@ -161,11 +160,14 @@
   }
   
   .item{
-    border:1px solid #E0E0E0;
+    /*border:1px solid #E0E0E0;  */
+    border: 2px solid white;
     border-radius: 8px;
+    box-shadow: 0 0 10px #4da6ff;
     padding: 16px;
     overflow: hidden;
     margin-bottom:20px;
+    margin-left: 20px;
   }
   
   /* Progress Bar */
