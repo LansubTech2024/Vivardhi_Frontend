@@ -18,7 +18,7 @@ const OeeDashboard = () => {
     const fetchMachineData = async () => {
       try {
           const response = await axios.get(
-           "https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/oeemachine/"
+           "https://localhost:5001/api/oeemachine/"
         );
         // const response = await axios.get(
         //   "http://localhost:5000/api/oeemachine/"
