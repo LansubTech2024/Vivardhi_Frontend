@@ -30,8 +30,8 @@ const ProductivityTable = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await axios.get('https://opfactbackend-aeh5g0a3fkbtcbae.canadacentral-01.azurewebsites.net/api/productivity');
-        const response = await axios.get('http://localhost:5000/api/productivity');
+        const response = await axios.get('https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/productivity');
+        // const response = await axios.get('http://localhost:5000/api/productivity');
         setData(response.data);
         // Calculate summary values for speedometers
         const totalProductivity = response.data.reduce((sum, item) => sum + item.overallProductivity, 0);
