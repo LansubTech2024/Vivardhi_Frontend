@@ -381,7 +381,6 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-        </div>
 
         {/* Quality Rates Trend */}
         <h2>Quality</h2>
@@ -584,6 +583,7 @@ const Dashboard = () => {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </>
