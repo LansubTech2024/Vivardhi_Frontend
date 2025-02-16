@@ -25,12 +25,9 @@ const MachineAnalysis = () => {
   // Fetch average machine data
   useEffect(() => {
     axios
+       //.get("https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/machines/averages")
+      .get("http://localhost:5001/api/machines/averages")
 
-      // .get("https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/machines/averages")
-
-      //  .get("https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/machines/averages")
-
-       .get("http://localhost:5000/api/machines/averages")
       .then((response) => setMachines(response.data))
       .catch((error) => console.error("Error fetching machine data:", error));
   }, []);
