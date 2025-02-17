@@ -28,6 +28,7 @@
   padding: 24px; 
   max-width:1400px;
   margin:0 auto ; 
+  overflow-x: hidden;
 }
 .dasboard-container{
   margin-left:220px;
@@ -37,7 +38,10 @@
 .metrics-grid {
   display: flex;
   align-items: center;
- 
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
   justify-content: space-evenly;
 }
 
@@ -58,7 +62,8 @@
   border-radius:15px ;
   overflow: hidden;
   padding: 16px;
-  box-shadow: 0px 0px 10px rgba(8, 58, 145, 0.4);
+  border: 2px solid #87CEFA;
+  box-shadow: 0px 0px 10px rgba(43, 166, 249, 0.88);
   /* transition: transform 0.2s ease; */
 }
 
@@ -110,9 +115,13 @@
 .charts-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;  
-  gap: 10px; 
-}
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+} 
 .charts-grid h3{
   color: #555;
 }
@@ -123,6 +132,7 @@
   margin-top: 30px;
   flex: 1 1 400px; 
   min-width: 400px; 
+  max-width: 600px;
 }
 .raw-material-finished-goods {
   display: flex;
@@ -164,7 +174,7 @@
   height: 100%;
   width:50px;
   /* border:1px solid #E0E0E0; */
-  margin-bottom: 400px;
+  /* margin-bottom: 400px; */ /*Extra spaces in Production*/
   margin-left: 300px;
   border-radius: 8px;
 }
@@ -270,12 +280,12 @@
 .metric-detail-card {
   /* border:1px solid #E0E0E0; */
   /* background-color: #f3f4f6; */
-  background-color: #c4eae1;
+  background-color: white;
   padding: 16px;
   border-radius: 8px;
   text-align: center;
   overflow:hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 10px rgba(43, 166, 249, 0.88);
 }
 
 .metric-detail-card h4 {
