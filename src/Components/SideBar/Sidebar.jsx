@@ -65,7 +65,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             <li>
               <Link to="/oeeanalysis">
               {/* <i className="fa-solid fa-wrench"></i> */}
-              {  <PiNotionLogo />}
+              { <h4> <PiNotionLogo /></h4>}
                 Overall Equipment Efficiency(OEE)
               </Link>
             </li>
