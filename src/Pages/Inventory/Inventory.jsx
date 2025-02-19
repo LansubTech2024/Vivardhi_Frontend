@@ -43,7 +43,7 @@ const Inventory = () => {
     const fetchInventoryData = async () => {
       try {
         //const response = await fetch("https://opfactback1-d0aec8cfeqcmbec8.canadacentral-01.azurewebsites.net/api/inventory");
-        const response = await fetch("http://localhost:5001/api/inventory");
+        const response = await fetch("http://localhost:5000/api/inventory");
 
         const data = await response.json();
         setInventoryData(data);
