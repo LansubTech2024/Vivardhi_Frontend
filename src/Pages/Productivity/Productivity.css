@@ -158,3 +158,45 @@
       padding: 6px; /* Adjust table cell padding */
     }
   }
+  .filter-section {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .filter-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-group label {
+    margin-right: 0.5rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .filter-group select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.375rem;
+    background-color: #fff;
+    font-size: 1rem;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  
+  .filter-group select:focus {
+    border-color: #007BFF;
+  }
+  
+  .filter-group select option {
+    font-size: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .filter-section {
+      flex-direction: column;
+    }
+  }
+  
