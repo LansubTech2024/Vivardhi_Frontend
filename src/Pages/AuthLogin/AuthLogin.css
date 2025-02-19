@@ -74,6 +74,7 @@
   
   .input-group input {
     width: 100%;
+    height:40px;
     max-width: 400px; /* Adjust this based on design */
     min-width: 300px; 
     padding: 10px 40px;

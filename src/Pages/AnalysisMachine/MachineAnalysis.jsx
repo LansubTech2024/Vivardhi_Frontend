@@ -84,14 +84,16 @@ const MachineAnalysis = () => {
                   <Line
                     type="monotone"
                     dataKey="productionRate"
-                    stroke="rgb(13 148 136)"
+                    //stroke="rgb(13 148 136)"
+                    stroke="#00AEEF"
                     strokeWidth={2.5}
                     name="Production Rate"
                   />
                   <Line
                     type="monotone"
                     dataKey="scrapRate"
-                    stroke="rgb(45 212 191)"
+                    //stroke="rgb(45 212 191)"
+                    stroke="#A0E3FA"
                     strokeWidth={2.5}
                     name="Scrap Rate"
                   />
@@ -116,14 +118,16 @@ const MachineAnalysis = () => {
                   <Line
                     type="monotone"
                     dataKey="temperature"
-                    stroke="rgb(45 212 191)"
+                    //stroke="rgb(45 212 191)"
+                    stroke="#00AEEF"
                     strokeWidth={2.5}
                     name="Temperature"
                   />
                   <Line
                     type="monotone"
                     dataKey="downtime"
-                    stroke="rgb(13 148 136)"
+                    //stroke="rgb(13 148 136)"
+                    stroke="#A0E3FA"
                     strokeWidth={2.5}
                     name="Downtime"
                   />

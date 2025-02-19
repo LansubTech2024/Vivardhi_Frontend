@@ -27,6 +27,8 @@ const Dashboard = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate(); // For navigation
   const [selectedMetric, setSelectedMetric] = useState(null);
+  
+  
 
   const COLORS = {
     good: "#90EE90", // green
@@ -36,6 +38,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
+    
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -57,6 +60,7 @@ const Dashboard = () => {
       }
     };
     fetchData();
+    
   }, []);
 
   if (loading) {
@@ -178,6 +182,7 @@ const Dashboard = () => {
   const calculatePercentage = (value) => {
     return (value / maxProductionValue) * 100;
   };
+  
 
   // const getBarColor = (value) => {
   //   if (value >= 80) return "#4caf50";
@@ -481,12 +486,12 @@ const Dashboard = () => {
 
         {/* Manpower Utilization Chart */}
         <h2>Manpower</h2>
-        <div className="charts-grid">
-          <div className="chart-card">
+        <div className="man-charts-grid">
+          <div className="man-chart-card">
             <div className="card-header">
               <h3>Manpower Utilization</h3>
             </div>
-            <div className="card-content">
+            <div className="man-card-content">
               <div className="metrics-details">
                 <div className="metric-detail-card">
                   <h4>Current Utilization</h4>
