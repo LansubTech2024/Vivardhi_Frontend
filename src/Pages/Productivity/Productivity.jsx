@@ -322,7 +322,7 @@ const ProductivityTable = () => {
                 styles={buildStyles({
                   pathColor: 'rgb(158 216 255 / 85%)',
                   textColor: 'orange',
-                  trailColor: '#f3f6fc',
+                  trailColor: '##d6d6d6',
                   pathTransition: 'stroke-dashoffset 0.1s ease 0s'
                 })}
               />
